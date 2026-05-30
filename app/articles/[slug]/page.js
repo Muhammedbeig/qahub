@@ -17,7 +17,6 @@ export async function generateMetadata({ params }) {
   return {
     title: article.title,
     description: article.description,
-    keywords: article.tags,
     authors: [{ name: SITE_NAME, url: SITE_URL }],
     alternates: { canonical: `${SITE_URL}/articles/${slug}` },
     openGraph: {
@@ -57,7 +56,6 @@ export default async function ArticlePageRoute({ params }) {
     },
     url: `${SITE_URL}/articles/${slug}`,
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/articles/${slug}` },
-    keywords: article.tags.join(", "),
     inLanguage: "en",
     isAccessibleForFree: true,
   };
