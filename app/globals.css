@@ -10,8 +10,27 @@
   --fD:'Oswald',sans-serif;--fB:'Source Serif 4',serif;--fM:'JetBrains Mono',monospace;
 }
 
+
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--txt);font-family:var(--fB);line-height:1.75;overflow-x:hidden;min-height:100vh}
+
+/* ─────────────────────────── ACCESSIBILITY ─────────────────────────── */
+.skip-link{
+  position:absolute;top:-100%;left:16px;z-index:9999;
+  padding:12px 24px;background:var(--acc);color:#060712;
+  font-family:var(--fD);font-weight:700;font-size:14px;
+  border-radius:0 0 8px 8px;text-decoration:none;
+  transition:top .2s ease;
+}
+.skip-link:focus{top:0}
+
+/* Smooth scroll anchor offset for fixed header */
+h2[id]{scroll-margin-top:100px}
+
+/* Reduced motion for accessibility */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+}
 
 /* ─────────────────────────── SCROLLBAR ─────────────────────────── */
 ::-webkit-scrollbar{width:5px}

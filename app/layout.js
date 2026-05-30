@@ -22,41 +22,131 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const SITE_URL = "https://qahub.wiki";
+const SITE_NAME = "QAHub";
+const SITE_TITLE = "QAHub — Software Testing Knowledge Hub | 30 Comprehensive QA Guides (2026)";
+const SITE_DESC = "Master software testing with 30 in-depth, SEO-optimized guides covering QA fundamentals, testing types, TDD, BDD, automation strategies, CI/CD testing, security testing, performance testing, and industry best practices.";
+
 export const metadata = {
-  title: "QAHub — Software Testing Basics | Comprehensive QA Learning Resource",
-  description:
-    "Master software testing fundamentals with 10 comprehensive guides covering QA principles, testing types, TDD, automation strategies, tools, performance testing, and best practices.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_TITLE,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESC,
   keywords: [
-    "software testing",
-    "QA",
-    "quality assurance",
-    "test-driven development",
-    "TDD",
-    "unit testing",
-    "integration testing",
-    "performance testing",
-    "automation",
-    "Selenium",
-    "Jest",
-    "Cypress",
+    "software testing", "QA", "quality assurance", "test-driven development", "TDD",
+    "behavior-driven development", "BDD", "unit testing", "integration testing",
+    "performance testing", "security testing", "automation testing", "manual testing",
+    "Selenium", "Jest", "Cypress", "Playwright", "CI/CD testing", "agile testing",
+    "test case writing", "bug lifecycle", "shift-left testing", "exploratory testing",
+    "software QA guide 2026", "mutation testing", "static code analysis",
+    "API testing", "mobile testing", "database testing", "test data management",
   ],
-  authors: [{ name: "QAHub" }],
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     type: "website",
-    title: "QAHub — Software Testing Basics",
-    description:
-      "10 comprehensive guides covering every essential aspect of software testing — from first principles to professional best practices.",
-    siteName: "QAHub",
+    locale: "en_US",
+    url: SITE_URL,
+    title: SITE_TITLE,
+    description: SITE_DESC,
+    siteName: SITE_NAME,
   },
   twitter: {
     card: "summary_large_image",
-    title: "QAHub — Software Testing Basics",
-    description:
-      "10 comprehensive guides covering every essential aspect of software testing — from first principles to professional best practices.",
+    title: SITE_TITLE,
+    description: SITE_DESC,
+    creator: "@qahub",
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
   },
+  manifest: "/manifest.json",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: SITE_URL,
+  },
+  category: "education",
+};
+
+/* JSON-LD Structured Data */
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  url: SITE_URL,
+  description: SITE_DESC,
+  publisher: {
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/favicon.svg`,
+    },
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${SITE_URL}/?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
+
+const educationalJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  name: "Software Testing Fundamentals",
+  description: "A comprehensive 30-article series covering all essential aspects of software testing, from basic QA principles to advanced automation strategies.",
+  provider: {
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: SITE_URL,
+  },
+  numberOfCredits: 30,
+  educationalLevel: "Beginner to Advanced",
+  teaches: [
+    "Software Testing Fundamentals",
+    "Test-Driven Development",
+    "Behavior-Driven Development",
+    "Automation Testing",
+    "Performance Testing",
+    "Security Testing",
+    "CI/CD Testing Pipelines",
+  ],
+  inLanguage: "en",
+  isAccessibleForFree: true,
+};
+
+export const viewport = {
+  themeColor: "#060712",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({ children }) {
@@ -65,6 +155,16 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${oswald.variable} ${sourceSerif.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(educationalJsonLd) }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

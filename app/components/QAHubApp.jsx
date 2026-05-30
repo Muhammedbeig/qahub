@@ -789,8 +789,14 @@ export default function QAHubApp() {
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
+      <noscript>
+        <div style={{ background: "#F59E0B", color: "#000", padding: "12px 20px", textAlign: "center", fontWeight: 600, fontSize: 14 }}>
+          This website requires JavaScript to function. Please enable JavaScript in your browser settings.
+        </div>
+      </noscript>
       <Header onNavigate={navigate} page={page} scrolled={scrolled} onFilterCat={setCat} />
-      <main style={{ flex: 1 }}>
+      <main id="main-content" style={{ flex: 1 }} role="main">
         {page === "home"
           ? <HomePage onNavigate={navigate} cat={cat} setCat={setCat} />
           : article

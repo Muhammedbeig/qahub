@@ -1,0 +1,19 @@
+{
+  "name": "QAHub - Software Testing Knowledge Hub",
+  "short_name": "QAHub",
+  "description": "Master software testing with 30 comprehensive, SEO-optimized guides covering QA principles, testing types, automation, TDD, tools, and best practices.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060712",
+  "theme_color": "#00F4C8",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "productivity"]
+}
