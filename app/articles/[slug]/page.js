@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import ArticleView from "@/app/components/ArticleView";
 import { extractFAQs } from "@/app/lib/extractFAQs";
 
-const SITE_URL = "https://qahub.wiki";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "";
 const SITE_NAME = "Software Testing Basics";
 
 export async function generateStaticParams() {

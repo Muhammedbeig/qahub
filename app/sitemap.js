@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = 'https://qahub.wiki';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
 
   const articles = [
     'what-is-software-testing',

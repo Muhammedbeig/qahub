@@ -22,13 +22,13 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const SITE_URL = "https://qahub.wiki";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "";
 const SITE_NAME = "Software Testing Basics";
 const SITE_TITLE = "Software Testing Basics: Complete Beginner's Guide (2026)";
 const SITE_DESC = "Learn software testing basics from scratch. Covers types of testing, test cases, QA fundamentals & tools. The only guide beginners need in 2026.";
 
 export const metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: SITE_URL ? new URL(SITE_URL) : null,
   title: {
     default: SITE_TITLE,
     template: `%s | ${SITE_NAME}`,
