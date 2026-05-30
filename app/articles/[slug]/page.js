@@ -4,7 +4,7 @@ import ArticleView from "@/app/components/ArticleView";
 import { extractFAQs } from "@/app/lib/extractFAQs";
 
 const SITE_URL = "https://qahub.wiki";
-const SITE_NAME = "QAHub";
+const SITE_NAME = "Software Testing Basics";
 
 export async function generateStaticParams() {
   return ARTICLES.map((a) => ({ slug: a.id }));
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title: article.title,
       description: article.description,
-      creator: "@qahub",
+      creator: "@swtestingbasics",
     },
   };
 }

@@ -1,7 +1,7 @@
 {
-  "name": "QAHub - Software Testing Knowledge Hub",
-  "short_name": "QAHub",
-  "description": "Master software testing with 30 comprehensive, SEO-optimized guides covering QA principles, testing types, automation, TDD, tools, and best practices.",
+  "name": "Software Testing Basics",
+  "short_name": "SWTesting",
+  "description": "Learn software testing basics from scratch. Covers types of testing, test cases, QA fundamentals & tools. The only guide beginners need in 2026.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#060712",

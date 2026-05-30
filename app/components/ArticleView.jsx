@@ -75,8 +75,8 @@ function ArticleHeader({ scrolled }) {
             <CheckCircle size={18} color="#000" />
           </span>
           <div style={{ lineHeight: 1 }}>
-            <span style={{ fontFamily: "var(--fD)", fontWeight: 700, display: "block" }}>QA<span style={{ color: "var(--acc)" }}>Hub</span></span>
-            <span style={{ fontFamily: "var(--fM)", fontSize: 9, color: "var(--muted)", letterSpacing: ".06em", textTransform: "uppercase" }}>testing basics</span>
+            <span style={{ fontFamily: "var(--fD)", fontWeight: 700, display: "block" }}>Testing<span style={{ color: "var(--acc)" }}>Basics</span></span>
+            <span style={{ fontFamily: "var(--fM)", fontSize: 9, color: "var(--muted)", letterSpacing: ".06em", textTransform: "uppercase" }}>software guide</span>
           </div>
         </a>
 
@@ -141,7 +141,7 @@ function ArticleFooter() {
               <span style={{ width: 32, height: 32, borderRadius: 8, background: "var(--acc)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <CheckCircle size={18} color="#000" />
               </span>
-              <span style={{ fontFamily: "var(--fD)", fontWeight: 700, fontSize: 17 }}>QA<span style={{ color: "var(--acc)" }}>Hub</span></span>
+              <span style={{ fontFamily: "var(--fD)", fontWeight: 700, fontSize: 17 }}>Testing<span style={{ color: "var(--acc)" }}>Basics</span></span>
             </div>
             <p style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.7, maxWidth: 240 }}>A comprehensive resource for software testing fundamentals — from principles to practice.</p>
           </div>
@@ -165,7 +165,7 @@ function ArticleFooter() {
           </div>
         </div>
         <div style={{ paddingTop: 28, borderTop: "1px solid var(--bdr)", display: "flex", flexWrap: "wrap", gap: 16, justifyContent: "space-between", alignItems: "center" }}>
-          <p style={{ fontSize: 12, color: "var(--muted2)" }}>© {new Date().getFullYear()} QAHub — Software Testing Basics. All rights reserved.</p>
+          <p style={{ fontSize: 12, color: "var(--muted2)" }}>© {new Date().getFullYear()} Software Testing Basics. All rights reserved.</p>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {["Unit Testing", "Integration", "TDD", "Performance", "Black Box", "White Box", "Selenium", "Jest", "Cypress"].map(t => (
               <span key={t} className="tag" style={{ background: "rgba(255,255,255,.03)", color: "var(--muted2)", border: "1px solid var(--bdr)", fontSize: 11 }}>{t}</span>

@@ -23,9 +23,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 const SITE_URL = "https://qahub.wiki";
-const SITE_NAME = "QAHub";
-const SITE_TITLE = "QAHub — Software Testing Knowledge Hub | 30 Comprehensive QA Guides (2026)";
-const SITE_DESC = "30 expert-written guides on software testing — from QA fundamentals and TDD to performance, security, and CI/CD testing. Free, practical, no fluff.";
+const SITE_NAME = "Software Testing Basics";
+const SITE_TITLE = "Software Testing Basics: Complete Beginner's Guide (2026)";
+const SITE_DESC = "Learn software testing basics from scratch. Covers types of testing, test cases, QA fundamentals & tools. The only guide beginners need in 2026.";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -63,7 +63,7 @@ export const metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESC,
-    creator: "@qahub",
+    creator: "@swtestingbasics",
   },
   icons: {
     icon: [
@@ -120,7 +120,7 @@ const jsonLd = {
 const educationalJsonLd = {
   "@context": "https://schema.org",
   "@type": "LearningResource",
-  name: "Software Testing Knowledge Hub",
+  name: "Software Testing Basics — Complete Beginner's Guide",
   description: "A comprehensive 30-article series covering all essential aspects of software testing, from basic QA principles to advanced automation strategies.",
   provider: {
     "@type": "Organization",
