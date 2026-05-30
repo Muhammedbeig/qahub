@@ -8,14 +8,15 @@ export const a4 = {
   num: "04",
   title: "Test-Driven Development Explained: Designing Quality Software via Red-Green-Refactor Cycle (2026)",
   subtitle: "Write the test before the code: the counter-intuitive practice that produces better software design, fewer bugs, and more confidence to refactor.",
+  description: "Write the test before the code: the counter-intuitive practice that produces better software design, fewer bugs, and more confidence to refactor.",
   readTime: "12 min",
   tags: ["TDD", "Red-Green-Refactor", "Methodology"],
   toc: [
     "What Is the Red-Green-Refactor Cycle in TDD?",
     "Why Does Writing Tests First Improve Software Design?",
     "What is the Difference Between TDD, BDD, and ATDD?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -121,6 +122,26 @@ function calculatePriceWithTax(total, taxRate = CA_TAX_RATE) {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Design Tool**: Approach TDD as a software architecture technique rather than just a validation checklist.",
+        "**Tiny Increments**: Keep the Red-Green-Refactor loop short, completing iterations in 5 to 10 minutes.",
+        "**Safety Net**: Build a suite of unit tests that provides developers the confidence to refactor code aggressively."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Take a simple utility function in your project and implement it using the Red-Green-Refactor cycle."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Black Box vs. White Box Testing: Differences, Techniques, and Coverage Guidelines."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -154,26 +175,6 @@ function calculatePriceWithTax(total, taxRate = CA_TAX_RATE) {
     {
       type: "p",
       text: "No, 100 percent code coverage is not the goal of TDD. While TDD naturally produces high test coverage, the focus should be on testing critical business logic, boundary states, and complex transitions. Striving for 100 percent coverage often leads to low-value assertions."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Design Tool**: Approach TDD as a software architecture technique rather than just a validation checklist.",
-        "**Tiny Increments**: Keep the Red-Green-Refactor loop short, completing iterations in 5 to 10 minutes.",
-        "**Safety Net**: Build a suite of unit tests that provides developers the confidence to refactor code aggressively."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Take a simple utility function in your project and implement it using the Red-Green-Refactor cycle."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Black Box vs. White Box Testing: Differences, Techniques, and Coverage Guidelines."
     }
   ]
 };

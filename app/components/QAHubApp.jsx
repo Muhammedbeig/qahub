@@ -298,9 +298,9 @@ function Header({ onNavigate, page, scrolled, onFilterCat }) {
 
         {/* Desktop CTA + Hamburger */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <button className="btn-acc desktop-nav" onClick={() => onNavigate("article", "what-is-software-testing")} style={{ padding: "9px 18px", fontSize: 13, gap: 6 }}>
+          <a href="/articles/what-is-software-testing" className="btn-acc desktop-nav" style={{ padding: "9px 18px", fontSize: 13, gap: 6, display: "flex", alignItems: "center", textDecoration: "none" }}>
             Start Learning <ChevronRight size={14} />
-          </button>
+          </a>
           {/* Hamburger — visible on mobile */}
           <button className={`hamburger${menuOpen ? " open" : ""}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" style={{ display: "flex" }}>
             <span /><span /><span />
@@ -323,16 +323,16 @@ function Header({ onNavigate, page, scrolled, onFilterCat }) {
           })}
           <div style={{ borderTop: "1px solid var(--bdr)", margin: "8px 0" }} />
           {ARTICLES.map(a => (
-            <button key={a.id} className="mobile-dropdown-link" onClick={() => { onNavigate("article", a.id); close(); }}>
+            <a key={a.id} href={`/articles/${a.id}`} className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
               <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span style={{ fontFamily: "var(--fD)", fontSize: 11, color: a.catColor, fontWeight: 700, minWidth: 20 }}>{a.num}</span>
                 {a.title}
               </span>
-            </button>
+            </a>
           ))}
-          <button className="btn-acc" onClick={() => { onNavigate("article", "what-is-software-testing"); close(); }} style={{ marginTop: 8, justifyContent: "center", padding: "11px 20px", fontSize: 13 }}>
+          <a href="/articles/what-is-software-testing" className="btn-acc" style={{ marginTop: 8, justifyContent: "center", padding: "11px 20px", fontSize: 13, display: "flex", alignItems: "center", textDecoration: "none" }}>
             Start Learning <ChevronRight size={14} />
-          </button>
+          </a>
         </div>
       </div>
     </header>
@@ -415,9 +415,9 @@ function Hero({ onNavigate }) {
               From first principles to professional practice, thirty comprehensive guides covering everything a modern QA engineer needs to build quality into every line of code.
             </p>
             <div className="au4" style={{ display: "flex", flexWrap: "wrap", gap: 14, marginBottom: 40 }}>
-              <button className="btn-acc" onClick={() => onNavigate("article", "what-is-software-testing")}>
+              <a href="/articles/what-is-software-testing" className="btn-acc" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
                 Start Learning <ChevronRight size={16} />
-              </button>
+              </a>
               <button className="btn-out" onClick={() => document.getElementById("articles-section")?.scrollIntoView({ behavior: "smooth" })}>
                 Browse Topics <BarChart2 size={16} />
               </button>
@@ -460,10 +460,10 @@ function Hero({ onNavigate }) {
 }
 
 /* ─────────────────────────── ARTICLE CARD ─────────────────────────── */
-function ArticleCard({ article, onNavigate, idx }) {
+function ArticleCard({ article, idx }) {
   const IconComp = getIconComponent(article.iconName);
   return (
-    <div className={`card au${Math.min(idx + 1, 6)}`} style={{ cursor: "pointer", position: "relative", overflow: "hidden" }} onClick={() => onNavigate("article", article.id)}>
+    <a href={`/articles/${article.id}`} className={`card au${Math.min(idx + 1, 6)}`} style={{ cursor: "pointer", position: "relative", overflow: "hidden", textDecoration: "none", display: "block" }}>
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg,${article.catColor},transparent)` }} />
       <div style={{ padding: "24px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 18 }}>
@@ -487,7 +487,7 @@ function ArticleCard({ article, onNavigate, idx }) {
           </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -524,7 +524,7 @@ function HomePage({ onNavigate, cat, setCat }) {
           </div>
           {/* Grid */}
           {filtered.length > 0
-            ? <div className="articles-grid">{filtered.map((a, i) => <ArticleCard key={a.id} article={a} onNavigate={onNavigate} idx={i} />)}</div>
+            ? <div className="articles-grid">{filtered.map((a, i) => <ArticleCard key={a.id} article={a} idx={i} />)}</div>
             : <div style={{ textAlign: "center", padding: "60px 0", color: "var(--muted)" }}>
               <Search size={40} style={{ marginBottom: 16, opacity: .4 }} />
               <p style={{ fontFamily: "var(--fD)", fontSize: 16 }}>No articles match your search</p>
@@ -737,19 +737,19 @@ function Footer({ onNavigate }) {
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Core Topics</p>
             {ARTICLES.slice(0, 5).map(a => (
-              <button key={a.id} className="nav-btn" onClick={() => onNavigate("article", a.id)} style={{ display: "block", marginBottom: 10, fontSize: 13 }}>{a.title}</button>
+              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.title}</a>
             ))}
           </div>
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Advanced Topics</p>
             {ARTICLES.slice(5).map(a => (
-              <button key={a.id} className="nav-btn" onClick={() => onNavigate("article", a.id)} style={{ display: "block", marginBottom: 10, fontSize: 13 }}>{a.title}</button>
+              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.title}</a>
             ))}
           </div>
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Categories</p>
             {["Fundamentals", "Testing Types", "Strategy", "Methodology", "Techniques", "Tools", "Lifecycle", "Process", "Performance", "Best Practices"].map(c => (
-              <button key={c} className="nav-btn" onClick={() => onNavigate("home")} style={{ display: "block", marginBottom: 8, fontSize: 12 }}>{c}</button>
+              <a key={c} href="/" className="nav-btn" style={{ display: "block", marginBottom: 8, fontSize: 12, textDecoration: "none" }}>{c}</a>
             ))}
           </div>
         </div>
@@ -768,24 +768,14 @@ function Footer({ onNavigate }) {
 
 /* ─────────────────────────── MAIN APP ─────────────────────────── */
 export default function QAHubApp() {
-  const [page, setPage] = useState("home");
-  const [articleId, setArticleId] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [cat, setCat] = useState("All");
-
-  const navigate = (to, id = null) => {
-    setPage(to);
-    if (id) setArticleId(id);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
-
-  const article = ARTICLES.find(a => a.id === articleId);
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
@@ -795,17 +785,12 @@ export default function QAHubApp() {
           This website requires JavaScript to function. Please enable JavaScript in your browser settings.
         </div>
       </noscript>
-      <Header onNavigate={navigate} page={page} scrolled={scrolled} onFilterCat={setCat} />
+      <Header onNavigate={() => {}} page="home" scrolled={scrolled} onFilterCat={setCat} />
       <main id="main-content" style={{ flex: 1 }} role="main">
-        {page === "home"
-          ? <HomePage onNavigate={navigate} cat={cat} setCat={setCat} />
-          : article
-            ? <ArticlePage article={article} onBack={() => navigate("home")} onNavigate={navigate} />
-            : <HomePage onNavigate={navigate} cat={cat} setCat={setCat} />
-        }
+        <HomePage onNavigate={() => {}} cat={cat} setCat={setCat} />
       </main>
-      <Footer onNavigate={navigate} />
-      <MobileBottomNav onNavigate={navigate} onFilterCat={setCat} />
+      <Footer onNavigate={() => {}} />
+      <MobileBottomNav onNavigate={() => {}} onFilterCat={setCat} />
     </div>
   );
 }

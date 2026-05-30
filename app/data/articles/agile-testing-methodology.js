@@ -8,14 +8,15 @@ export const a23 = {
   num: "23",
   title: "Agile Testing Methodology: Quality Engineering in Scrum and Kanban Frameworks (2026)",
   subtitle: "Integrating QA into fast-paced agile teams: analyzing testing quadrants, defining sprint gates, and evolving the role of the Agile Quality Coach.",
+  description: "Integrating QA into fast-paced agile teams: analyzing testing quadrants, defining sprint gates, and evolving the role of the Agile Quality Coach.",
   readTime: "10 min",
   tags: ["Methodology", "Agile Testing", "Scrum", "Kanban"],
   toc: [
     "What Is Agile Testing and How Does It Fit into Sprints?",
     "What Are the Agile Testing Quadrants?",
     "How Does the QA Role Evolve in Scrum and Kanban?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -100,6 +101,26 @@ export const a23 = {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Integrated QA**: Execute testing tasks in parallel with development throughout the entire sprint cycle.",
+        "**Quadrant Alignment**: Structure your testing plans to cover unit, functional, usability, and system-level checks.",
+        "**Coaching Leadership**: Evolve your QA engineers into Quality Coaches who guide developers in writing robust test code."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Run a sprint review. Check if developers are writing unit tests for new features before marking stories as complete."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Equivalence Partitioning and Boundary Value Analysis: Practical Math and Logic."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -133,26 +154,6 @@ export const a23 = {
     {
       type: "p",
       text: "Quality is a team responsibility because fast-paced releases cannot succeed with a single testing gate. Developers must write unit tests, product owners must define clear criteria, and QA must guide the testing strategy to deliver value safely."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Integrated QA**: Execute testing tasks in parallel with development throughout the entire sprint cycle.",
-        "**Quadrant Alignment**: Structure your testing plans to cover unit, functional, usability, and system-level checks.",
-        "**Coaching Leadership**: Evolve your QA engineers into Quality Coaches who guide developers in writing robust test code."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Run a sprint review. Check if developers are writing unit tests for new features before marking stories as complete."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Equivalence Partitioning and Boundary Value Analysis: Practical Math and Logic."
     }
   ]
 };

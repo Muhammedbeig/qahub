@@ -8,14 +8,15 @@ export const a12 = {
   num: "12",
   title: "The Psychology of Software Testing: Mindsets, Team Synergy, and Constructive QA (2026)",
   subtitle: "Understanding the psychological dynamics of quality engineering: adversarial mindsets, constructive communication, and building a shared quality culture.",
+  description: "Understanding the psychological dynamics of quality engineering: adversarial mindsets, constructive communication, and building a shared quality culture.",
   readTime: "9 min",
   tags: ["Fundamentals", "QA", "Psychology", "Culture"],
   toc: [
     "Why Does Software Testing Require a Specific Mindset?",
     "How Do QA and Development Teams Avoid Conflict?",
     "What is the Role of Empathy in Quality Engineering?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -90,6 +91,26 @@ export const a12 = {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Objectivity in QA**: Focus communication on steps, data, and logs to prevent defensive reactions.",
+        "**Collective Ownership**: Ensure the product team owns quality checks through shared definitions of done.",
+        "**Advocate for Users**: Use user empathy to drive accessibility compliance and usability enhancements."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Review your bug reports. Ensure they follow the objective template (Steps, Expected, Actual) and include HAR files or visual recordings."
+    },
+    {
+      type: "p",
+      text: "Coming up next: API and Integration Testing: How to Validate REST Interfaces and JSON Schemas."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -123,26 +144,6 @@ export const a12 = {
     {
       type: "p",
       text: "Shifting left improves synergy by involving QA engineers early in the requirements and design phases. This allows testers to identify ambiguities and logic flaws before coding starts, preventing bugs before they are written and reducing sprint-end delivery stress."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Objectivity in QA**: Focus communication on steps, data, and logs to prevent defensive reactions.",
-        "**Collective Ownership**: Ensure the product team owns quality checks through shared definitions of done.",
-        "**Advocate for Users**: Use user empathy to drive accessibility compliance and usability enhancements."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Review your bug reports. Ensure they follow the objective template (Steps, Expected, Actual) and include HAR files or visual recordings."
-    },
-    {
-      type: "p",
-      text: "Coming up next: API and Integration Testing: How to Validate REST Interfaces and JSON Schemas."
     }
   ]
 };

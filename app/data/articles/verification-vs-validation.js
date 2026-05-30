@@ -8,14 +8,15 @@ export const a11 = {
   num: "11",
   title: "Verification vs. Validation Explained: Are We Building the Product Right? (2026)",
   subtitle: "Aligning specifications and user value: how static checks and dynamic validation work together to ensure high-quality software delivery.",
+  description: "Aligning specifications and user value: how static checks and dynamic validation work together to ensure high-quality software delivery.",
   readTime: "9 min",
   tags: ["Fundamentals", "QA", "Verification", "Validation"],
   toc: [
     "What is Verification in Software Engineering?",
     "What is Validation and Why is it Product-Oriented?",
     "Verification vs. Validation: How Do Their Scopes Compare?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -100,6 +101,26 @@ module.exports = {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Process Alignment**: Verification checks your design compliance; validation checks your product utility.",
+        "**Early Interception**: Use static review steps (verification) to catch requirements flaws before coding begins.",
+        "**Continuous Balance**: Maintain both code reviews and dynamic acceptance tests to protect overall software quality."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Audit your active sprint cycle and check if code reviews are blocked until static linter checks (verification) pass."
+    },
+    {
+      type: "p",
+      text: "Coming up next: The Psychology of Software Testing: Mindsets, Team Synergy, and Constructive QA."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -133,26 +154,6 @@ module.exports = {
     {
       type: "p",
       text: "Dynamic validation is the process of testing running software. It includes executing functional integration tests, running end-to-end browser journeys, and conducting manual user sessions. Unlike static verification checks, dynamic validation requires a compiled build executing in a test environment."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Process Alignment**: Verification checks your design compliance; validation checks your product utility.",
-        "**Early Interception**: Use static review steps (verification) to catch requirements flaws before coding begins.",
-        "**Continuous Balance**: Maintain both code reviews and dynamic acceptance tests to protect overall software quality."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Audit your active sprint cycle and check if code reviews are blocked until static linter checks (verification) pass."
-    },
-    {
-      type: "p",
-      text: "Coming up next: The Psychology of Software Testing: Mindsets, Team Synergy, and Constructive QA."
     }
   ]
 };

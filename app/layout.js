@@ -25,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
 const SITE_URL = "https://qahub.wiki";
 const SITE_NAME = "QAHub";
 const SITE_TITLE = "QAHub — Software Testing Knowledge Hub | 30 Comprehensive QA Guides (2026)";
-const SITE_DESC = "Master software testing with 30 in-depth, SEO-optimized guides covering QA fundamentals, testing types, TDD, BDD, automation strategies, CI/CD testing, security testing, performance testing, and industry best practices.";
+const SITE_DESC = "30 expert-written guides on software testing — from QA fundamentals and TDD to performance, security, and CI/CD testing. Free, practical, no fluff.";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -119,27 +119,27 @@ const jsonLd = {
 
 const educationalJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Course",
-  name: "Software Testing Fundamentals",
+  "@type": "LearningResource",
+  name: "Software Testing Knowledge Hub",
   description: "A comprehensive 30-article series covering all essential aspects of software testing, from basic QA principles to advanced automation strategies.",
   provider: {
     "@type": "Organization",
     name: SITE_NAME,
     url: SITE_URL,
   },
-  numberOfCredits: 30,
   educationalLevel: "Beginner to Advanced",
-  teaches: [
-    "Software Testing Fundamentals",
-    "Test-Driven Development",
-    "Behavior-Driven Development",
-    "Automation Testing",
-    "Performance Testing",
-    "Security Testing",
-    "CI/CD Testing Pipelines",
+  about: [
+    { "@type": "Thing", name: "Software Testing Fundamentals" },
+    { "@type": "Thing", name: "Test-Driven Development" },
+    { "@type": "Thing", name: "Behavior-Driven Development" },
+    { "@type": "Thing", name: "Automation Testing" },
+    { "@type": "Thing", name: "Performance Testing" },
+    { "@type": "Thing", name: "Security Testing" },
+    { "@type": "Thing", name: "CI/CD Testing Pipelines" },
   ],
   inLanguage: "en",
   isAccessibleForFree: true,
+  url: SITE_URL,
 };
 
 export const viewport = {

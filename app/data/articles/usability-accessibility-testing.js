@@ -8,14 +8,15 @@ export const a16 = {
   num: "16",
   title: "Usability and Accessibility Testing: Designing and Auditing for WCAG Compliance (2026)",
   subtitle: "Auditing user experiences for everyone: understanding WCAG POUR principles, touch target limits, and automating accessibility scans.",
+  description: "Auditing user experiences for everyone: understanding WCAG POUR principles, touch target limits, and automating accessibility scans.",
   readTime: "11 min",
   tags: ["Testing Types", "Accessibility", "a11y", "WCAG"],
   toc: [
     "What Is Accessibility Testing and Why Is It Legally Mandated?",
     "What Are the Core WCAG 2.1 Mobile Accessibility Guidelines?",
     "How Do You Automate and Audit Accessibility Compliance?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -112,6 +113,26 @@ describe('Accessibility Audit', () => {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**POUR Alignment**: Ensure interface elements are perceivable, operable, understandable, and robust.",
+        "**Numeric Thresholds**: Maintain contrast ratios of 4.5:1 and touch targets of at least 44x44 points.",
+        "**Pipeline Scans**: Automate basic DOM audits using cypress-axe to block accessibility regressions."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Open your application, navigate using only the Tab key, and verify that you can visibly track the active focus ring on all links."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Mobile Application Testing: Real Devices, Emulators, and Gestures Explained."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -145,26 +166,6 @@ describe('Accessibility Audit', () => {
     {
       type: "p",
       text: "Accessible Rich Internet Applications (ARIA) labels provide programmatic names for controls that lack text. For example, adding an aria-label='Close Dialog' to a cross icon button ensures that screen readers announce the button's purpose clearly to blind users."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**POUR Alignment**: Ensure interface elements are perceivable, operable, understandable, and robust.",
-        "**Numeric Thresholds**: Maintain contrast ratios of 4.5:1 and touch targets of at least 44x44 points.",
-        "**Pipeline Scans**: Automate basic DOM audits using cypress-axe to block accessibility regressions."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Open your application, navigate using only the Tab key, and verify that you can visibly track the active focus ring on all links."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Mobile Application Testing: Real Devices, Emulators, and Gestures Explained."
     }
   ]
 };

@@ -8,14 +8,15 @@ export const a5 = {
   num: "05",
   title: "Black Box vs. White Box Testing Explained: Techniques, Differences, and Coverage Metrics (2026)",
   subtitle: "Two fundamental testing perspectives: and the powerful grey-box hybrid: with the techniques, coverage criteria, and use cases for each.",
+  description: "Two fundamental testing perspectives: and the powerful grey-box hybrid: with the techniques, coverage criteria, and use cases for each.",
   readTime: "11 min",
   tags: ["Techniques", "Coverage", "Test Design"],
   toc: [
     "What Is Black Box Testing and What Are Its Core Techniques?",
     "Why Is White Box Testing Critical for Code Coverage?",
     "What Is Grey Box Testing and When Should You Apply It?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -110,6 +111,26 @@ function processOrder(user) {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Outside-In Quality**: Use black box testing to verify that user requirements are met.",
+        "**Inside-Out Integrity**: Use white box testing to ensure code branches and logic paths are safe.",
+        "**Metrics Maturity**: Use branch coverage rather than statement coverage as your code-quality indicator."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Audit your latest unit tests and determine if you have covered both true and false paths for every conditional statement (branch coverage)."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Testing Tools & Frameworks: Choosing Your Unit, E2E, and API Toolchain."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -143,26 +164,6 @@ function processOrder(user) {
     {
       type: "p",
       text: "Grey box testing is used for scenarios where you need to check data flow but do not have full code access. Common examples include API integration testing where the schema is known, and database validation checking if a front-end action accurately writes to a SQL table."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Outside-In Quality**: Use black box testing to verify that user requirements are met.",
-        "**Inside-Out Integrity**: Use white box testing to ensure code branches and logic paths are safe.",
-        "**Metrics Maturity**: Use branch coverage rather than statement coverage as your code-quality indicator."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Audit your latest unit tests and determine if you have covered both true and false paths for every conditional statement (branch coverage)."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Testing Tools & Frameworks: Choosing Your Unit, E2E, and API Toolchain."
     }
   ]
 };

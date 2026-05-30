@@ -8,14 +8,15 @@ export const a7 = {
   num: "07",
   title: "The Bug Lifecycle Explained: From Discovery to Closure with Severity vs. Priority (2026)",
   subtitle: "From first discovery to final closure: the stages every defect moves through, severity vs. priority, what makes a great bug report, and how teams track it all.",
+  description: "From first discovery to final closure: the stages every defect moves through, severity vs. priority, what makes a great bug report, and how teams track it all.",
   readTime: "11 min",
   tags: ["Defects", "Lifecycle", "Tracking"],
   toc: [
     "What Are the Primary Stages of the Bug Lifecycle?",
     "How Do Severity and Priority Differ in Bug Triage?",
     "What Components Make a Perfect Bug Report?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -117,6 +118,26 @@ The payment fails silently with no error message. The cart remains full but user
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Clear States**: Define bug tracking transitions explicitly to avoid communication bottlenecks.",
+        "**Conflation Warning**: Never conflate high technical severity with high release priority.",
+        "**Triage Cadence**: Hold regular triage sessions to review incoming bugs and assign priority ratings."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Check your bug tracking tool (such as Jira or Linear) and configure automated templates for bug reporting."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Writing Effective Test Cases: Anatomy, Templates, and Boundary Analysis Tricks."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -150,26 +171,6 @@ The payment fails silently with no error message. The cart remains full but user
     {
       type: "p",
       text: "Standardizing the bug lifecycle is important because it prevents communication friction between QA and developers. It ensures that every team member understands what a bug status means, who is responsible for the next action, and how to track defect trends over time."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Clear States**: Define bug tracking transitions explicitly to avoid communication bottlenecks.",
-        "**Conflation Warning**: Never conflate high technical severity with high release priority.",
-        "**Triage Cadence**: Hold regular triage sessions to review incoming bugs and assign priority ratings."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Check your bug tracking tool (such as Jira or Linear) and configure automated templates for bug reporting."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Writing Effective Test Cases: Anatomy, Templates, and Boundary Analysis Tricks."
     }
   ]
 };

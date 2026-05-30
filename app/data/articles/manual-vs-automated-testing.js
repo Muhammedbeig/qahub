@@ -8,14 +8,15 @@ export const a3 = {
   num: "03",
   title: "Manual vs. Automated Testing Explained: How to Build a High-ROI Hybrid QA Strategy (2026)",
   subtitle: "Understanding when human judgment is irreplaceable and when automation delivers 10x returns, and how to build a hybrid strategy that leverages both.",
+  description: "Understanding when human judgment is irreplaceable and when automation delivers 10x returns, and how to build a hybrid strategy that leverages both.",
   readTime: "16 min",
   tags: ["Strategy", "Automation", "ROI", "Exploratory Testing"],
   toc: [
     "What Is Manual Testing and When Is Human Judgment Irreplaceable?",
     "Why Is Automated Testing Essential for Continuous Delivery?",
     "What Is the Test Automation Pyramid and How Does It Drive ROI?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -136,6 +137,26 @@ test('applies CA tax rate accurately to cart items', () => {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Hybrid Strategy**: Blend manual exploration with automated verification to maximize bug detection.",
+        "**Pyramid Focus**: Base your automation suite on unit tests rather than fragile UI scripts.",
+        "**Maintenance Awareness**: Account for the long-term maintenance costs of automated tests in your planning."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Audit your active test suites and classify them to see if they match the test automation pyramid distribution."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Test-Driven Development (TDD): Writing Better Code by Testing First."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -169,26 +190,6 @@ test('applies CA tax rate accurately to cart items', () => {
     {
       type: "p",
       text: "The best candidates for automated testing are regression suites, smoke tests, API validation contracts, and performance tests that simulate heavy load. These tests are highly repetitive, stable, and benefit from rapid machine execution."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Hybrid Strategy**: Blend manual exploration with automated verification to maximize bug detection.",
-        "**Pyramid Focus**: Base your automation suite on unit tests rather than fragile UI scripts.",
-        "**Maintenance Awareness**: Account for the long-term maintenance costs of automated tests in your planning."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Audit your active test suites and classify them to see if they match the test automation pyramid distribution."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Test-Driven Development (TDD): Writing Better Code by Testing First."
     }
   ]
 };

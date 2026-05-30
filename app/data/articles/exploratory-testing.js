@@ -8,14 +8,15 @@ export const a22 = {
   num: "22",
   title: "Exploratory Testing: Session-Based Testing Charters and Finding Unscripted Bugs (2026)",
   subtitle: "Unscripted QA excellence: implementing session-based test management (SBTM), drafting test charters, and logging exploratory bugs.",
+  description: "Unscripted QA excellence: implementing session-based test management (SBTM), drafting test charters, and logging exploratory bugs.",
   readTime: "10 min",
   tags: ["Methodology", "Exploratory Testing", "SBTM", "Test Design"],
   toc: [
     "What Is Exploratory Testing and How Does It Differ from Scripted Runs?",
     "What is Session-Based Test Management (SBTM)?",
     "How Do You Design an Effective Test Charter?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -100,6 +101,26 @@ export const a22 = {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Disciplined Design**: Exploratory testing is structured learning, not random ad-hoc bug hunting.",
+        "**Targeted Charters**: Structure sessions using clear, action-oriented charters to maintain testing focus.",
+        "**Accountable SBTM**: Document exploratory runs using session reports and hold brief team debriefs."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Draft a test charter using the Hendrickson template for your application's user profile settings screen."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Agile Testing Methodology: Quality Engineering in Scrum and Kanban Frameworks."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -133,26 +154,6 @@ export const a22 = {
     {
       type: "p",
       text: "During an SBTM debrief, the tester reviews their session report with the lead developer or product manager. They discuss discovered bugs, share insights about system behavior, evaluate coverage areas, and decide if follow-up sessions are required."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Disciplined Design**: Exploratory testing is structured learning, not random ad-hoc bug hunting.",
-        "**Targeted Charters**: Structure sessions using clear, action-oriented charters to maintain testing focus.",
-        "**Accountable SBTM**: Document exploratory runs using session reports and hold brief team debriefs."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Draft a test charter using the Hendrickson template for your application's user profile settings screen."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Agile Testing Methodology: Quality Engineering in Scrum and Kanban Frameworks."
     }
   ]
 };

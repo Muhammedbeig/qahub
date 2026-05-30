@@ -8,6 +8,7 @@ export const a29 = {
   num: "29",
   title: "Defect Metrics and Analysis: Measuring Defect Density and Leakage (2026)",
   subtitle: "Optimize your QA processes with data: learn how to track defect density, leakage rates, removal efficiency, and design actionable dashboards.",
+  description: "Optimize your QA processes with data: learn how to track defect density, leakage rates, removal efficiency, and design actionable dashboards.",
   readTime: "15 min",
   tags: ["Lifecycle", "Metrics", "Defect Tracking", "Process Improvement"],
   toc: [
@@ -15,8 +16,8 @@ export const a29 = {
     "What Is Defect Density and How Is It Measured?",
     "What Is Defect Leakage Rate and How Do You Control It?",
     "Key Defect Metrics: A Quick-Reference Guide",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -156,6 +157,26 @@ console.log(calculateLeakageRate(85, 15)); // Output: 15.00 (%)`
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Quantitative Decisions**: Use **Defect Density** to target code refactoring to complex, bug-heavy modules.",
+        "**Pipeline Health**: Track **Defect Leakage Rate** to ensure staging and pre-release verification checks match user patterns.",
+        "**Balanced Metrics**: Monitor DRE and MTTR together to improve pre-release quality without slowing your delivery velocity."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Run a query in your issue tracking system (such as Jira or Linear) for the last three releases. Calculate the defect leakage rate and DRE score. Present these trends to your team."
+    },
+    {
+      type: "p",
+      text: "Coming up next: The Three Amigos and Story Refinement: Collaborative Quality Design Processes."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -189,26 +210,6 @@ console.log(calculateLeakageRate(85, 15)); // Output: 15.00 (%)`
     {
       type: "p",
       text: "Yes, metrics can be gamed if team performance is tied directly to them. For example, if developers are evaluated on bug counts, they may negotiate with testers to avoid logging issues. Use metrics to identify process issues and design training programs, rather than using them to evaluate developer performance."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Quantitative Decisions**: Use **Defect Density** to target code refactoring to complex, bug-heavy modules.",
-        "**Pipeline Health**: Track **Defect Leakage Rate** to ensure staging and pre-release verification checks match user patterns.",
-        "**Balanced Metrics**: Monitor DRE and MTTR together to improve pre-release quality without slowing your delivery velocity."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Run a query in your issue tracking system (such as Jira or Linear) for the last three releases. Calculate the defect leakage rate and DRE score. Present these trends to your team."
-    },
-    {
-      type: "p",
-      text: "Coming up next: The Three Amigos and Story Refinement: Collaborative Quality Design Processes."
     }
   ]
 };

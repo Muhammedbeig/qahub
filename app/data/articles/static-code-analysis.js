@@ -8,6 +8,7 @@ export const a28 = {
   num: "28",
   title: "Static Code Analysis and Linters: Preventing Defects Early (2026)",
   subtitle: "Build robust quality gates in your editor and pipelines: learn how static analysis, security linters, and SonarQube catch logic bugs before execution.",
+  description: "Build robust quality gates in your editor and pipelines: learn how static analysis, security linters, and SonarQube catch logic bugs before execution.",
   readTime: "14 min",
   tags: ["Tools", "Automation", "Static Analysis", "Code Quality", "DevSecOps"],
   toc: [
@@ -15,8 +16,8 @@ export const a28 = {
     "What Is a Linter and How Does ESLint Differ from SAST?",
     "What Are Code Smells and Security Vulnerabilities?",
     "Building Quality Gates with SonarQube in CI/CD",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -180,6 +181,26 @@ jobs:
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Early Interception**: Establish linters inside your local editor environments to catch syntax defects before pushing code.",
+        "**Securing Data Paths**: Use SAST engines to analyze data flows and prevent injection vectors across your microservices.",
+        "**Maintain Standards**: Enforce SonarQube quality gates in your pull requests to prevent team technical debt from growing."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Audit your active project's eslint config file. Add the eslint-plugin-sonarjs plugin to integrate basic SAST checks into your local lint command. Run a full project scan."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Defect Metrics and Analysis: Measuring Defect Density and Leakage Control."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -213,26 +234,6 @@ jobs:
     {
       type: "p",
       text: "It is best to block merges only for high-severity issues (such as security vulnerabilities or new logical bugs). Blocking merges for minor code smells can slow down feature delivery and cause developer fatigue. Use non-blocking warnings for style violations, and enforce blocking gates for security issues."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Early Interception**: Establish linters inside your local editor environments to catch syntax defects before pushing code.",
-        "**Securing Data Paths**: Use SAST engines to analyze data flows and prevent injection vectors across your microservices.",
-        "**Maintain Standards**: Enforce SonarQube quality gates in your pull requests to prevent team technical debt from growing."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Audit your active project's eslint config file. Add the eslint-plugin-sonarjs plugin to integrate basic SAST checks into your local lint command. Run a full project scan."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Defect Metrics and Analysis: Measuring Defect Density and Leakage Control."
     }
   ]
 };

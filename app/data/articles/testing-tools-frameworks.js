@@ -8,14 +8,15 @@ export const a6 = {
   num: "06",
   title: "Testing Tools & Frameworks Explained: Choosing Your Unit, E2E, and API QA Stack (2026)",
   subtitle: "The definitive guide to the modern testing toolchain: from unit testing frameworks to end-to-end automation, API testing, and performance tools.",
+  description: "The definitive guide to the modern testing toolchain: from unit testing frameworks to end-to-end automation, API testing, and performance tools.",
   readTime: "12 min",
   tags: ["Tools", "Frameworks", "Automation"],
   toc: [
     "What Are the Leading Unit Testing Frameworks by Language?",
     "Cypress vs Playwright: How Do Modern E2E Tools Compare?",
     "How Do You Automate REST API Testing and Contract Validation?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -118,6 +119,26 @@ test('handles multiple browser contexts', async ({ browser }) => {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**DX Alignment**: Align your testing tools with your developers' programming language for better adoption.",
+        "**Scale Wisely**: Avoid heavy UI testing frameworks for validation tasks that can be handled at the API layer.",
+        "**Continuous Running**: Choose tools that easily integrate into your CI/CD pipelines with command-line interfaces."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Run a lightweight test runner speed benchmark comparing Jest and Vitest in your project workspace."
+    },
+    {
+      type: "p",
+      text: "Coming up next: The Bug Lifecycle Explained: From Discovery to Closure with Severity vs. Priority."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -151,26 +172,6 @@ test('handles multiple browser contexts', async ({ browser }) => {
     {
       type: "p",
       text: "PyTest is the Python standard because it eliminates boilerplate code. It allows writing tests as plain functions rather than classes, uses standard assert statements instead of self.assert methods, and offers a powerful dependency injection model through fixtures."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**DX Alignment**: Align your testing tools with your developers' programming language for better adoption.",
-        "**Scale Wisely**: Avoid heavy UI testing frameworks for validation tasks that can be handled at the API layer.",
-        "**Continuous Running**: Choose tools that easily integrate into your CI/CD pipelines with command-line interfaces."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Run a lightweight test runner speed benchmark comparing Jest and Vitest in your project workspace."
-    },
-    {
-      type: "p",
-      text: "Coming up next: The Bug Lifecycle Explained: From Discovery to Closure with Severity vs. Priority."
     }
   ]
 };

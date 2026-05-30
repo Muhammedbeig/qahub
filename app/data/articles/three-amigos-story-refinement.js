@@ -8,6 +8,7 @@ export const a30 = {
   num: "30",
   title: "The Three Amigos and Story Refinement: Collaborative Quality Design (2026)",
   subtitle: "Shift quality to the requirements phase: learn how product owners, developers, and testers collaborate to refine user stories before coding.",
+  description: "Shift quality to the requirements phase: learn how product owners, developers, and testers collaborate to refine user stories before coding.",
   readTime: "13 min",
   tags: ["Process", "Agile", "Story Refinement", "Collaboration", "QA Role"],
   toc: [
@@ -15,8 +16,8 @@ export const a30 = {
     "What Is the Three Amigos Process and Who Participates?",
     "How Do the Three Amigos Refine User Stories?",
     "Three Amigos Meeting Structure: A Quick Reference",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -148,6 +149,26 @@ Feature: Premium Customer Discount
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Early Alignment**: Meet before the sprint planning session to align business, development, and testing perspectives.",
+        "**Testable Requirements**: Translate user story acceptance criteria into Gherkin scenarios (Given-When-Then) during the meeting.",
+        "**Strict Gating**: Enforce your Definition of Ready strictly to prevent half-formed stories from blocking active sprint cycles."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Schedule a twenty-minute pilot Three Amigos session with a developer and product owner for a single upcoming user story. Draft three Gherkin scenarios and add them to the ticket."
+    },
+    {
+      type: "p",
+      text: "Coming up next: End of syllabus. Congratulations on completing the QAHub software testing course!"
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -181,26 +202,6 @@ Feature: Premium Customer Discount
     {
       type: "p",
       text: "The outcomes of a Three Amigos session are documented as Gherkin scenarios directly inside the user story description in your tracking system (such as Jira). This ensures that developers write code that satisfies these exact criteria, and testers use the same scenarios to write automated suites."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Early Alignment**: Meet before the sprint planning session to align business, development, and testing perspectives.",
-        "**Testable Requirements**: Translate user story acceptance criteria into Gherkin scenarios (Given-When-Then) during the meeting.",
-        "**Strict Gating**: Enforce your Definition of Ready strictly to prevent half-formed stories from blocking active sprint cycles."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Schedule a twenty-minute pilot Three Amigos session with a developer and product owner for a single upcoming user story. Draft three Gherkin scenarios and add them to the ticket."
-    },
-    {
-      type: "p",
-      text: "Coming up next: End of syllabus. Congratulations on completing the QAHub software testing course!"
     }
   ]
 };

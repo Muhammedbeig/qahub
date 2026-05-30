@@ -1,0 +1,386 @@
+"use client";
+
+import { useState, useEffect, useRef, useCallback } from "react";
+import {
+  ArrowLeft, ChevronRight, Clock, Hash, CheckCircle,
+  BookOpen, Code, Zap, Shield, Settings, Bug, FileText,
+  Activity, Award, Layers, Info, AlertTriangle, Search,
+  BarChart2, Menu, X
+} from "lucide-react";
+import { ARTICLES, getIconComponent } from "@/app/data/articles";
+
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function renderSection(sec, idx) {
+  const key = idx;
+  switch (sec.type) {
+    case "lead":
+      return <p key={key} style={{ fontSize: "clamp(17px,2vw,20px)", color: "#D4D0E8", lineHeight: 1.8, marginBottom: "1.5rem", fontStyle: "italic", borderLeft: "3px solid var(--acc)", paddingLeft: "20px" }}>{sec.text}</p>;
+    case "h2":
+      return <h2 key={key} id={slugify(sec.text)}>{sec.text}</h2>;
+    case "h3":
+      return <h3 key={key}>{sec.text}</h3>;
+    case "p":
+      return <p key={key}>{sec.text}</p>;
+    case "ul":
+      return <ul key={key}>{sec.items.map((it, i) => <li key={i}>{it}</li>)}</ul>;
+    case "ol":
+      return <ol key={key}>{sec.items.map((it, i) => <li key={i}>{it}</li>)}</ol>;
+    case "code":
+      return <pre key={key}><code>{sec.code}</code></pre>;
+    case "table":
+      return (
+        <table key={key}>
+          <thead><tr>{sec.headers.map((h, i) => <th key={i}>{h}</th>)}</tr></thead>
+          <tbody>{sec.rows.map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j}>{cell}</td>)}</tr>)}</tbody>
+        </table>
+      );
+    case "callout": {
+      const variants = {
+        info: { icon: <Info size={17} color="var(--acc)" />, cls: "callout-info" },
+        warning: { icon: <AlertTriangle size={17} color="var(--warm)" />, cls: "callout-warning" },
+        danger: { icon: <Shield size={17} color="var(--rose)" />, cls: "callout-danger" },
+        success: { icon: <CheckCircle size={17} color="var(--grn)" />, cls: "callout-success" }
+      };
+      const v = variants[sec.variant] || variants.info;
+      return <div key={key} className={`callout ${v.cls}`}><div className="callout-icon">{v.icon}</div><div className="callout-body"><strong>{sec.title}</strong>{sec.text}</div></div>;
+    }
+    default: return null;
+  }
+}
+
+const NAV_ITEMS = [
+  { label: "Fundamentals", cat: "Fundamentals", icon: BookOpen },
+  { label: "Types", cat: "Testing Types", icon: Layers },
+  { label: "Strategy", cat: "Strategy", icon: Zap },
+  { label: "Tools", cat: "Tools", icon: Settings },
+  { label: "Practices", cat: "Best Practices", icon: Award },
+];
+
+function ArticleHeader({ scrolled }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 80, transition: "all .3s", background: scrolled || menuOpen ? "rgba(6,7,18,.94)" : "rgba(6,7,18,.6)", backdropFilter: "blur(20px)", borderBottom: `1px solid ${scrolled || menuOpen ? "rgba(0,244,200,.12)" : "transparent"}` }}>
+      <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 66 }}>
+        <a href="/" className="nav-btn" style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 17, color: "var(--txt)", letterSpacing: ".3px", textDecoration: "none" }}>
+          <span style={{ width: 32, height: 32, borderRadius: 8, background: "var(--acc)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <CheckCircle size={18} color="#000" />
+          </span>
+          <div style={{ lineHeight: 1 }}>
+            <span style={{ fontFamily: "var(--fD)", fontWeight: 700, display: "block" }}>QA<span style={{ color: "var(--acc)" }}>Hub</span></span>
+            <span style={{ fontFamily: "var(--fM)", fontSize: 9, color: "var(--muted)", letterSpacing: ".06em", textTransform: "uppercase" }}>testing basics</span>
+          </div>
+        </a>
+
+        <nav className="desktop-nav" style={{ gap: 4 }}>
+          {NAV_ITEMS.map(item => {
+            const Icon = item.icon;
+            return (
+              <a key={item.cat} href={`/#articles-section`} className="nav-btn" style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", fontSize: 13, borderRadius: 6, textDecoration: "none" }}>
+                <Icon size={14} /> {item.label}
+              </a>
+            );
+          })}
+        </nav>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <a href="/articles/what-is-software-testing" className="btn-acc desktop-nav" style={{ padding: "9px 18px", fontSize: 13, gap: 6, display: "flex", alignItems: "center", textDecoration: "none" }}>
+            Start Learning <ChevronRight size={14} />
+          </a>
+          <button className={`hamburger${menuOpen ? " open" : ""}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" style={{ display: "flex" }}>
+            <span /><span /><span />
+          </button>
+        </div>
+      </div>
+
+      <div className={`mobile-dropdown ${menuOpen ? "open" : "closed"}`}>
+        <div className="mobile-dropdown-inner">
+          {NAV_ITEMS.map(item => {
+            const Icon = item.icon;
+            return (
+              <a key={item.cat} href="/" className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
+                <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <Icon size={14} color="var(--acc)" /> {item.label}
+                </span>
+              </a>
+            );
+          })}
+          <div style={{ borderTop: "1px solid var(--bdr)", margin: "8px 0" }} />
+          {ARTICLES.map(a => (
+            <a key={a.id} href={`/articles/${a.id}`} className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
+              <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ fontFamily: "var(--fD)", fontSize: 11, color: a.catColor, fontWeight: 700, minWidth: 20 }}>{a.num}</span>
+                {a.title}
+              </span>
+            </a>
+          ))}
+          <a href="/articles/what-is-software-testing" className="btn-acc" style={{ marginTop: 8, justifyContent: "center", padding: "11px 20px", fontSize: 13, display: "flex", alignItems: "center", textDecoration: "none" }}>
+            Start Learning <ChevronRight size={14} />
+          </a>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function ArticleFooter() {
+  return (
+    <footer style={{ background: "var(--bg2)", borderTop: "1px solid var(--bdr)", padding: "60px 0 40px" }}>
+      <div className="container">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))", gap: 40, marginBottom: 50 }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+              <span style={{ width: 32, height: 32, borderRadius: 8, background: "var(--acc)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <CheckCircle size={18} color="#000" />
+              </span>
+              <span style={{ fontFamily: "var(--fD)", fontWeight: 700, fontSize: 17 }}>QA<span style={{ color: "var(--acc)" }}>Hub</span></span>
+            </div>
+            <p style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.7, maxWidth: 240 }}>A comprehensive resource for software testing fundamentals — from principles to practice.</p>
+          </div>
+          <div>
+            <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Core Topics</p>
+            {ARTICLES.slice(0, 5).map(a => (
+              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.title}</a>
+            ))}
+          </div>
+          <div>
+            <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Advanced Topics</p>
+            {ARTICLES.slice(5).map(a => (
+              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.title}</a>
+            ))}
+          </div>
+          <div>
+            <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Categories</p>
+            {["Fundamentals", "Testing Types", "Strategy", "Methodology", "Techniques", "Tools", "Lifecycle", "Process", "Performance", "Best Practices"].map(c => (
+              <a key={c} href="/" className="nav-btn" style={{ display: "block", marginBottom: 8, fontSize: 12, textDecoration: "none" }}>{c}</a>
+            ))}
+          </div>
+        </div>
+        <div style={{ paddingTop: 28, borderTop: "1px solid var(--bdr)", display: "flex", flexWrap: "wrap", gap: 16, justifyContent: "space-between", alignItems: "center" }}>
+          <p style={{ fontSize: 12, color: "var(--muted2)" }}>© {new Date().getFullYear()} QAHub — Software Testing Basics. All rights reserved.</p>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {["Unit Testing", "Integration", "TDD", "Performance", "Black Box", "White Box", "Selenium", "Jest", "Cypress"].map(t => (
+              <span key={t} className="tag" style={{ background: "rgba(255,255,255,.03)", color: "var(--muted2)", border: "1px solid var(--bdr)", fontSize: 11 }}>{t}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function MobileBottomNav() {
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastScrollY.current;
+      if (currentY < 40 || delta < -4) setHidden(false);
+      else if (delta > 8 && currentY > 120) setHidden(true);
+      lastScrollY.current = currentY;
+    };
+    lastScrollY.current = window.scrollY;
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <nav className={`mobile-bottom-nav${hidden ? " hidden" : ""}`}>
+      <div className="mobile-bottom-nav-inner">
+        {NAV_ITEMS.map(item => {
+          const Icon = item.icon;
+          return (
+            <a key={item.cat} href="/" className="mobile-nav-item" style={{ textDecoration: "none" }}>
+              <span className="mobile-nav-icon"><Icon size={20} color="var(--muted)" /></span>
+              <span className="mobile-nav-label" style={{ color: "var(--muted)" }}>{item.label}</span>
+            </a>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
+
+export default function ArticleView({ article }) {
+  const [progress, setProgress] = useState(0);
+  const [activeTocId, setActiveTocId] = useState("");
+  const [scrolled, setScrolled] = useState(false);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", h);
+    return () => window.removeEventListener("scroll", h);
+  }, []);
+
+  useEffect(() => {
+    const update = () => {
+      const el = contentRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = el.offsetHeight - window.innerHeight;
+      if (total <= 0) return;
+      const scrolled = Math.max(0, -rect.top);
+      setProgress(Math.min(100, (scrolled / total) * 100));
+    };
+    window.addEventListener("scroll", update);
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
+  useEffect(() => {
+    if (!article.toc || article.toc.length === 0) return;
+    const slugs = article.toc.map(t => slugify(t));
+    const elements = slugs.map(s => document.getElementById(s)).filter(Boolean);
+    if (elements.length === 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length > 0) setActiveTocId(visible[0].target.id);
+      },
+      { rootMargin: "-80px 0px -60% 0px", threshold: 0 }
+    );
+    elements.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, [article.toc]);
+
+  const scrollToSection = useCallback((slug) => {
+    const el = document.getElementById(slug);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top, behavior: "smooth" });
+    setActiveTocId(slug);
+  }, []);
+
+  const IconComp = getIconComponent(article.iconName);
+  const idx = ARTICLES.findIndex(a => a.id === article.id);
+  const next = ARTICLES[idx + 1];
+  const relatedArticles = ARTICLES.filter(a => a.id !== article.id).slice(0, 4);
+
+  return (
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
+      <ArticleHeader scrolled={scrolled} />
+
+      <div className="progress-bar" style={{ width: `${progress}%` }} />
+
+      <main id="main-content" style={{ flex: 1, paddingTop: 66 }} role="main">
+        {/* Article hero */}
+        <div style={{ position: "relative", overflow: "hidden", background: "linear-gradient(135deg,#080912,#0C0D20)", borderBottom: "1px solid var(--bdr)", padding: "60px 0 50px" }}>
+          <div className="orb" style={{ width: 300, height: 300, background: article.catColor, top: "-10%", right: "-5%", opacity: .06, filter: "blur(60px)" }} />
+          <div className="container">
+            <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 28, flexWrap: "wrap" }}>
+              <a href="/" className="btn-out" style={{ padding: "9px 14px", gap: 6, fontSize: 13, display: "flex", alignItems: "center", textDecoration: "none" }}>
+                <ArrowLeft size={14} /> All Articles
+              </a>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "var(--muted)" }}>
+                <span>Software Testing</span>
+                <ChevronRight size={12} />
+                <span style={{ color: article.catColor, fontFamily: "var(--fD)" }}>{article.cat}</span>
+              </div>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20, flexWrap: "wrap" }}>
+              <span className="tag" style={{ background: article.catBg, color: article.catColor }}>{article.cat}</span>
+              <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, color: "var(--muted)" }}>
+                <Clock size={12} /> {article.readTime} read
+              </span>
+              <span style={{ fontFamily: "var(--fD)", fontSize: 11, color: "var(--muted2)", letterSpacing: ".4px" }}>ARTICLE {article.num}</span>
+            </div>
+            <h1 style={{ fontFamily: "var(--fD)", fontWeight: 700, fontSize: "clamp(28px,5vw,52px)", letterSpacing: ".2px", lineHeight: 1.1, marginBottom: 16, maxWidth: 700 }}>{article.title}</h1>
+            <p style={{ fontSize: "clamp(15px,1.5vw,18px)", color: "var(--muted)", maxWidth: 620, lineHeight: 1.65, marginBottom: 24 }}>{article.subtitle}</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {article.tags.map(t => (
+                <span key={t} className="tag" style={{ background: "rgba(255,255,255,.05)", color: "var(--muted)", border: "1px solid var(--bdr)" }}><Hash size={10} style={{ marginRight: 3 }} />{t}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="container" style={{ padding: "60px 20px" }} ref={contentRef}>
+          <div className="article-2col">
+            <article>
+              <div className="prose">
+                {article.sections.map((sec, i) => renderSection(sec, i))}
+              </div>
+              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 60, paddingTop: 32, borderTop: "1px solid var(--bdr)" }}>
+                {next && (
+                  <a href={`/articles/${next.id}`} className="btn-acc" style={{ gap: 8, display: "flex", alignItems: "center", textDecoration: "none" }}>
+                    Next: {next.title.split(":")[0]} <ChevronRight size={15} />
+                  </a>
+                )}
+              </div>
+            </article>
+
+            {article.toc && (
+              <aside className="toc-sticky toc-aside" style={{ display: "none" }}>
+                <nav style={{ background: "var(--bg2)", border: "1px solid var(--bdr)", borderRadius: "var(--r)", padding: "20px" }}>
+                  <p style={{ fontFamily: "var(--fD)", fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "var(--acc)", marginBottom: 14 }}>On This Page</p>
+                  {article.toc.map((item, i) => {
+                    const tocSlug = slugify(item);
+                    const isActive = activeTocId === tocSlug;
+                    return (
+                      <a
+                        key={i}
+                        href={`#${tocSlug}`}
+                        onClick={(e) => { e.preventDefault(); scrollToSection(tocSlug); }}
+                        style={{
+                          display: "flex", alignItems: "flex-start", gap: 8, padding: "8px 10px",
+                          borderRadius: 6, marginBottom: 2, textDecoration: "none", cursor: "pointer",
+                          transition: "all .2s ease",
+                          background: isActive ? "rgba(99,102,241,.1)" : "transparent",
+                          borderLeft: isActive ? "2px solid var(--acc)" : "2px solid transparent",
+                        }}
+                      >
+                        <span style={{ fontFamily: "var(--fD)", fontSize: 11, minWidth: 18, marginTop: 2, color: isActive ? "var(--acc)" : "var(--muted2)", transition: "color .2s ease" }}>{String(i + 1).padStart(2, "0")}</span>
+                        <span style={{ fontSize: 13, lineHeight: 1.5, color: isActive ? "var(--txt)" : "var(--muted)", fontWeight: isActive ? 600 : 400, transition: "color .2s ease, font-weight .2s ease" }}>{item}</span>
+                      </a>
+                    );
+                  })}
+                </nav>
+              </aside>
+            )}
+          </div>
+
+          {/* Related articles */}
+          <div style={{ marginTop: 70, paddingTop: 50, borderTop: "1px solid var(--bdr)" }}>
+            <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 10 }}>— Continue Learning</p>
+            <h3 style={{ fontFamily: "var(--fD)", fontSize: "clamp(20px,3vw,28px)", fontWeight: 700, marginBottom: 28 }}>Related Articles</h3>
+            <div className="related-grid">
+              {relatedArticles.map(a => {
+                const RelIcon = getIconComponent(a.iconName);
+                return (
+                  <a key={a.id} href={`/articles/${a.id}`} className="card" style={{ cursor: "pointer", display: "flex", gap: 14, padding: "18px", alignItems: "flex-start", textDecoration: "none" }}>
+                    <div style={{ width: 40, height: 40, borderRadius: 8, background: a.catBg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <RelIcon size={18} color={a.catColor} />
+                    </div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <span className="tag" style={{ background: a.catBg, color: a.catColor, marginBottom: 6, display: "inline-flex" }}>{a.cat}</span>
+                      <p style={{ fontFamily: "var(--fD)", fontSize: 14, fontWeight: 600, color: "var(--txt)", lineHeight: 1.3, marginTop: 4 }}>{a.title}</p>
+                      <p style={{ fontSize: 12, color: "var(--muted)", marginTop: 6 }}>{a.readTime} read</p>
+                    </div>
+                    <ChevronRight size={15} color="var(--muted)" style={{ flexShrink: 0, marginTop: 4 }} />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <ArticleFooter />
+      <MobileBottomNav />
+    </div>
+  );
+}

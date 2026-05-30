@@ -8,6 +8,7 @@ export const a25 = {
   num: "25",
   title: "Decision Tables and State Transition Testing: Modeling Complex Business Rules (2026)",
   subtitle: "Master two essential black-box testing techniques to systematically verify combinatorial logic systems and history-dependent state machines.",
+  description: "Master two essential black-box testing techniques to systematically verify combinatorial logic systems and history-dependent state machines.",
   readTime: "15 min",
   tags: ["Techniques", "Black-Box", "Decision Tables", "State Transition"],
   toc: [
@@ -15,8 +16,8 @@ export const a25 = {
     "What Is Decision Table Testing and How Does It Work?",
     "What Is State Transition Testing and When Should You Apply It?",
     "Decision Tables vs. State Transition: Key Differences",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -171,6 +172,26 @@ function calculateCart(isMember, tier, cartValue) {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Logical Consistency**: Use **Decision Tables** to map rules and find contradictions in requirement sheets.",
+        "**Workflow Integrity**: Use **State Transition Testing** to protect multi-step lifecycles from illegal operations.",
+        "**Complexity Reduction**: Merge redundant columns in decision tables to reduce your manual testing overhead."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Map out the login flow of your current application. Draw a simple state transition diagram and list all valid and invalid transitions. Verify that invalid transitions are blocked."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Mutation Testing: Evaluating Test Suite Quality by Injecting Faults in Code."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -204,26 +225,6 @@ function calculateCart(isMember, tier, cartValue) {
     {
       type: "p",
       text: "The number of test cases depends on your coverage goals. Minimal coverage requires executing every state at least once. Standard industry coverage requires executing every transition (transition coverage). Advanced coverage requires testing sequences of transitions (such as 1-switch coverage, which tests sequences of two transitions)."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Logical Consistency**: Use **Decision Tables** to map rules and find contradictions in requirement sheets.",
-        "**Workflow Integrity**: Use **State Transition Testing** to protect multi-step lifecycles from illegal operations.",
-        "**Complexity Reduction**: Merge redundant columns in decision tables to reduce your manual testing overhead."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Map out the login flow of your current application. Draw a simple state transition diagram and list all valid and invalid transitions. Verify that invalid transitions are blocked."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Mutation Testing: Evaluating Test Suite Quality by Injecting Faults in Code."
     }
   ]
 };

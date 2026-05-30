@@ -8,14 +8,15 @@ export const a2 = {
   num: "02",
   title: "Types of Software Testing Explained: A Complete Guide to Functional and Non-Functional QA (2026)",
   subtitle: "From unit tests to user acceptance: a comprehensive map of the testing landscape, what each type catches, and when to apply them.",
+  description: "From unit tests to user acceptance: a comprehensive map of the testing landscape, what each type catches, and when to apply them.",
   readTime: "16 min",
   tags: ["Types", "Functional", "Non-Functional", "Regression Testing"],
   toc: [
     "What Is Functional Testing in Software Development?",
     "Why Is Non-Functional Testing Essential for Performance?",
     "What is the Difference Between Smoke and Sanity Testing?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -151,6 +152,26 @@ test('homepage should have no automatically detectable accessibility violations'
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Balanced Coverage**: Combine functional and non-functional testing to protect both correctness and performance.",
+        "**Integration Verification**: Never assume passing unit tests guarantee a working integrated application.",
+        "**Critical Gates**: Implement smoke tests to quickly reject unstable builds before wasting testing resources."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Audit your testing process and determine if you have automated smoke test runs gating your CI/CD deployments."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Manual vs. Automated Testing: How to Build a High-ROI Hybrid QA Strategy."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -184,26 +205,6 @@ test('homepage should have no automatically detectable accessibility violations'
     {
       type: "p",
       text: "The main types of performance testing include load testing to check behavior under expected traffic, stress testing to find the breaking point, spike testing for sudden surges, and soak testing to detect memory leaks over time. Each type evaluates specific system limits."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Balanced Coverage**: Combine functional and non-functional testing to protect both correctness and performance.",
-        "**Integration Verification**: Never assume passing unit tests guarantee a working integrated application.",
-        "**Critical Gates**: Implement smoke tests to quickly reject unstable builds before wasting testing resources."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Audit your testing process and determine if you have automated smoke test runs gating your CI/CD deployments."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Manual vs. Automated Testing: How to Build a High-ROI Hybrid QA Strategy."
     }
   ]
 };

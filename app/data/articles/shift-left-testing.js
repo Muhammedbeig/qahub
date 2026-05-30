@@ -8,14 +8,15 @@ export const a18 = {
   num: "18",
   title: "Shift-Left Testing: How to Integrate Quality Assurance at the Requirements Phase (2026)",
   subtitle: "Catching bugs before coding: the economics of early QA involvement, auditing user stories for quality gaps, and running Three Amigos sessions.",
+  description: "Catching bugs before coding: the economics of early QA involvement, auditing user stories for quality gaps, and running Three Amigos sessions.",
   readTime: "10 min",
   tags: ["Strategy", "Shift-Left", "Requirements", "Process"],
   toc: [
     "What is Shift-Left Testing and Why is it Essential?",
     "How Do You Audit Requirements for Quality Gaps?",
     "What is the Three Amigos Process in Shift-Left QA?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -100,6 +101,26 @@ export const a18 = {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Early Prevention**: Engage QA during requirement gathering to identify logic gaps before writing code.",
+        "**Collaborative Alignment**: Hold Three Amigos sessions to ensure developers, product owners, and QA share a single vision.",
+        "**Measurable Rules**: Audit specifications to remove vague qualifiers and define concrete success parameters."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Set up a 15-minute Three Amigos sync with your product manager and lead developer before starting work on your next feature user story."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Continuous Testing in CI/CD: Building Automated Quality Gates in Pipelines."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -133,26 +154,6 @@ export const a18 = {
     {
       type: "p",
       text: "While shift-left testing prevents many requirements and design defects from reaching code, it does not completely eliminate production bugs. It must be paired with dynamic system, security, and performance testing to ensure complete coverage."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Early Prevention**: Engage QA during requirement gathering to identify logic gaps before writing code.",
-        "**Collaborative Alignment**: Hold Three Amigos sessions to ensure developers, product owners, and QA share a single vision.",
-        "**Measurable Rules**: Audit specifications to remove vague qualifiers and define concrete success parameters."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Set up a 15-minute Three Amigos sync with your product manager and lead developer before starting work on your next feature user story."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Continuous Testing in CI/CD: Building Automated Quality Gates in Pipelines."
     }
   ]
 };

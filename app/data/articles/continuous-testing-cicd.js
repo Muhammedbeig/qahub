@@ -8,14 +8,15 @@ export const a19 = {
   num: "19",
   title: "Continuous Testing in CI/CD: Building Automated Quality Pipelines (2026)",
   subtitle: "Integrating testing into DevOps: defining quality gates, automating pipeline checks, and managing build times in Github Actions.",
+  description: "Integrating testing into DevOps: defining quality gates, automating pipeline checks, and managing build times in Github Actions.",
   readTime: "11 min",
   tags: ["Strategy", "CI/CD", "DevOps", "Automation"],
   toc: [
     "What is Continuous Testing and Why is it Critical for DevOps?",
     "How Do You Design Quality Gates in CI/CD Pipelines?",
     "How Do You Handle Flaky Tests and Slow Builds in Pipelines?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -115,6 +116,26 @@ jobs:
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Fail Fast**: Run fast unit tests early in the pipeline to catch simple errors before executing slow browser runs.",
+        "**Quarantine Protocol**: Block flaky tests from halting build merges by isolating them in a quarantined suite.",
+        "**Automate Gating**: Enforce strict quality gates in GitHub Actions to block non-compliant code merges."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Audit your latest CI run runtime logs. Identify the single slowest job and look for package caching or parallelization opportunities."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Test Data Management Strategy: Generating, Masking, and Storing QA Datasets."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -148,26 +169,6 @@ jobs:
     {
       type: "p",
       text: "Teams manage flaky tests by immediately quarantining them. Move the flaky test into a separate suite that runs but does not block build merges. Analyze execution logs, fix timing or asynchronous states, and restore it once stable."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Fail Fast**: Run fast unit tests early in the pipeline to catch simple errors before executing slow browser runs.",
-        "**Quarantine Protocol**: Block flaky tests from halting build merges by isolating them in a quarantined suite.",
-        "**Automate Gating**: Enforce strict quality gates in GitHub Actions to block non-compliant code merges."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Audit your latest CI run runtime logs. Identify the single slowest job and look for package caching or parallelization opportunities."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Test Data Management Strategy: Generating, Masking, and Storing QA Datasets."
     }
   ]
 };

@@ -8,14 +8,15 @@ export const a9 = {
   num: "09",
   title: "Performance Testing Guide: Latency, Stress, and Load Testing Metrics (2026)",
   subtitle: "Speed is a feature. Learn the five types of performance tests, the metrics that matter, the tools that measure them, and when to start testing for performance.",
+  description: "Speed is a feature. Learn the five types of performance tests, the metrics that matter, the tools that measure them, and when to start testing for performance.",
   readTime: "11 min",
   tags: ["Performance", "Load Testing", "Scalability"],
   toc: [
     "What Are the Primary Types of Performance Tests?",
     "What Key Performance Metrics Should You Monitor?",
     "How Do You Design a High-ROI Load Test?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -107,6 +108,26 @@ export default function () {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Benchmark Early**: Integrate performance checkpoints into your regular CI/CD pipeline runs.",
+        "**Percentiles Matter**: Evaluate P95 and P99 latelines rather than simple mathematical averages.",
+        "**Realistic Data**: Ensure performance databases match the scale of production environments."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Write a basic load testing script using k6 to check the homepage response times of your staging server."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Testing Best Practices & Anti-Patterns: Lessons from High-Performing QA Teams."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -140,26 +161,6 @@ export default function () {
     {
       type: "p",
       text: "Performance testing should start early in the development lifecycle rather than in the final week before release. Running lightweight performance micro-benchmarks on critical API endpoints during integration testing helps identify architectural bottlenecks when they are still cheap to fix."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Benchmark Early**: Integrate performance checkpoints into your regular CI/CD pipeline runs.",
-        "**Percentiles Matter**: Evaluate P95 and P99 latelines rather than simple mathematical averages.",
-        "**Realistic Data**: Ensure performance databases match the scale of production environments."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Write a basic load testing script using k6 to check the homepage response times of your staging server."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Testing Best Practices & Anti-Patterns: Lessons from High-Performing QA Teams."
     }
   ]
 };

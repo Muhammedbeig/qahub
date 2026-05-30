@@ -8,14 +8,15 @@ export const a24 = {
   num: "24",
   title: "Equivalence Partitioning and Boundary Value Analysis: Practical Math and Logic (2026)",
   subtitle: "Systematic black-box test design: dividing input spaces into equivalent classes, calculating boundary points, and reducing test execution bloat.",
+  description: "Systematic black-box test design: dividing input spaces into equivalent classes, calculating boundary points, and reducing test execution bloat.",
   readTime: "16 min",
   tags: ["Techniques", "Black-Box Testing", "BVA", "Equivalence Partitioning"],
   toc: [
     "How Do Equivalence Partitioning and BVA Reduce Test Case Complexity?",
     "What Are the Rules for Equivalence Class Design?",
     "How Do You Calculate Boundary Value Test Cases?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -142,6 +143,26 @@ function getDiscountRate(age) {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Logical Reduction**: Group input spaces into equivalence partitions to minimize redundant test cases.",
+        "**Target Transitions**: Focus your test assertions on boundary limits where off-by-one errors cluster.",
+        "**Negative Isolation**: Test one invalid partition at a time to ensure all error validation routines are verified."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Audit your application's birthdate input field. Calculate the three-value boundary points for the minimum registration age (e.g. 13 or 18 years old)."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Decision Tables and State Transition Testing: Modeling Complex Logic."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -175,26 +196,6 @@ function getDiscountRate(age) {
     {
       type: "p",
       text: "Programmers frequently make boundary errors because of minor conditional statement mistakes. It is easy to write a greater-than symbol (>) instead of a greater-than-or-equal-to symbol (>=), causing the system behavior to shift off-by-one."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Logical Reduction**: Group input spaces into equivalence partitions to minimize redundant test cases.",
-        "**Target Transitions**: Focus your test assertions on boundary limits where off-by-one errors cluster.",
-        "**Negative Isolation**: Test one invalid partition at a time to ensure all error validation routines are verified."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Audit your application's birthdate input field. Calculate the three-value boundary points for the minimum registration age (e.g. 13 or 18 years old)."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Decision Tables and State Transition Testing: Modeling Complex Logic."
     }
   ]
 };

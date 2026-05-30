@@ -8,14 +8,15 @@ export const a8 = {
   num: "08",
   title: "Writing Effective Test Cases: Anatomy, Templates, and Boundary Analysis Tricks (2026)",
   subtitle: "The anatomy of a well-written test case, the design techniques that maximize defect detection, and the common patterns that distinguish experienced QA engineers.",
+  description: "The anatomy of a well-written test case, the design techniques that maximize defect detection, and the common patterns that distinguish experienced QA engine...",
   readTime: "11 min",
   tags: ["Test Cases", "Test Design", "Techniques"],
   toc: [
     "What Are the Essential Fields of a Professional Test Case?",
     "How Do Test Scenarios and Test Cases Differ?",
     "How Do BVA and Equivalence Partitioning Reduce Test Volumes?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -105,6 +106,26 @@ export const a8 = {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Precision Counts**: Write unambiguous execution steps that any team member can execute identically.",
+        "**Design Optimization**: Combine Equivalence Partitioning and Boundary Value Analysis to achieve high coverage with minimal tests.",
+        "**Balanced Scope**: Ensure your suite contains a mix of positive validation and negative error-handling test cases."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Take an input field in your application and write a test case suite covering its boundary values."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Performance Testing Guide: Latency, Stress, and Load Testing Metrics."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -138,26 +159,6 @@ export const a8 = {
     {
       type: "p",
       text: "You perform boundary value analysis by identifying the transition limits of input fields. Test the values exactly on the boundary, just below the lower limit, and just above the upper limit. These boundaries are where programmer off-by-one errors cluster."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Precision Counts**: Write unambiguous execution steps that any team member can execute identically.",
-        "**Design Optimization**: Combine Equivalence Partitioning and Boundary Value Analysis to achieve high coverage with minimal tests.",
-        "**Balanced Scope**: Ensure your suite contains a mix of positive validation and negative error-handling test cases."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Take an input field in your application and write a test case suite covering its boundary values."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Performance Testing Guide: Latency, Stress, and Load Testing Metrics."
     }
   ]
 };

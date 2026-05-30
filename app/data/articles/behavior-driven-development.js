@@ -1,4 +1,4 @@
-export const a11 = { // Wait, the local variable is exported. Let's make sure the variable matches the number! Oh, for article 21, the variable name should be 'a21' to keep it consistent! Let's name it a21.
+export const a21 = {
   id: "behavior-driven-development",
   cat: "Methodology",
   catColor: "#34D399",
@@ -8,14 +8,15 @@ export const a11 = { // Wait, the local variable is exported. Let's make sure th
   num: "21",
   title: "Behavior-Driven Development (BDD): Translating Specifications with Gherkin Syntax (2026)",
   subtitle: "Collaborating on quality: writing plain-English feature files, using Given-When-Then syntax, and automating checks with Cucumber.",
+  description: "Collaborating on quality: writing plain-English feature files, using Given-When-Then syntax, and automating checks with Cucumber.",
   readTime: "11 min",
   tags: ["Methodology", "BDD", "Gherkin", "Cucumber"],
   toc: [
     "What is Behavior-Driven Development and Why Is It Used?",
     "How Do You Write Gherkin Scenarios for Feature Specifications?",
     "What Are the Best Practices for Writing BDD Features?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -107,6 +108,26 @@ Feature: Promotional Coupon Validation
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Stakeholder Alignment**: Use BDD to translate business user stories into clear, executable examples.",
+        "**Declarative Focus**: Write scenarios centered on user intents rather than layout components and selectors.",
+        "**Living Spec Sheets**: Maintain feature files in your source control repository to serve as always-updated system specs."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Take one user story in your active backlog and rewrite its acceptance criteria in declarative Given-When-Then format."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Exploratory Testing: Session-Based Testing Charters and Finding Unscripted Bugs."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -140,27 +161,6 @@ Feature: Promotional Coupon Validation
     {
       type: "p",
       text: "Cucumber parses Gherkin feature files and matches the plain-text step strings (using regular expressions) to automated JavaScript, Java, or Python code blocks (called step definitions). These code blocks then automate the browser or APIs."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Stakeholder Alignment**: Use BDD to translate business user stories into clear, executable examples.",
-        "**Declarative Focus**: Write scenarios centered on user intents rather than layout components and selectors.",
-        "**Living Spec Sheets**: Maintain feature files in your source control repository to serve as always-updated system specs."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Take one user story in your active backlog and rewrite its acceptance criteria in declarative Given-When-Then format."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Exploratory Testing: Session-Based Testing Charters and Finding Unscripted Bugs."
     }
   ]
 };
-export const a21 = a11; // Ensure variable reference exists for import statement mapping.

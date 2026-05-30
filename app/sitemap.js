@@ -35,7 +35,7 @@ export default function sitemap() {
   ];
 
   const articleEntries = articles.map((slug) => ({
-    url: `${baseUrl}/#article-${slug}`,
+    url: `${baseUrl}/articles/${slug}`,
     lastModified: new Date('2026-05-30'),
     changeFrequency: 'monthly',
     priority: 0.8,

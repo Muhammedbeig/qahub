@@ -8,14 +8,15 @@ export const a15 = {
   num: "15",
   title: "Database Testing Guide: SQL Queries, Constraints, and Data Integrity (2026)",
   subtitle: "Ensuring backend data quality: validating database constraints, testing ACID transaction properties, and automating SQL query verifications.",
+  description: "Ensuring backend data quality: validating database constraints, testing ACID transaction properties, and automating SQL query verifications.",
   readTime: "10 min",
   tags: ["Testing Types", "Database Testing", "SQL", "ACID"],
   toc: [
     "What is Database Testing and Why is it Critical?",
     "How Do You Validate ACID Properties and Constraints?",
     "How Do You Write Automated Database Tests?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -116,6 +117,26 @@ test('inserts new user record with active state', async () => {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Constraint Protection**: Enforce unique, null, and type checks at the database layer, not just in UI code.",
+        "**State Isolation**: Use transaction rollback patterns in automated test hooks to prevent test data pollution.",
+        "**ACID Assertions**: Run transaction tests simulating half-completed payment failures to verify data rollback logic."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Audit your primary user database table. Verify that unique parameters like email have unique constraints enabled."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Usability and Accessibility (a11y) Testing: Designing and Testing for WCAG Compliance."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -149,26 +170,6 @@ test('inserts new user record with active state', async () => {
     {
       type: "p",
       text: "The danger of missing constraints is data corruption. If input ranges are validated only on frontend interfaces, direct backend requests or script errors can write invalid values (like negative pricing) directly into tables, breaking accounting logic."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Constraint Protection**: Enforce unique, null, and type checks at the database layer, not just in UI code.",
-        "**State Isolation**: Use transaction rollback patterns in automated test hooks to prevent test data pollution.",
-        "**ACID Assertions**: Run transaction tests simulating half-completed payment failures to verify data rollback logic."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Audit your primary user database table. Verify that unique parameters like email have unique constraints enabled."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Usability and Accessibility (a11y) Testing: Designing and Testing for WCAG Compliance."
     }
   ]
 };

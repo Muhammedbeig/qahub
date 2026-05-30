@@ -8,14 +8,15 @@ export const a10 = {
   num: "10",
   title: "Testing Best Practices & Anti-Patterns: Lessons from High-Performing QA Teams (2026)",
   subtitle: "The principles, mental models, and culture shifts that separate world-class quality engineering teams from those perpetually fighting fires in production.",
+  description: "The principles, mental models, and culture shifts that separate world-class quality engineering teams from those perpetually fighting fires in production.",
   readTime: "10 min",
   tags: ["Best Practices", "Anti-Patterns", "Culture"],
   toc: [
     "What Are the FIRST Principles of Automated Testing?",
     "How Should Teams Interpret Code Coverage Metrics?",
     "What Are the Most Common Testing Anti-Patterns in CI/CD?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -97,6 +98,26 @@ export const a10 = {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Behavioral Focus**: Verify expected behaviors and interface outputs rather than internal code implementation details.",
+        "**Keep it Fast**: Monitor test runtimes and parallelize suites to keep developer feedback loops under five minutes.",
+        "**Isolate State**: Clear database records and mock network files before each run to prevent test pollution."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Audit your CI pipeline logs and identify the slowest three automated tests, then refactor them to use mocks."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Verification vs. Validation Explained: Are We Building the Product Right?."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -130,26 +151,6 @@ export const a10 = {
     {
       type: "p",
       text: "Eliminate arbitrary sleeps by using conditional, assertion-driven waits. Instead of calling a sleep function for three seconds, configure your testing library to wait for a specific DOM selector or network response to load. This speeds up runs and prevents timing failures."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Behavioral Focus**: Verify expected behaviors and interface outputs rather than internal code implementation details.",
-        "**Keep it Fast**: Monitor test runtimes and parallelize suites to keep developer feedback loops under five minutes.",
-        "**Isolate State**: Clear database records and mock network files before each run to prevent test pollution."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Audit your CI pipeline logs and identify the slowest three automated tests, then refactor them to use mocks."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Verification vs. Validation Explained: Are We Building the Product Right?."
     }
   ]
 };

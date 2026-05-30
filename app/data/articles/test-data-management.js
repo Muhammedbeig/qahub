@@ -8,14 +8,15 @@ export const a20 = {
   num: "20",
   title: "Test Data Management Strategy: Generating, Masking, and Storing QA Datasets (2026)",
   subtitle: "Safeguarding data privacy in non-production environments: data masking techniques, synthetic data generation, and automating database seeds.",
+  description: "Safeguarding data privacy in non-production environments: data masking techniques, synthetic data generation, and automating database seeds.",
   readTime: "11 min",
   tags: ["Strategy", "Data Management", "Security", "Databases"],
   toc: [
     "What Is Test Data Management and Why Is It Critical?",
     "What Are Data Masking and Synthetic Generation Strategies?",
     "How Do You Automate Test Data Seeding?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -107,6 +108,26 @@ exports.seed = async function(knex) {
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Compliance Gating**: Enforce data masking on production databases to create compliant, PII-free testing environments.",
+        "**State Isolation**: Automate database seeds inside Docker setups to ensure identical baselines for all test runs.",
+        "**Hybrid TDM**: Use data masking for large-scale load tests, and synthetic data for validation of specific edge conditions."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Review your staging database. Ensure that all customer names and emails have been substituted with dummy test records."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Behavior-Driven Development (BDD): Translating Specifications with Gherkin Syntax."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -140,26 +161,6 @@ exports.seed = async function(knex) {
     {
       type: "p",
       text: "Database seeding helps automation by inserting a predictable set of records before tests run. This establishes a clean baseline state, preventing tests from colliding or failing due to missing data records, and ensures identical test environments across developers and CI servers."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Compliance Gating**: Enforce data masking on production databases to create compliant, PII-free testing environments.",
-        "**State Isolation**: Automate database seeds inside Docker setups to ensure identical baselines for all test runs.",
-        "**Hybrid TDM**: Use data masking for large-scale load tests, and synthetic data for validation of specific edge conditions."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Review your staging database. Ensure that all customer names and emails have been substituted with dummy test records."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Behavior-Driven Development (BDD): Translating Specifications with Gherkin Syntax."
     }
   ]
 };

@@ -8,14 +8,15 @@ export const a14 = {
   num: "14",
   title: "Security Testing Essentials: OWASP Top 10 and Penetration Testing (2026)",
   subtitle: "An introduction to software security: testing for injection vulnerabilities, configuring secure authentication, and running static code scanners.",
+  description: "An introduction to software security: testing for injection vulnerabilities, configuring secure authentication, and running static code scanners.",
   readTime: "11 min",
   tags: ["Testing Types", "Security", "OWASP", "Vulnerabilities"],
   toc: [
     "What is Security Testing and Why is it Critical?",
     "What is the OWASP Top 10 and How Do You Test for It?",
     "How Do Dynamic and Static Security Scans Differ?",
-    "Frequently Asked Questions",
-    "Key Takeaways and Next Action"
+    "Key Takeaways and Next Action",
+    "Frequently Asked Questions"
   ],
   sections: [
     {
@@ -101,6 +102,26 @@ db.query(query, [inputUser, inputPass]);`
     },
     {
       type: "h2",
+      text: "Key Takeaways and Next Action"
+    },
+    {
+      type: "ul",
+      items: [
+        "**Secure Inputs**: Parameterize all database queries and sanitize user fields to prevent injection vulnerabilities.",
+        "**Pipeline Scans**: Integrate automated SAST scanning into your git checkout processes to block insecure code merges.",
+        "**Config Protection**: Review HTTP headers and cookie flags on staging servers to ensure transport layer security."
+      ]
+    },
+    {
+      type: "p",
+      text: "Your next step: Execute an automated vulnerability scan against your local application codebase using a tool like Snyk or npm audit."
+    },
+    {
+      type: "p",
+      text: "Coming up next: Database Testing Guide: SQL Queries, Data Integrity, and Schema Validation."
+    },
+    {
+      type: "h2",
       text: "Frequently Asked Questions"
     },
     {
@@ -134,26 +155,6 @@ db.query(query, [inputUser, inputPass]);`
     {
       type: "p",
       text: "Penetration testing is a simulated attack executed by security experts to identify weaknesses in an application's infrastructure and logic. Unlike automated scans, penetration testing relies on human creativity to discover complex logic vulnerabilities."
-    },
-    {
-      type: "h2",
-      text: "Key Takeaways and Next Action"
-    },
-    {
-      type: "ul",
-      items: [
-        "**Secure Inputs**: Parameterize all database queries and sanitize user fields to prevent injection vulnerabilities.",
-        "**Pipeline Scans**: Integrate automated SAST scanning into your git checkout processes to block insecure code merges.",
-        "**Config Protection**: Review HTTP headers and cookie flags on staging servers to ensure transport layer security."
-      ]
-    },
-    {
-      type: "p",
-      text: "Your next step: Execute an automated vulnerability scan against your local application codebase using a tool like Snyk or npm audit."
-    },
-    {
-      type: "p",
-      text: "Coming up next: Database Testing Guide: SQL Queries, Data Integrity, and Schema Validation."
     }
   ]
 };
