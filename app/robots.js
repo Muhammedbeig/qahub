@@ -6,6 +6,6 @@ export default function robots() {
         allow: '/',
       },
     ],
-    sitemap: process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap.xml` : undefined,
+    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://softwaretestingbasics.io'}/sitemap.xml`,
   };
 }
