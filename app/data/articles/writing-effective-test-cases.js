@@ -5,7 +5,7 @@ export const a8 = {
   catBg: "rgba(45,212,191,.08)",
   iconName: "FileText",
   iconColor: "#2DD4BF",
-  num: "08",
+  num: "09",
   title: "Writing Effective Test Cases: Anatomy, Templates, and Boundary Analysis Tricks (2026)",
   subtitle: "The anatomy of a well-written test case, the design techniques that maximize defect detection, and the common patterns that distinguish experienced QA engineers.",
   description: "The anatomy of a well-written test case, the design techniques that maximize defect detection, and the common patterns that distinguish experienced QA engine...",

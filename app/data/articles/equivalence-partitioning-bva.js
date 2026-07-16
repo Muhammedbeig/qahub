@@ -5,7 +5,7 @@ export const a24 = {
   catBg: "rgba(251,146,60,.08)",
   iconName: "Shield",
   iconColor: "#FB923C",
-  num: "24",
+  num: "25",
   title: "Equivalence Partitioning and Boundary Value Analysis: Practical Math and Logic (2026)",
   subtitle: "Systematic black-box test design: dividing input spaces into equivalent classes, calculating boundary points, and reducing test execution bloat.",
   description: "Systematic black-box test design: dividing input spaces into equivalent classes, calculating boundary points, and reducing test execution bloat.",

@@ -5,7 +5,7 @@ export const a15 = {
   catBg: "rgba(167,139,250,.08)",
   iconName: "Layers",
   iconColor: "#A78BFA",
-  num: "15",
+  num: "16",
   title: "Database Testing Guide: SQL Queries, Constraints, and Data Integrity (2026)",
   subtitle: "Ensuring backend data quality: validating database constraints, testing ACID transaction properties, and automating SQL query verifications.",
   description: "Ensuring backend data quality: validating database constraints, testing ACID transaction properties, and automating SQL query verifications.",

@@ -5,7 +5,7 @@ export const a13 = {
   catBg: "rgba(167,139,250,.08)",
   iconName: "Layers",
   iconColor: "#A78BFA",
-  num: "13",
+  num: "14",
   title: "API and Integration Testing: How to Validate REST Interfaces and JSON Schemas (2026)",
   subtitle: "A practical guide to backend testing: validating HTTP responses, asserting JSON schemas, and verifying integration seams between microservices.",
   description: "A practical guide to backend testing: validating HTTP responses, asserting JSON schemas, and verifying integration seams between microservices.",

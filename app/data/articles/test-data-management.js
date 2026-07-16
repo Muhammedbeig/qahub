@@ -5,7 +5,7 @@ export const a20 = {
   catBg: "rgba(252,211,77,.08)",
   iconName: "Zap",
   iconColor: "#FCD34D",
-  num: "20",
+  num: "21",
   title: "Test Data Management Strategy: Generating, Masking, and Storing QA Datasets (2026)",
   subtitle: "Safeguarding data privacy in non-production environments: data masking techniques, synthetic data generation, and automating database seeds.",
   description: "Safeguarding data privacy in non-production environments: data masking techniques, synthetic data generation, and automating database seeds.",

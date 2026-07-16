@@ -5,7 +5,7 @@ export const a16 = {
   catBg: "rgba(167,139,250,.08)",
   iconName: "Layers",
   iconColor: "#A78BFA",
-  num: "16",
+  num: "17",
   title: "Usability and Accessibility Testing: Designing and Auditing for WCAG Compliance (2026)",
   subtitle: "Auditing user experiences for everyone: understanding WCAG POUR principles, touch target limits, and automating accessibility scans.",
   description: "Auditing user experiences for everyone: understanding WCAG POUR principles, touch target limits, and automating accessibility scans.",

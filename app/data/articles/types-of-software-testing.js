@@ -5,7 +5,7 @@ export const a2 = {
   catBg: "rgba(167,139,250,.08)",
   iconName: "Layers",
   iconColor: "#A78BFA",
-  num: "02",
+  num: "03",
   title: "Types of Software Testing Explained: A Complete Guide to Functional and Non-Functional QA (2026)",
   subtitle: "From unit tests to user acceptance: a comprehensive map of the testing landscape, what each type catches, and when to apply them.",
   description: "From unit tests to user acceptance: a comprehensive map of the testing landscape, what each type catches, and when to apply them.",

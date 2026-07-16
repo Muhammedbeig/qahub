@@ -5,7 +5,7 @@ export const a1 = {
   catBg: "rgba(0,244,200,.08)",
   iconName: "BookOpen",
   iconColor: "#00F4C8",
-  num: "01",
+  num: "02",
   title: "What Is Software Testing Explained: Why Quality Matters and the Cost of Skipping QA (2026)",
   subtitle: "The foundation of quality engineering: why testing exists, what it costs to skip, and the principles that guide every skilled QA professional.",
   description: "The foundation of quality engineering: why testing exists, what it costs to skip, and the principles that guide every skilled QA professional.",

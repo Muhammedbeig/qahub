@@ -5,7 +5,7 @@ export const a21 = {
   catBg: "rgba(52,211,153,.08)",
   iconName: "Code",
   iconColor: "#34D399",
-  num: "21",
+  num: "22",
   title: "Behavior-Driven Development (BDD): Translating Specifications with Gherkin Syntax (2026)",
   subtitle: "Collaborating on quality: writing plain-English feature files, using Given-When-Then syntax, and automating checks with Cucumber.",
   description: "Collaborating on quality: writing plain-English feature files, using Given-When-Then syntax, and automating checks with Cucumber.",

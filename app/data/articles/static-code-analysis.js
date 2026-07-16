@@ -5,7 +5,7 @@ export const a28 = {
   catBg: "rgba(96,165,250,.08)",
   iconName: "Settings",
   iconColor: "#60A5FA",
-  num: "28",
+  num: "29",
   title: "Static Code Analysis and Linters: Preventing Defects Early (2026)",
   subtitle: "Build robust quality gates in your editor and pipelines: learn how static analysis, security linters, and SonarQube catch logic bugs before execution.",
   description: "Build robust quality gates in your editor and pipelines: learn how static analysis, security linters, and SonarQube catch logic bugs before execution.",

@@ -5,7 +5,7 @@ export const a26 = {
   catBg: "rgba(251,146,60,.08)",
   iconName: "Shield",
   iconColor: "#FB923C",
-  num: "26",
+  num: "27",
   title: "Mutation Testing: Evaluating Test Suite Quality by Injecting Faults (2026)",
   subtitle: "Move beyond simple line coverage: learn how mutation testing works, how to run Stryker or PIT, and how to measure test assertion strength.",
   description: "Move beyond simple line coverage: learn how mutation testing works, how to run Stryker or PIT, and how to measure test assertion strength.",

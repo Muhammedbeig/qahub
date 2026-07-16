@@ -5,7 +5,7 @@ export const a29 = {
   catBg: "rgba(249,115,22,.08)",
   iconName: "Bug",
   iconColor: "#F97316",
-  num: "29",
+  num: "30",
   title: "Defect Metrics and Analysis: Measuring Defect Density and Leakage (2026)",
   subtitle: "Optimize your QA processes with data: learn how to track defect density, leakage rates, removal efficiency, and design actionable dashboards.",
   description: "Optimize your QA processes with data: learn how to track defect density, leakage rates, removal efficiency, and design actionable dashboards.",

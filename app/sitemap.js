@@ -2,6 +2,7 @@ export default function sitemap() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://softwaretestingbasics.io';
 
   const articles = [
+    'software-testing-basics',
     'what-is-software-testing',
     'types-of-software-testing',
     'manual-vs-automated-testing',
@@ -36,7 +37,7 @@ export default function sitemap() {
 
   const articleEntries = articles.map((slug) => ({
     url: `${baseUrl}/articles/${slug}`,
-    lastModified: new Date('2026-05-30'),
+    lastModified: new Date(slug === 'software-testing-basics' ? '2026-07-17' : '2026-05-30'),
     changeFrequency: 'monthly',
     priority: 0.8,
   }));
@@ -44,7 +45,7 @@ export default function sitemap() {
   return [
     {
       url: baseUrl,
-      lastModified: new Date('2026-05-30'),
+      lastModified: new Date('2026-07-17'),
       changeFrequency: 'weekly',
       priority: 1.0,
     },

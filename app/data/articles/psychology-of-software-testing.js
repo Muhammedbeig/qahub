@@ -5,7 +5,7 @@ export const a12 = {
   catBg: "rgba(0,244,200,.08)",
   iconName: "BookOpen",
   iconColor: "#00F4C8",
-  num: "12",
+  num: "13",
   title: "The Psychology of Software Testing: Mindsets, Team Synergy, and Constructive QA (2026)",
   subtitle: "Understanding the psychological dynamics of quality engineering: adversarial mindsets, constructive communication, and building a shared quality culture.",
   description: "Understanding the psychological dynamics of quality engineering: adversarial mindsets, constructive communication, and building a shared quality culture.",

@@ -75,6 +75,7 @@ h2[id]{scroll-margin-top:100px}
 /* ─────────────────────────── PROSE ─────────────────────────── */
 .prose h2{font-family:var(--fD);font-size:clamp(20px,3.5vw,27px);font-weight:700;color:var(--txt);margin:2.5rem 0 1rem;letter-spacing:.4px;line-height:1.2}
 .prose h3{font-family:var(--fD);font-size:clamp(16px,2.5vw,19px);font-weight:600;color:var(--acc);margin:2rem 0 .75rem}
+.prose h4{font-family:var(--fD);font-size:clamp(15px,2vw,17px);font-weight:600;color:#B8B9D8;margin:1.5rem 0 .65rem;letter-spacing:.25px}
 .prose p{margin-bottom:1.25rem;color:#C8C5DD;font-size:clamp(15px,1.5vw,17px);line-height:1.85}
 .prose ul,.prose ol{margin:1rem 0 1.5rem 1.5rem}
 .prose li{margin-bottom:.65rem;color:#C8C5DD;font-size:clamp(15px,1.5vw,17px);line-height:1.75}
@@ -87,6 +88,10 @@ h2[id]{scroll-margin-top:100px}
 .prose td{padding:10px 14px;border:1px solid var(--bdr);color:#C8C5DD;vertical-align:top;line-height:1.6}
 .prose tr:nth-child(even) td{background:rgba(255,255,255,.015)}
 .prose tr:hover td{background:rgba(0,244,200,.022);transition:background .15s}
+
+.article-figure{margin:1.75rem 0 2.25rem;background:linear-gradient(145deg,rgba(12,13,32,.96),rgba(8,9,25,.96));border:1px solid rgba(0,244,200,.14);border-radius:14px;overflow:hidden;box-shadow:0 20px 55px rgba(0,0,0,.28)}
+.article-figure img{display:block;width:100%;height:auto;aspect-ratio:1672/941;object-fit:cover}
+.article-figure figcaption{padding:11px 15px 13px;border-top:1px solid var(--bdr);color:#8F90AE;font-size:12.5px;line-height:1.6;font-style:italic}
 
 /* ─────────────────────────── PROSE DIVIDER ─────────────────────────── */
 .prose-divider{height:1px;background:linear-gradient(90deg,transparent,var(--bdr),transparent);margin:2.5rem 0}

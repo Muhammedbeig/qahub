@@ -5,7 +5,7 @@ export const a3 = {
   catBg: "rgba(252,211,77,.08)",
   iconName: "Zap",
   iconColor: "#FCD34D",
-  num: "03",
+  num: "04",
   title: "Manual vs. Automated Testing Explained: How to Build a High-ROI Hybrid QA Strategy (2026)",
   subtitle: "Understanding when human judgment is irreplaceable and when automation delivers 10x returns, and how to build a hybrid strategy that leverages both.",
   description: "Understanding when human judgment is irreplaceable and when automation delivers 10x returns, and how to build a hybrid strategy that leverages both.",

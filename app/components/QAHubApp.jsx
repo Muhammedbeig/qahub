@@ -1,6 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, createElement } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 /* ─── Slugify helper for generating IDs from heading text ─── */
 function slugify(text) {
@@ -35,30 +37,55 @@ const NAV_ITEMS = [
   { label: "Practices", cat: "Best Practices", icon: Award },
 ];
 
+function renderInline(text) {
+  if (typeof text !== "string") return text;
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) =>
+    part.startsWith("**") && part.endsWith("**")
+      ? <strong key={index}>{part.slice(2, -2)}</strong>
+      : part
+  );
+}
+
 /* ─────────────────────────── CONTENT RENDERER ─────────────────────────── */
 function renderSection(sec, idx) {
   const key = idx;
   switch (sec.type) {
     case "lead":
-      return <p key={key} style={{ fontSize: "clamp(17px,2vw,20px)", color: "#D4D0E8", lineHeight: 1.8, marginBottom: "1.5rem", fontStyle: "italic", borderLeft: "3px solid var(--acc)", paddingLeft: "20px" }}>{sec.text}</p>;
+      return <p key={key} style={{ fontSize: "clamp(17px,2vw,20px)", color: "#D4D0E8", lineHeight: 1.8, marginBottom: "1.5rem", fontStyle: "italic", borderLeft: "3px solid var(--acc)", paddingLeft: "20px" }}>{renderInline(sec.text)}</p>;
     case "h2":
       return <h2 key={key} id={slugify(sec.text)}>{sec.text}</h2>;
     case "h3":
       return <h3 key={key}>{sec.text}</h3>;
+    case "h4":
+      return <h4 key={key}>{sec.text}</h4>;
     case "p":
-      return <p key={key}>{sec.text}</p>;
+      return <p key={key}>{renderInline(sec.text)}</p>;
     case "ul":
-      return <ul key={key}>{sec.items.map((it, i) => <li key={i}>{it}</li>)}</ul>;
+      return <ul key={key}>{sec.items.map((it, i) => <li key={i}>{renderInline(it)}</li>)}</ul>;
     case "ol":
-      return <ol key={key}>{sec.items.map((it, i) => <li key={i}>{it}</li>)}</ol>;
+      return <ol key={key}>{sec.items.map((it, i) => <li key={i}>{renderInline(it)}</li>)}</ol>;
     case "code":
       return <pre key={key}><code>{sec.code}</code></pre>;
     case "table":
       return (
         <table key={key}>
-          <thead><tr>{sec.headers.map((h, i) => <th key={i}>{h}</th>)}</tr></thead>
-          <tbody>{sec.rows.map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j}>{cell}</td>)}</tr>)}</tbody>
+          <thead><tr>{sec.headers.map((h, i) => <th key={i}>{renderInline(h)}</th>)}</tr></thead>
+          <tbody>{sec.rows.map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j}>{renderInline(cell)}</td>)}</tr>)}</tbody>
         </table>
+      );
+    case "image":
+      return (
+        <figure key={key} className="article-figure">
+          <Image
+            src={sec.src}
+            alt={sec.alt}
+            width={sec.width || 1672}
+            height={sec.height || 941}
+            sizes="(min-width: 1060px) 780px, calc(100vw - 40px)"
+            priority={sec.priority === true}
+          />
+          {sec.caption && <figcaption>{renderInline(sec.caption)}</figcaption>}
+        </figure>
       );
     case "callout": {
       const variants = {
@@ -298,9 +325,9 @@ function Header({ onNavigate, page, scrolled, onFilterCat }) {
 
         {/* Desktop CTA + Hamburger */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <a href="/articles/what-is-software-testing" className="btn-acc desktop-nav" style={{ padding: "9px 18px", fontSize: 13, gap: 6, display: "flex", alignItems: "center", textDecoration: "none" }}>
+          <Link href="/articles/software-testing-basics" className="btn-acc desktop-nav" style={{ padding: "9px 18px", fontSize: 13, gap: 6, display: "flex", alignItems: "center", textDecoration: "none" }}>
             Start Learning <ChevronRight size={14} />
-          </a>
+          </Link>
           {/* Hamburger — visible on mobile */}
           <button className={`hamburger${menuOpen ? " open" : ""}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" style={{ display: "flex" }}>
             <span /><span /><span />
@@ -326,13 +353,13 @@ function Header({ onNavigate, page, scrolled, onFilterCat }) {
             <a key={a.id} href={`/articles/${a.id}`} className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
               <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span style={{ fontFamily: "var(--fD)", fontSize: 11, color: a.catColor, fontWeight: 700, minWidth: 20 }}>{a.num}</span>
-                {a.title}
+                {a.cardTitle || a.title}
               </span>
             </a>
           ))}
-          <a href="/articles/what-is-software-testing" className="btn-acc" style={{ marginTop: 8, justifyContent: "center", padding: "11px 20px", fontSize: 13, display: "flex", alignItems: "center", textDecoration: "none" }}>
+          <Link href="/articles/software-testing-basics" className="btn-acc" style={{ marginTop: 8, justifyContent: "center", padding: "11px 20px", fontSize: 13, display: "flex", alignItems: "center", textDecoration: "none" }}>
             Start Learning <ChevronRight size={14} />
-          </a>
+          </Link>
         </div>
       </div>
     </header>
@@ -412,12 +439,12 @@ function Hero({ onNavigate }) {
               <span style={{ color: "transparent", fontStyle: "normal", background: "linear-gradient(120deg,#00F4C8 0%,#6366F1 48%,#F43F5E 100%)", WebkitBackgroundClip: "text", backgroundClip: "text" }}>Basics</span>
             </h1>
             <p className="au3" style={{ fontSize: "clamp(16px,2vw,19px)", color: "var(--muted)", maxWidth: 560, lineHeight: 1.7, marginBottom: 40 }}>
-              From first principles to professional practice, thirty comprehensive guides covering everything a modern QA engineer needs to build quality into every line of code.
+              Begin with Software Testing Basics, then continue through thirty supporting guides covering everything a modern QA engineer needs to build quality into every line of code.
             </p>
             <div className="au4" style={{ display: "flex", flexWrap: "wrap", gap: 14, marginBottom: 40 }}>
-              <a href="/articles/what-is-software-testing" className="btn-acc" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
+              <Link href="/articles/software-testing-basics" className="btn-acc" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
                 Start Learning <ChevronRight size={16} />
-              </a>
+              </Link>
               <button className="btn-out" onClick={() => document.getElementById("articles-section")?.scrollIntoView({ behavior: "smooth" })}>
                 Browse Topics <BarChart2 size={16} />
               </button>
@@ -438,7 +465,7 @@ function Hero({ onNavigate }) {
 
         {/* Stats row */}
         <div className="au5" style={{ display: "flex", flexWrap: "wrap", gap: 40, paddingTop: 40, marginTop: 40, borderTop: "1px solid var(--bdr)" }}>
-          {[["30", "Comprehensive Articles"], ["300+", "Minutes of Content"], ["150+", "Real Code Examples"], ["7", "Core Principles"]].map(([n, l]) => (
+          {[["31", "Comprehensive Articles"], ["300+", "Minutes of Content"], ["150+", "Real Code Examples"], ["7", "Core Principles"]].map(([n, l]) => (
             <div key={l}>
               <div className="stat-num">{n}</div>
               <div className="stat-lbl">{l}</div>
@@ -461,7 +488,6 @@ function Hero({ onNavigate }) {
 
 /* ─────────────────────────── ARTICLE CARD ─────────────────────────── */
 function ArticleCard({ article, idx }) {
-  const IconComp = getIconComponent(article.iconName);
   return (
     <a href={`/articles/${article.id}`} className={`card au${Math.min(idx + 1, 6)}`} style={{ cursor: "pointer", position: "relative", overflow: "hidden", textDecoration: "none", display: "block" }}>
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg,${article.catColor},transparent)` }} />
@@ -471,9 +497,9 @@ function ArticleCard({ article, idx }) {
           <span style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--muted2)", fontWeight: 700 }}>{article.num}</span>
         </div>
         <div style={{ width: 44, height: 44, borderRadius: 10, background: article.catBg, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
-          <IconComp size={22} color={article.catColor} />
+          {createElement(getIconComponent(article.iconName), { size: 22, color: article.catColor })}
         </div>
-        <h3 style={{ fontFamily: "var(--fD)", fontSize: "clamp(17px,2vw,20px)", fontWeight: 700, color: "var(--txt)", marginBottom: 10, lineHeight: 1.2, letterSpacing: ".3px" }}>{article.title}</h3>
+        <h3 style={{ fontFamily: "var(--fD)", fontSize: "clamp(17px,2vw,20px)", fontWeight: 700, color: "var(--txt)", marginBottom: 10, lineHeight: 1.2, letterSpacing: ".3px" }}>{article.cardTitle || article.title}</h3>
         <p style={{ fontSize: 13.5, color: "var(--muted)", lineHeight: 1.65, marginBottom: 20, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{article.subtitle}</p>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -496,7 +522,7 @@ function HomePage({ onNavigate, cat, setCat }) {
   const [q, setQ] = useState("");
   const filtered = ARTICLES.filter(a => {
     const catOk = cat === "All" || a.cat === cat;
-    const qOk = !q || a.title.toLowerCase().includes(q.toLowerCase()) || a.cat.toLowerCase().includes(q.toLowerCase()) || a.tags.some(t => t.toLowerCase().includes(q.toLowerCase()));
+    const qOk = !q || a.title.toLowerCase().includes(q.toLowerCase()) || (a.cardTitle || "").toLowerCase().includes(q.toLowerCase()) || a.cat.toLowerCase().includes(q.toLowerCase()) || a.tags.some(t => t.toLowerCase().includes(q.toLowerCase()));
     return catOk && qOk;
   });
   const allCats = ["All", ...[...new Set(ARTICLES.map(a => a.cat))]];
@@ -508,8 +534,8 @@ function HomePage({ onNavigate, cat, setCat }) {
           {/* Section header */}
           <div style={{ marginBottom: 40 }}>
             <p className="au1" style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 10 }}>— Learning Paths</p>
-            <h2 className="au2" style={{ fontFamily: "var(--fD)", fontWeight: 700, fontSize: "clamp(26px,4vw,40px)", letterSpacing: ".3px", marginBottom: 14 }}>All Articles</h2>
-            <p className="au3" style={{ color: "var(--muted)", fontSize: 15, maxWidth: 520 }}>Thirty comprehensive guides covering every essential aspect of software testing: from first principles to professional best practices.</p>
+            <h2 className="au2" style={{ fontFamily: "var(--fD)", fontWeight: 700, fontSize: "clamp(26px,4vw,40px)", letterSpacing: ".3px", marginBottom: 14 }}>Start Here</h2>
+            <p className="au3" style={{ color: "var(--muted)", fontSize: 15, maxWidth: 560 }}>Begin with Software Testing Basics, article 01 in a 31-part learning series that moves from first principles to professional QA practices.</p>
           </div>
           {/* Search */}
           <div className="au4 search-wrap" style={{ marginBottom: 24, maxWidth: 480 }}>
@@ -646,7 +672,7 @@ function ArticlePage({ article, onBack, onNavigate }) {
                 const next = ARTICLES[idx + 1];
                 return next ? (
                   <button onClick={() => onNavigate("article", next.id)} className="btn-acc" style={{ gap: 8 }}>
-                    Next: {next.title.split(":")[0]} <ChevronRight size={15} />
+                    Next: {(next.cardTitle || next.title).split(":")[0]} <ChevronRight size={15} />
                   </button>
                 ) : null;
               })()}
@@ -705,7 +731,7 @@ function ArticlePage({ article, onBack, onNavigate }) {
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <span className="tag" style={{ background: a.catBg, color: a.catColor, marginBottom: 6, display: "inline-flex" }}>{a.cat}</span>
-                    <p style={{ fontFamily: "var(--fD)", fontSize: 14, fontWeight: 600, color: "var(--txt)", lineHeight: 1.3, marginTop: 4 }}>{a.title}</p>
+                    <p style={{ fontFamily: "var(--fD)", fontSize: 14, fontWeight: 600, color: "var(--txt)", lineHeight: 1.3, marginTop: 4 }}>{a.cardTitle || a.title}</p>
                     <p style={{ fontSize: 12, color: "var(--muted)", marginTop: 6 }}>{a.readTime} read</p>
                   </div>
                   <ChevronRight size={15} color="var(--muted)" style={{ flexShrink: 0, marginTop: 4 }} />
@@ -737,19 +763,19 @@ function Footer({ onNavigate }) {
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Core Topics</p>
             {ARTICLES.slice(0, 5).map(a => (
-              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.title}</a>
+              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</a>
             ))}
           </div>
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Advanced Topics</p>
             {ARTICLES.slice(5).map(a => (
-              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.title}</a>
+              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</a>
             ))}
           </div>
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Categories</p>
             {["Fundamentals", "Testing Types", "Strategy", "Methodology", "Techniques", "Tools", "Lifecycle", "Process", "Performance", "Best Practices"].map(c => (
-              <a key={c} href="/" className="nav-btn" style={{ display: "block", marginBottom: 8, fontSize: 12, textDecoration: "none" }}>{c}</a>
+              <Link key={c} href="/" className="nav-btn" style={{ display: "block", marginBottom: 8, fontSize: 12, textDecoration: "none" }}>{c}</Link>
             ))}
           </div>
         </div>
