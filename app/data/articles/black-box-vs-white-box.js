@@ -5,7 +5,7 @@ export const a5 = {
   catBg: "rgba(251,146,60,.08)",
   iconName: "Shield",
   iconColor: "#FB923C",
-  num: "05",
+  num: "06",
   title: "Black Box vs. White Box Testing Explained: Techniques, Differences, and Coverage Metrics (2026)",
   subtitle: "Two fundamental testing perspectives: and the powerful grey-box hybrid: with the techniques, coverage criteria, and use cases for each.",
   description: "Two fundamental testing perspectives: and the powerful grey-box hybrid: with the techniques, coverage criteria, and use cases for each.",

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowLeft, ChevronRight, Clock, Hash, CheckCircle,
   BookOpen, Code, Zap, Shield, Settings, Bug, FileText,
@@ -18,29 +20,54 @@ function slugify(text) {
     .replace(/^-|-$/g, "");
 }
 
+function renderInline(text) {
+  if (typeof text !== "string") return text;
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) =>
+    part.startsWith("**") && part.endsWith("**")
+      ? <strong key={index}>{part.slice(2, -2)}</strong>
+      : part
+  );
+}
+
 function renderSection(sec, idx) {
   const key = idx;
   switch (sec.type) {
     case "lead":
-      return <p key={key} style={{ fontSize: "clamp(17px,2vw,20px)", color: "#D4D0E8", lineHeight: 1.8, marginBottom: "1.5rem", fontStyle: "italic", borderLeft: "3px solid var(--acc)", paddingLeft: "20px" }}>{sec.text}</p>;
+      return <p key={key} style={{ fontSize: "clamp(17px,2vw,20px)", color: "#D4D0E8", lineHeight: 1.8, marginBottom: "1.5rem", fontStyle: "italic", borderLeft: "3px solid var(--acc)", paddingLeft: "20px" }}>{renderInline(sec.text)}</p>;
     case "h2":
       return <h2 key={key} id={slugify(sec.text)}>{sec.text}</h2>;
     case "h3":
       return <h3 key={key}>{sec.text}</h3>;
+    case "h4":
+      return <h4 key={key}>{sec.text}</h4>;
     case "p":
-      return <p key={key}>{sec.text}</p>;
+      return <p key={key}>{renderInline(sec.text)}</p>;
     case "ul":
-      return <ul key={key}>{sec.items.map((it, i) => <li key={i}>{it}</li>)}</ul>;
+      return <ul key={key}>{sec.items.map((it, i) => <li key={i}>{renderInline(it)}</li>)}</ul>;
     case "ol":
-      return <ol key={key}>{sec.items.map((it, i) => <li key={i}>{it}</li>)}</ol>;
+      return <ol key={key}>{sec.items.map((it, i) => <li key={i}>{renderInline(it)}</li>)}</ol>;
     case "code":
       return <pre key={key}><code>{sec.code}</code></pre>;
     case "table":
       return (
         <table key={key}>
-          <thead><tr>{sec.headers.map((h, i) => <th key={i}>{h}</th>)}</tr></thead>
-          <tbody>{sec.rows.map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j}>{cell}</td>)}</tr>)}</tbody>
+          <thead><tr>{sec.headers.map((h, i) => <th key={i}>{renderInline(h)}</th>)}</tr></thead>
+          <tbody>{sec.rows.map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j}>{renderInline(cell)}</td>)}</tr>)}</tbody>
         </table>
+      );
+    case "image":
+      return (
+        <figure key={key} className="article-figure">
+          <Image
+            src={sec.src}
+            alt={sec.alt}
+            width={sec.width || 1672}
+            height={sec.height || 941}
+            sizes="(min-width: 1060px) 780px, calc(100vw - 40px)"
+            priority={sec.priority === true}
+          />
+          {sec.caption && <figcaption>{renderInline(sec.caption)}</figcaption>}
+        </figure>
       );
     case "callout": {
       const variants = {
@@ -70,7 +97,7 @@ function ArticleHeader({ scrolled }) {
   return (
     <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 80, transition: "all .3s", background: scrolled || menuOpen ? "rgba(6,7,18,.94)" : "rgba(6,7,18,.6)", backdropFilter: "blur(20px)", borderBottom: `1px solid ${scrolled || menuOpen ? "rgba(0,244,200,.12)" : "transparent"}` }}>
       <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 66 }}>
-        <a href="/" className="nav-btn" style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 17, color: "var(--txt)", letterSpacing: ".3px", textDecoration: "none" }}>
+        <Link href="/" className="nav-btn" style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 17, color: "var(--txt)", letterSpacing: ".3px", textDecoration: "none" }}>
           <span style={{ width: 32, height: 32, borderRadius: 8, background: "var(--acc)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <CheckCircle size={18} color="#000" />
           </span>
@@ -78,7 +105,7 @@ function ArticleHeader({ scrolled }) {
             <span style={{ fontFamily: "var(--fD)", fontWeight: 700, display: "block" }}>Testing<span style={{ color: "var(--acc)" }}>Basics</span></span>
             <span style={{ fontFamily: "var(--fM)", fontSize: 9, color: "var(--muted)", letterSpacing: ".06em", textTransform: "uppercase" }}>software guide</span>
           </div>
-        </a>
+        </Link>
 
         <nav className="desktop-nav" style={{ gap: 4 }}>
           {NAV_ITEMS.map(item => {
@@ -92,9 +119,9 @@ function ArticleHeader({ scrolled }) {
         </nav>
 
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <a href="/articles/what-is-software-testing" className="btn-acc desktop-nav" style={{ padding: "9px 18px", fontSize: 13, gap: 6, display: "flex", alignItems: "center", textDecoration: "none" }}>
+          <Link href="/articles/software-testing-basics" className="btn-acc desktop-nav" style={{ padding: "9px 18px", fontSize: 13, gap: 6, display: "flex", alignItems: "center", textDecoration: "none" }}>
             Start Learning <ChevronRight size={14} />
-          </a>
+          </Link>
           <button className={`hamburger${menuOpen ? " open" : ""}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" style={{ display: "flex" }}>
             <span /><span /><span />
           </button>
@@ -106,11 +133,11 @@ function ArticleHeader({ scrolled }) {
           {NAV_ITEMS.map(item => {
             const Icon = item.icon;
             return (
-              <a key={item.cat} href="/" className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
+              <Link key={item.cat} href="/" className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
                 <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <Icon size={14} color="var(--acc)" /> {item.label}
                 </span>
-              </a>
+              </Link>
             );
           })}
           <div style={{ borderTop: "1px solid var(--bdr)", margin: "8px 0" }} />
@@ -118,13 +145,13 @@ function ArticleHeader({ scrolled }) {
             <a key={a.id} href={`/articles/${a.id}`} className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
               <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span style={{ fontFamily: "var(--fD)", fontSize: 11, color: a.catColor, fontWeight: 700, minWidth: 20 }}>{a.num}</span>
-                {a.title}
+                {a.cardTitle || a.title}
               </span>
             </a>
           ))}
-          <a href="/articles/what-is-software-testing" className="btn-acc" style={{ marginTop: 8, justifyContent: "center", padding: "11px 20px", fontSize: 13, display: "flex", alignItems: "center", textDecoration: "none" }}>
+          <Link href="/articles/software-testing-basics" className="btn-acc" style={{ marginTop: 8, justifyContent: "center", padding: "11px 20px", fontSize: 13, display: "flex", alignItems: "center", textDecoration: "none" }}>
             Start Learning <ChevronRight size={14} />
-          </a>
+          </Link>
         </div>
       </div>
     </header>
@@ -148,19 +175,19 @@ function ArticleFooter() {
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Core Topics</p>
             {ARTICLES.slice(0, 5).map(a => (
-              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.title}</a>
+              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</a>
             ))}
           </div>
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Advanced Topics</p>
             {ARTICLES.slice(5).map(a => (
-              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.title}</a>
+              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</a>
             ))}
           </div>
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Categories</p>
             {["Fundamentals", "Testing Types", "Strategy", "Methodology", "Techniques", "Tools", "Lifecycle", "Process", "Performance", "Best Practices"].map(c => (
-              <a key={c} href="/" className="nav-btn" style={{ display: "block", marginBottom: 8, fontSize: 12, textDecoration: "none" }}>{c}</a>
+              <Link key={c} href="/" className="nav-btn" style={{ display: "block", marginBottom: 8, fontSize: 12, textDecoration: "none" }}>{c}</Link>
             ))}
           </div>
         </div>
@@ -200,10 +227,10 @@ function MobileBottomNav() {
         {NAV_ITEMS.map(item => {
           const Icon = item.icon;
           return (
-            <a key={item.cat} href="/" className="mobile-nav-item" style={{ textDecoration: "none" }}>
+            <Link key={item.cat} href="/" className="mobile-nav-item" style={{ textDecoration: "none" }}>
               <span className="mobile-nav-icon"><Icon size={20} color="var(--muted)" /></span>
               <span className="mobile-nav-label" style={{ color: "var(--muted)" }}>{item.label}</span>
-            </a>
+            </Link>
           );
         })}
       </div>
@@ -281,9 +308,9 @@ export default function ArticleView({ article }) {
           <div className="orb" style={{ width: 300, height: 300, background: article.catColor, top: "-10%", right: "-5%", opacity: .06, filter: "blur(60px)" }} />
           <div className="container">
             <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 28, flexWrap: "wrap" }}>
-              <a href="/" className="btn-out" style={{ padding: "9px 14px", gap: 6, fontSize: 13, display: "flex", alignItems: "center", textDecoration: "none" }}>
+              <Link href="/" className="btn-out" style={{ padding: "9px 14px", gap: 6, fontSize: 13, display: "flex", alignItems: "center", textDecoration: "none" }}>
                 <ArrowLeft size={14} /> All Articles
-              </a>
+              </Link>
               <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "var(--muted)" }}>
                 <span>Software Testing</span>
                 <ChevronRight size={12} />
@@ -317,7 +344,7 @@ export default function ArticleView({ article }) {
               <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 60, paddingTop: 32, borderTop: "1px solid var(--bdr)" }}>
                 {next && (
                   <a href={`/articles/${next.id}`} className="btn-acc" style={{ gap: 8, display: "flex", alignItems: "center", textDecoration: "none" }}>
-                    Next: {next.title.split(":")[0]} <ChevronRight size={15} />
+                    Next: {(next.cardTitle || next.title).split(":")[0]} <ChevronRight size={15} />
                   </a>
                 )}
               </div>
@@ -367,7 +394,7 @@ export default function ArticleView({ article }) {
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <span className="tag" style={{ background: a.catBg, color: a.catColor, marginBottom: 6, display: "inline-flex" }}>{a.cat}</span>
-                      <p style={{ fontFamily: "var(--fD)", fontSize: 14, fontWeight: 600, color: "var(--txt)", lineHeight: 1.3, marginTop: 4 }}>{a.title}</p>
+                      <p style={{ fontFamily: "var(--fD)", fontSize: 14, fontWeight: 600, color: "var(--txt)", lineHeight: 1.3, marginTop: 4 }}>{a.cardTitle || a.title}</p>
                       <p style={{ fontSize: 12, color: "var(--muted)", marginTop: 6 }}>{a.readTime} read</p>
                     </div>
                     <ChevronRight size={15} color="var(--muted)" style={{ flexShrink: 0, marginTop: 4 }} />

@@ -5,7 +5,7 @@ export const a10 = {
   catBg: "rgba(74,222,128,.08)",
   iconName: "Award",
   iconColor: "#4ADE80",
-  num: "10",
+  num: "11",
   title: "Testing Best Practices & Anti-Patterns: Lessons from High-Performing QA Teams (2026)",
   subtitle: "The principles, mental models, and culture shifts that separate world-class quality engineering teams from those perpetually fighting fires in production.",
   description: "The principles, mental models, and culture shifts that separate world-class quality engineering teams from those perpetually fighting fires in production.",

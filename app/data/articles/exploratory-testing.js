@@ -5,7 +5,7 @@ export const a22 = {
   catBg: "rgba(52,211,153,.08)",
   iconName: "Code",
   iconColor: "#34D399",
-  num: "22",
+  num: "23",
   title: "Exploratory Testing: Session-Based Testing Charters and Finding Unscripted Bugs (2026)",
   subtitle: "Unscripted QA excellence: implementing session-based test management (SBTM), drafting test charters, and logging exploratory bugs.",
   description: "Unscripted QA excellence: implementing session-based test management (SBTM), drafting test charters, and logging exploratory bugs.",

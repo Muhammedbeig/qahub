@@ -5,7 +5,7 @@ export const a6 = {
   catBg: "rgba(96,165,250,.08)",
   iconName: "Settings",
   iconColor: "#60A5FA",
-  num: "06",
+  num: "07",
   title: "Testing Tools & Frameworks Explained: Choosing Your Unit, E2E, and API QA Stack (2026)",
   subtitle: "The definitive guide to the modern testing toolchain: from unit testing frameworks to end-to-end automation, API testing, and performance tools.",
   description: "The definitive guide to the modern testing toolchain: from unit testing frameworks to end-to-end automation, API testing, and performance tools.",

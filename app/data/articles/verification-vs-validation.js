@@ -5,7 +5,7 @@ export const a11 = {
   catBg: "rgba(0,244,200,.08)",
   iconName: "BookOpen",
   iconColor: "#00F4C8",
-  num: "11",
+  num: "12",
   title: "Verification vs. Validation Explained: Are We Building the Product Right? (2026)",
   subtitle: "Aligning specifications and user value: how static checks and dynamic validation work together to ensure high-quality software delivery.",
   description: "Aligning specifications and user value: how static checks and dynamic validation work together to ensure high-quality software delivery.",

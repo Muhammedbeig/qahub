@@ -5,7 +5,7 @@ export const a25 = {
   catBg: "rgba(251,146,60,.08)",
   iconName: "Shield",
   iconColor: "#FB923C",
-  num: "25",
+  num: "26",
   title: "Decision Tables and State Transition Testing: Modeling Complex Business Rules (2026)",
   subtitle: "Master two essential black-box testing techniques to systematically verify combinatorial logic systems and history-dependent state machines.",
   description: "Master two essential black-box testing techniques to systematically verify combinatorial logic systems and history-dependent state machines.",

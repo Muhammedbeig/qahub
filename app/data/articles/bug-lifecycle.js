@@ -5,7 +5,7 @@ export const a7 = {
   catBg: "rgba(249,115,22,.08)",
   iconName: "Bug",
   iconColor: "#F97316",
-  num: "07",
+  num: "08",
   title: "The Bug Lifecycle Explained: From Discovery to Closure with Severity vs. Priority (2026)",
   subtitle: "From first discovery to final closure: the stages every defect moves through, severity vs. priority, what makes a great bug report, and how teams track it all.",
   description: "From first discovery to final closure: the stages every defect moves through, severity vs. priority, what makes a great bug report, and how teams track it all.",

@@ -5,7 +5,7 @@ export const a27 = {
   catBg: "rgba(96,165,250,.08)",
   iconName: "Settings",
   iconColor: "#60A5FA",
-  num: "27",
+  num: "28",
   title: "Cypress vs. Playwright: The Ultimate Modern E2E Testing Tool Comparison (2026)",
   subtitle: "Choose the right end-to-end framework: compare browser architectures, parallel execution, execution speeds, and debugging toolchains.",
   description: "Choose the right end-to-end framework: compare browser architectures, parallel execution, execution speeds, and debugging toolchains.",

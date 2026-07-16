@@ -5,7 +5,7 @@ export const a30 = {
   catBg: "rgba(244,63,94,.08)",
   iconName: "FileText",
   iconColor: "#F43F5E",
-  num: "30",
+  num: "31",
   title: "The Three Amigos and Story Refinement: Collaborative Quality Design (2026)",
   subtitle: "Shift quality to the requirements phase: learn how product owners, developers, and testers collaborate to refine user stories before coding.",
   description: "Shift quality to the requirements phase: learn how product owners, developers, and testers collaborate to refine user stories before coding.",

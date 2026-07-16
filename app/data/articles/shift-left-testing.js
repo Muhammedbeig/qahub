@@ -5,7 +5,7 @@ export const a18 = {
   catBg: "rgba(252,211,77,.08)",
   iconName: "Zap",
   iconColor: "#FCD34D",
-  num: "18",
+  num: "19",
   title: "Shift-Left Testing: How to Integrate Quality Assurance at the Requirements Phase (2026)",
   subtitle: "Catching bugs before coding: the economics of early QA involvement, auditing user stories for quality gaps, and running Three Amigos sessions.",
   description: "Catching bugs before coding: the economics of early QA involvement, auditing user stories for quality gaps, and running Three Amigos sessions.",

@@ -5,7 +5,7 @@ export const a17 = {
   catBg: "rgba(167,139,250,.08)",
   iconName: "Layers",
   iconColor: "#A78BFA",
-  num: "17",
+  num: "18",
   title: "Mobile Application Testing: Real Devices, Emulators, and Gestures Explained (2026)",
   subtitle: "Auditing software on the move: comparing device virtualization options, testing hardware interruptions, and verifying touch inputs.",
   description: "Auditing software on the move: comparing device virtualization options, testing hardware interruptions, and verifying touch inputs.",

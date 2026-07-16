@@ -14,8 +14,12 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const article = ARTICLES.find((a) => a.id === slug);
   if (!article) return {};
+  const metadataTitle = article.seoTitle || article.title;
+  const images = article.heroImage
+    ? [{ url: article.heroImage, width: 1672, height: 941, alt: article.title }]
+    : undefined;
   return {
-    title: article.title,
+    title: metadataTitle,
     description: article.description,
     authors: [{ name: SITE_NAME, url: SITE_URL }],
     alternates: { canonical: `${SITE_URL}/articles/${slug}` },
@@ -23,14 +27,16 @@ export async function generateMetadata({ params }) {
       type: "article",
       url: `${SITE_URL}/articles/${slug}`,
       siteName: SITE_NAME,
-      title: article.title,
+      title: metadataTitle,
       description: article.description,
+      images,
     },
     twitter: {
       card: "summary_large_image",
-      title: article.title,
+      title: metadataTitle,
       description: article.description,
       creator: "@swtestingbasics",
+      images,
     },
   };
 }
@@ -58,6 +64,7 @@ export default async function ArticlePageRoute({ params }) {
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/articles/${slug}` },
     inLanguage: "en",
     isAccessibleForFree: true,
+    ...(article.heroImage ? { image: `${SITE_URL}${article.heroImage}` } : {}),
   };
 
   const faqJsonLd =

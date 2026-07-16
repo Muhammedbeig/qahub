@@ -5,7 +5,7 @@ export const a14 = {
   catBg: "rgba(167,139,250,.08)",
   iconName: "Layers",
   iconColor: "#A78BFA",
-  num: "14",
+  num: "15",
   title: "Security Testing Essentials: OWASP Top 10 and Penetration Testing (2026)",
   subtitle: "An introduction to software security: testing for injection vulnerabilities, configuring secure authentication, and running static code scanners.",
   description: "An introduction to software security: testing for injection vulnerabilities, configuring secure authentication, and running static code scanners.",

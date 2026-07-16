@@ -5,7 +5,7 @@ export const a19 = {
   catBg: "rgba(252,211,77,.08)",
   iconName: "Zap",
   iconColor: "#FCD34D",
-  num: "19",
+  num: "20",
   title: "Continuous Testing in CI/CD: Building Automated Quality Pipelines (2026)",
   subtitle: "Integrating testing into DevOps: defining quality gates, automating pipeline checks, and managing build times in Github Actions.",
   description: "Integrating testing into DevOps: defining quality gates, automating pipeline checks, and managing build times in Github Actions.",

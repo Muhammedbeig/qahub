@@ -112,7 +112,7 @@ const educationalJsonLd = {
   "@context": "https://schema.org",
   "@type": "LearningResource",
   name: "Software Testing Basics — Complete Beginner's Guide",
-  description: "A comprehensive 30-article series covering all essential aspects of software testing, from basic QA principles to advanced automation strategies.",
+  description: "A comprehensive 31-article series covering all essential aspects of software testing, from basic QA principles to advanced automation strategies.",
   provider: {
     "@type": "Organization",
     name: SITE_NAME,

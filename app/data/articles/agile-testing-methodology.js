@@ -5,7 +5,7 @@ export const a23 = {
   catBg: "rgba(52,211,153,.08)",
   iconName: "Code",
   iconColor: "#34D399",
-  num: "23",
+  num: "24",
   title: "Agile Testing Methodology: Quality Engineering in Scrum and Kanban Frameworks (2026)",
   subtitle: "Integrating QA into fast-paced agile teams: analyzing testing quadrants, defining sprint gates, and evolving the role of the Agile Quality Coach.",
   description: "Integrating QA into fast-paced agile teams: analyzing testing quadrants, defining sprint gates, and evolving the role of the Agile Quality Coach.",
