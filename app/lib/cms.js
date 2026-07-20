@@ -4,8 +4,7 @@ import snapshot from "@/app/data/cms-articles.json";
 
 const SITE_ACCENT = "#00F4C8";
 const PRODUCTION_CMS_API = "https://panel.softwaretestingbasics.io/api";
-const FETCH_TIMEOUT_MS = Number(process.env.CMS_FETCH_TIMEOUT_MS || 5000);
-const REVALIDATE_SECONDS = Number(process.env.CMS_REVALIDATE_SECONDS || 60);
+const FETCH_TIMEOUT_MS = Number(process.env.CMS_FETCH_TIMEOUT_MS || 3000);
 const snapshotBySlug = new Map(snapshot.articles.flatMap((article) => [
   [article.slug, article],
   ...(article.sourceSlug && article.sourceSlug !== article.slug ? [[article.sourceSlug, article]] : []),
@@ -31,11 +30,8 @@ async function fetchCms(path) {
           Accept: "application/json",
           "User-Agent": "softwaretestingbasics-website/1.0",
         },
+        cache: "no-store",
         signal: controller.signal,
-        next: {
-          revalidate: Number.isFinite(REVALIDATE_SECONDS) ? REVALIDATE_SECONDS : 60,
-          tags: ["software-testing-cms"],
-        },
       });
       if (!response.ok) continue;
       return await response.json();
