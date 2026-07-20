@@ -1,18 +1,18 @@
-import { ARTICLES } from "@/app/data/articles";
 import { notFound } from "next/navigation";
 import ArticleView from "@/app/components/ArticleView";
-import { extractFAQs } from "@/app/lib/extractFAQs";
+import { getArticle, getArticles } from "@/app/lib/cms";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://softwaretestingbasics.io";
 const SITE_NAME = "Software Testing Basics";
 
 export async function generateStaticParams() {
-  return ARTICLES.map((a) => ({ slug: a.id }));
+  const articles = await getArticles();
+  return articles.map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const article = ARTICLES.find((a) => a.id === slug);
+  const article = await getArticle(slug);
   if (!article) return {};
   const metadataTitle = article.seoTitle || article.title;
   const images = article.heroImage
@@ -21,7 +21,9 @@ export async function generateMetadata({ params }) {
   return {
     title: metadataTitle,
     description: article.description,
-    authors: [{ name: SITE_NAME, url: SITE_URL }],
+    authors: article.author
+      ? [{ name: article.author.name, url: article.author.website_url || SITE_URL }]
+      : [{ name: SITE_NAME, url: SITE_URL }],
     alternates: { canonical: `${SITE_URL}/articles/${slug}` },
     openGraph: {
       type: "article",
@@ -43,17 +45,23 @@ export async function generateMetadata({ params }) {
 
 export default async function ArticlePageRoute({ params }) {
   const { slug } = await params;
-  const article = ARTICLES.find((a) => a.id === slug);
+  const [article, articles] = await Promise.all([getArticle(slug), getArticles()]);
   if (!article) notFound();
 
-  const faqs = extractFAQs(article.sections);
+  const faqs = article.faqs || [];
 
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
     description: article.description,
-    author: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+    author: article.author
+      ? {
+          "@type": "Person",
+          name: article.author.name,
+          url: article.author.website_url || SITE_URL,
+        }
+      : { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
@@ -64,6 +72,8 @@ export default async function ArticlePageRoute({ params }) {
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/articles/${slug}` },
     inLanguage: "en",
     isAccessibleForFree: true,
+    ...(article.publishedAt ? { datePublished: article.publishedAt } : {}),
+    ...(article.updatedOn ? { dateModified: article.updatedOn } : {}),
     ...(article.heroImage ? { image: `${SITE_URL}${article.heroImage}` } : {}),
   };
 
@@ -72,10 +82,13 @@ export default async function ArticlePageRoute({ params }) {
       ? {
           "@context": "https://schema.org",
           "@type": "FAQPage",
-          mainEntity: faqs.map(({ q, a }) => ({
+          mainEntity: faqs.filter((faq) => faq.includeInSchema !== false).map((faq) => ({
             "@type": "Question",
-            name: q,
-            acceptedAnswer: { "@type": "Answer", text: a },
+            name: faq.schemaQuestion || faq.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: faq.schemaAnswer || faq.answer.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim(),
+            },
           })),
         }
       : null;
@@ -92,7 +105,7 @@ export default async function ArticlePageRoute({ params }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       )}
-      <ArticleView article={article} />
+      <ArticleView article={article} articles={articles} />
     </>
   );
 }

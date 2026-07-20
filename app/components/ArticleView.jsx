@@ -91,7 +91,7 @@ const NAV_ITEMS = [
   { label: "Practices", cat: "Best Practices", icon: Award },
 ];
 
-function ArticleHeader({ scrolled }) {
+function ArticleHeader({ scrolled, articles }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -141,7 +141,7 @@ function ArticleHeader({ scrolled }) {
             );
           })}
           <div style={{ borderTop: "1px solid var(--bdr)", margin: "8px 0" }} />
-          {ARTICLES.map(a => (
+          {articles.map(a => (
             <a key={a.id} href={`/articles/${a.id}`} className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
               <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span style={{ fontFamily: "var(--fD)", fontSize: 11, color: a.catColor, fontWeight: 700, minWidth: 20 }}>{a.num}</span>
@@ -158,7 +158,7 @@ function ArticleHeader({ scrolled }) {
   );
 }
 
-function ArticleFooter() {
+function ArticleFooter({ articles }) {
   return (
     <footer style={{ background: "var(--bg2)", borderTop: "1px solid var(--bdr)", padding: "60px 0 40px" }}>
       <div className="container">
@@ -174,13 +174,13 @@ function ArticleFooter() {
           </div>
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Core Topics</p>
-            {ARTICLES.slice(0, 5).map(a => (
+            {articles.slice(0, 5).map(a => (
               <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</a>
             ))}
           </div>
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Advanced Topics</p>
-            {ARTICLES.slice(5).map(a => (
+            {articles.slice(5).map(a => (
               <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</a>
             ))}
           </div>
@@ -238,7 +238,65 @@ function MobileBottomNav() {
   );
 }
 
-export default function ArticleView({ article }) {
+function AuthorIdentity({ author }) {
+  const avatar = author?.avatar_url || author?.avatar;
+  const content = (
+    <>
+      <span className="contributor-avatar" aria-hidden={avatar ? undefined : true}>
+        {avatar ? (
+          <Image src={avatar} alt={author.name} width={46} height={46} loading="lazy" unoptimized />
+        ) : (
+          author.name.charAt(0).toUpperCase()
+        )}
+      </span>
+      <span className="contributor-copy">
+        <strong>{author.name}</strong>
+        {author.role && <span>{author.role}</span>}
+        {author.bio && <small>{author.bio}</small>}
+      </span>
+    </>
+  );
+
+  return author.website_url ? (
+    <a className="contributor-identity" href={author.website_url} target="_blank" rel="noopener noreferrer">
+      {content}
+    </a>
+  ) : (
+    <div className="contributor-identity">{content}</div>
+  );
+}
+
+function ContributorGroup({ label, authors }) {
+  if (!authors?.length) return null;
+  return (
+    <div className="contributor-group">
+      <p>{label}</p>
+      <div className="contributor-list">
+        {authors.map((author) => <AuthorIdentity key={author.id || author.slug} author={author} />)}
+      </div>
+    </div>
+  );
+}
+
+function ArticleContributors({ article }) {
+  const hasContributors = article.author
+    || article.additionalAuthors?.length
+    || article.reviewers?.length
+    || article.editors?.length;
+  if (!hasContributors) return null;
+
+  return (
+    <section className="contributors-panel" aria-labelledby="about-contributors">
+      <h2 id="about-contributors">About the Contributors</h2>
+      {article.author && <ContributorGroup label="Written by" authors={[article.author]} />}
+      <ContributorGroup label="Co-Authors" authors={article.additionalAuthors} />
+      <ContributorGroup label="Reviewed by" authors={article.reviewers} />
+      <ContributorGroup label="Edited by" authors={article.editors} />
+    </section>
+  );
+}
+
+export default function ArticleView({ article, articles = ARTICLES }) {
   const [progress, setProgress] = useState(0);
   const [activeTocId, setActiveTocId] = useState("");
   const [scrolled, setScrolled] = useState(false);
@@ -291,14 +349,14 @@ export default function ArticleView({ article }) {
   }, []);
 
   const IconComp = getIconComponent(article.iconName);
-  const idx = ARTICLES.findIndex(a => a.id === article.id);
-  const next = ARTICLES[idx + 1];
-  const relatedArticles = ARTICLES.filter(a => a.id !== article.id).slice(0, 4);
+  const idx = articles.findIndex(a => a.id === article.id);
+  const next = articles[idx + 1];
+  const relatedArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <a href="#main-content" className="skip-link">Skip to main content</a>
-      <ArticleHeader scrolled={scrolled} />
+      <ArticleHeader scrolled={scrolled} articles={articles} />
 
       <div className="progress-bar" style={{ width: `${progress}%` }} />
 
@@ -339,8 +397,13 @@ export default function ArticleView({ article }) {
           <div className="article-2col">
             <article>
               <div className="prose">
-                {article.sections.map((sec, i) => renderSection(sec, i))}
+                {article.content ? (
+                  <div className="cms-rich-content" dangerouslySetInnerHTML={{ __html: article.content }} />
+                ) : (
+                  article.sections?.map((sec, i) => renderSection(sec, i))
+                )}
               </div>
+              <ArticleContributors article={article} />
               <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 60, paddingTop: 32, borderTop: "1px solid var(--bdr)" }}>
                 {next && (
                   <a href={`/articles/${next.id}`} className="btn-acc" style={{ gap: 8, display: "flex", alignItems: "center", textDecoration: "none" }}>
@@ -406,7 +469,7 @@ export default function ArticleView({ article }) {
         </div>
       </main>
 
-      <ArticleFooter />
+      <ArticleFooter articles={articles} />
       <MobileBottomNav />
     </div>
   );
