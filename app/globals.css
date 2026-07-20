@@ -128,6 +128,31 @@ a.contributor-identity:hover .contributor-copy strong{color:var(--acc)}
 .contributor-copy>span{font-family:var(--fM);font-size:11px;color:var(--muted);line-height:1.5}
 .contributor-copy small{margin-top:4px;font-size:12.5px;color:#8585A2;line-height:1.6}
 
+.article-date-metadata{display:grid;gap:8px;margin-top:20px;font-family:var(--fM);font-size:12px;color:var(--muted)}
+.article-date-metadata p{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:0}
+.article-date-metadata strong{color:#8F90AE;font-weight:500}
+.article-date-metadata a{color:var(--acc);text-decoration:none}
+.article-date-metadata a:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* Numbered sources share the reference site's hover, focus, and jump behavior. */
+.cms-rich-content .citation-cluster{display:inline-flex;align-items:flex-start;gap:.15rem;margin-left:.18rem;vertical-align:super}
+.cms-rich-content .citation-ref{position:relative;display:inline-flex;color:#7AA7FF;font-family:var(--fM);font-size:.68em;font-weight:700;line-height:1;text-decoration:none}
+.cms-rich-content .citation-ref sup{line-height:1}
+.cms-rich-content .citation-ref:hover,.cms-rich-content .citation-ref:focus-visible{color:var(--acc);text-decoration:none}
+.cms-rich-content .citation-popover{pointer-events:none;position:absolute;left:50%;bottom:calc(100% + .55rem);z-index:30;display:none;width:min(320px,78vw);transform:translateX(-50%);border:1px solid #C9CEDA;background:#F7F8FB;box-shadow:0 12px 32px rgba(0,0,0,.32);color:#1F2430;font-family:Arial,sans-serif;font-size:.78rem;font-weight:400;line-height:1.45;padding:.72rem .82rem;text-align:left;white-space:normal}
+.cms-rich-content .citation-popover::after{content:"";position:absolute;left:50%;top:100%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#F7F8FB}
+.cms-rich-content .citation-popover-title{display:block;margin-bottom:.25rem;color:#545B66;font-family:var(--fM);font-size:.66rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.cms-rich-content .citation-ref:hover .citation-popover,.cms-rich-content .citation-ref:focus-visible .citation-popover{display:block;pointer-events:auto}
+.cms-rich-content .citation-ref:hover .citation-popover::before,.cms-rich-content .citation-ref:focus-visible .citation-popover::before{content:"";position:absolute;top:100%;left:-10%;width:120%;height:1rem}
+.cms-rich-content .citation-popover-link{pointer-events:auto;display:inline-flex;margin-top:.45rem;color:#4A7DFF;font-family:var(--fM);font-size:.68rem;font-weight:700;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.cms-rich-content .citation-popover-link:hover{color:#7AA7FF}
+.cms-rich-content .article-sources{margin-top:3rem;border-top:1px solid var(--bdr);padding-top:1.5rem}
+.cms-rich-content .article-sources ol{list-style:decimal outside;margin-left:1.5rem}
+.cms-rich-content .article-sources li,.cms-rich-content [id^="source-"]{scroll-margin-top:112px}
+.cms-rich-content .article-sources li{padding-left:.15rem}
+.cms-rich-content .article-sources p{margin:.25rem 0;font-size:.85rem;line-height:1.65}
+.cms-rich-content .article-sources li:target{border-radius:6px;background:rgba(0,244,200,.08);box-shadow:0 0 0 5px rgba(0,244,200,.08)}
+
 /* ─────────────────────────── GRIDS ─────────────────────────── */
 .articles-grid{display:grid;grid-template-columns:1fr;gap:20px}
 @media(min-width:580px){.articles-grid{grid-template-columns:repeat(2,1fr)}}
@@ -170,10 +195,27 @@ a.contributor-identity:hover .contributor-copy strong{color:var(--acc)}
 .stat-lbl{font-size:11.5px;color:var(--muted);letter-spacing:.5px;margin-top:4px;text-transform:uppercase}
 
 /* ─────────────────────────── TOC SIDEBAR ─────────────────────────── */
+.article-2col>article{min-width:0}
+.toc-aside{display:block;margin-bottom:32px}
+.article-toc-panel{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:20px}
+.article-toc-title{font-family:var(--fD);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--acc);margin:0 0 14px}
+.article-toc-link{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-left:2px solid transparent;border-radius:6px;margin-bottom:2px;text-decoration:none;cursor:pointer;transition:background .2s ease,border-color .2s ease}
+.article-toc-link:hover{background:rgba(0,244,200,.05)}
+.article-toc-link.active{background:rgba(0,244,200,.08);border-left-color:var(--acc)}
+.article-toc-number{min-width:18px;margin-top:2px;color:var(--muted2);font-family:var(--fD);font-size:11px;transition:color .2s ease}
+.article-toc-label{color:var(--muted);font-size:13px;line-height:1.5;transition:color .2s ease}
+.article-toc-link.active .article-toc-number{color:var(--acc)}
+.article-toc-link.active .article-toc-label{color:var(--txt);font-weight:600}
 @media(min-width:1060px){
   .article-2col{display:grid;grid-template-columns:1fr 220px;gap:56px;align-items:start}
+  .article-2col>article{grid-column:1;grid-row:1}
+  .toc-aside{grid-column:2;grid-row:1;margin-bottom:0}
   .toc-sticky{position:sticky;top:100px}
-  .toc-aside{display:block !important}
+}
+
+@media(max-width:520px){
+  .cms-rich-content .citation-popover{position:fixed;left:16px;right:16px;bottom:76px;width:auto;transform:none}
+  .cms-rich-content .citation-popover::after{display:none}
 }
 
 /* ─────────────────────────── BUTTONS ─────────────────────────── */

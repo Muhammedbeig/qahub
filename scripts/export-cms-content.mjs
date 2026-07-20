@@ -28,6 +28,7 @@ const authors = {
     bio: "Muhammad Baig is a software engineer who reviews testing guidance, automation examples, technical claims, and practical QA workflows for correctness and reproducibility.",
     avatar: null,
     avatar_url: null,
+    website_url: "https://www.linkedin.com/in/muhammedbeig/",
   },
   reviewer: {
     id: 2,
@@ -37,6 +38,7 @@ const authors = {
     bio: "Imdad Ullah Khan holds a Ph.D. in Computer Science from Rutgers University and evaluates technical material for accuracy, depth, methodological soundness, and intellectual honesty.",
     avatar: null,
     avatar_url: null,
+    website_url: "https://www.linkedin.com/in/imdadk/",
   },
   editor: {
     id: 3,
@@ -46,6 +48,7 @@ const authors = {
     bio: "Muhammad Furquan is a qualified barrister who reviews published material for copyright, compliance, consumer-protection, and digital-publishing concerns.",
     avatar: null,
     avatar_url: null,
+    website_url: "https://www.linkedin.com/in/muhammad-furquan-baig-52bb01305/",
   },
 };
 
@@ -69,9 +72,26 @@ function slugify(value) {
     .replace(/-+/g, "-");
 }
 
-function renderInline(value) {
+function normalizeSourceUrl(value) {
+  return String(value || "").trim().replace(/\/$/, "");
+}
+
+function citationReference(source) {
+  if (!source) return "";
+
+  return `<span class="citation-cluster"><a class="citation-ref" href="#source-${source.number}"><sup>[${source.number}]</sup><span class="citation-popover"><span class="citation-popover-title">Source ${source.number}</span>${escapeHtml(source.citation)}<span class="citation-popover-link" data-href="${escapeHtml(source.url)}">View source ↗</span></span></a></span>`;
+}
+
+function renderInline(value, sources = []) {
+  const sourcesByUrl = new Map(sources.map((source) => [normalizeSourceUrl(source.url), source]));
+
   return escapeHtml(value)
-    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (_match, label, url) => {
+      const decodedUrl = url.replaceAll("&amp;", "&");
+      const source = sourcesByUrl.get(normalizeSourceUrl(decodedUrl));
+      if (source) return `${label}${citationReference(source)}`;
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+    })
     .replace(/`([^`]+)`/g, "<code>$1</code>")
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/\*([^*]+)\*/g, "<em>$1</em>");
@@ -136,7 +156,7 @@ function startsBlock(lines, index) {
     || (line.trim().startsWith("|") && isTableDivider(next));
 }
 
-function markdownBodyToHtml(lines) {
+function markdownBodyToHtml(lines, sources = []) {
   const html = [];
   const headingIds = new Map();
 
@@ -151,7 +171,7 @@ function markdownBodyToHtml(lines) {
     if (heading) {
       const level = heading[1].length;
       const text = heading[2].trim();
-      html.push(`<h${level} id="${uniqueHeadingId(text, headingIds)}">${renderInline(text)}</h${level}>`);
+      html.push(`<h${level} id="${uniqueHeadingId(text, headingIds)}">${renderInline(text, sources)}</h${level}>`);
       index += 1;
       continue;
     }
@@ -177,7 +197,7 @@ function markdownBodyToHtml(lines) {
         rows.push(tableCells(lines[index]));
         index += 1;
       }
-      html.push(`<div class="table-scroll"><table><thead><tr>${headers.map((cell) => `<th>${renderInline(cell)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${renderInline(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`);
+      html.push(`<div class="table-scroll"><table><thead><tr>${headers.map((cell) => `<th>${renderInline(cell, sources)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${renderInline(cell, sources)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`);
       continue;
     }
 
@@ -192,7 +212,7 @@ function markdownBodyToHtml(lines) {
         index += 1;
       }
       const tag = ordered ? "ol" : "ul";
-      html.push(`<${tag}>${items.map((item) => `<li>${renderInline(item)}</li>`).join("")}</${tag}>`);
+      html.push(`<${tag}>${items.map((item) => `<li>${renderInline(item, sources)}</li>`).join("")}</${tag}>`);
       continue;
     }
 
@@ -202,7 +222,7 @@ function markdownBodyToHtml(lines) {
         quote.push(lines[index].replace(/^>\s?/, ""));
         index += 1;
       }
-      html.push(`<blockquote><p>${renderInline(quote.join(" "))}</p></blockquote>`);
+      html.push(`<blockquote><p>${renderInline(quote.join(" "), sources)}</p></blockquote>`);
       continue;
     }
 
@@ -212,13 +232,57 @@ function markdownBodyToHtml(lines) {
       paragraph.push(lines[index].trim());
       index += 1;
     }
-    html.push(`<p>${renderInline(paragraph.join(" "))}</p>`);
+    html.push(`<p>${renderInline(paragraph.join(" "), sources)}</p>`);
   }
 
   return html.join("\n");
 }
 
-function extractMarkdownFaqs(lines) {
+function sourceCitation(markdown) {
+  return String(markdown || "")
+    .replace(/\[([^\]]+)\]\(https?:\/\/[^\s)]+\)/g, "$1")
+    .replace(/[`*_]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractMarkdownSources(lines) {
+  const sourceStart = lines.findIndex((line) => /^##\s+(?:Authoritative\s+)?Sources\s*$/i.test(line.trim()));
+  if (sourceStart < 0) return { contentLines: lines, heading: "Sources", sources: [] };
+
+  let sourceEnd = lines.length;
+  for (let index = sourceStart + 1; index < lines.length; index += 1) {
+    if (/^##\s+/.test(lines[index])) {
+      sourceEnd = index;
+      break;
+    }
+  }
+
+  const sources = lines
+    .slice(sourceStart + 1, sourceEnd)
+    .map((line) => line.match(/^\s*(?:[-*]|\d+\.)\s+(.*?\[([^\]]+)\]\((https?:\/\/[^\s)]+)\).*?)\s*$/))
+    .filter(Boolean)
+    .map((match, index) => ({
+      number: index + 1,
+      markdown: match[1].trim(),
+      citation: sourceCitation(match[1]),
+      url: match[3],
+    }));
+
+  return {
+    contentLines: [...lines.slice(0, sourceStart), ...lines.slice(sourceEnd)],
+    heading: lines[sourceStart].replace(/^##\s+/, "").trim(),
+    sources,
+  };
+}
+
+function renderSourcesSection(heading, sources) {
+  if (!sources.length) return "";
+
+  return `<section class="article-sources"><h2 id="${slugify(heading)}">${escapeHtml(heading)}</h2><ol>${sources.map((source) => `<li id="source-${source.number}"><p>${renderInline(source.markdown)}</p></li>`).join("")}</ol></section>`;
+}
+
+function extractMarkdownFaqs(lines, sources = []) {
   const faqStart = lines.findIndex((line) => /^##\s+Frequently Asked Questions\s*$/i.test(line.trim()));
   if (faqStart < 0) return [];
 
@@ -239,7 +303,7 @@ function extractMarkdownFaqs(lines) {
     }
     faqs.push({
       question: question[1].trim(),
-      answer: markdownBodyToHtml(answerLines),
+      answer: markdownBodyToHtml(answerLines, sources),
       sortOrder: faqs.length,
       includeInSchema: true,
     });
@@ -261,7 +325,11 @@ function markdownArticle(filePath) {
   if (titleIndex < 0) throw new Error(`No H1 title found in ${filePath}`);
   const title = lines[titleIndex].replace(/^#\s+/, "").trim();
   const bodyLines = lines.slice(titleIndex + 1);
-  const content = markdownBodyToHtml(bodyLines);
+  const sourceData = extractMarkdownSources(bodyLines);
+  const content = [
+    markdownBodyToHtml(sourceData.contentLines, sourceData.sources),
+    renderSourcesSection(sourceData.heading, sourceData.sources),
+  ].filter(Boolean).join("\n");
   const toc = bodyLines
     .filter((line) => /^##\s+/.test(line))
     .map((line) => line.replace(/^##\s+/, "").trim());
@@ -274,7 +342,7 @@ function markdownArticle(filePath) {
     sourceSlug: metadata["url slug"]?.replace(/^\//, "").replace(/\/$/, ""),
     content,
     toc,
-    faqs: extractMarkdownFaqs(bodyLines),
+    faqs: extractMarkdownFaqs(bodyLines, sourceData.sources),
   };
 }
 
@@ -343,6 +411,7 @@ function articleRecord(article) {
     updatedOn: override ? "2026-07-20" : (article.id === "software-testing-basics" ? "2026-07-17" : "2026-05-30"),
     isFeatured: article.id === "software-testing-basics",
     author: authors.primary,
+    updatedBy: authors.reviewer,
     additionalAuthors: [],
     reviewers: [authors.reviewer],
     editors: [authors.editor],

@@ -10,6 +10,8 @@ import {
   BarChart2, Menu, X
 } from "lucide-react";
 import { ARTICLES, getIconComponent } from "@/app/data/articles";
+import ArticleTableOfContents from "@/app/components/article/ArticleTableOfContents";
+import CmsArticleContent from "@/app/components/article/CmsArticleContent";
 
 function slugify(text) {
   return text
@@ -18,6 +20,19 @@ function slugify(text) {
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");
+}
+
+function formatArticleDate(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(date);
 }
 
 function renderInline(text) {
@@ -389,16 +404,46 @@ export default function ArticleView({ article, articles = ARTICLES }) {
                 <span key={t} className="tag" style={{ background: "rgba(255,255,255,.05)", color: "var(--muted)", border: "1px solid var(--bdr)" }}><Hash size={10} style={{ marginRight: 3 }} />{t}</span>
               ))}
             </div>
+            {(article.publishedAt || article.updatedOn || article.updatedBy) && (
+              <div className="article-date-metadata">
+                {article.publishedAt && (
+                  <p>
+                    <span>{formatArticleDate(article.publishedAt)}</span>
+                    <span aria-hidden="true">·</span>
+                    <span>{article.readTime} read</span>
+                  </p>
+                )}
+                {(article.updatedOn || article.updatedBy) && (
+                  <p>
+                    {article.updatedOn && <span><strong>Updated on:</strong> {formatArticleDate(article.updatedOn)}</span>}
+                    {article.updatedBy && (
+                      <span>
+                        <strong>Updated by:</strong>{" "}
+                        {article.updatedBy.website_url ? (
+                          <a href={article.updatedBy.website_url} target="_blank" rel="noopener noreferrer">{article.updatedBy.name}</a>
+                        ) : article.updatedBy.name}
+                      </span>
+                    )}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
         {/* Content */}
         <div className="container" style={{ padding: "60px 20px" }} ref={contentRef}>
           <div className="article-2col">
+            <ArticleTableOfContents
+              items={article.toc}
+              activeId={activeTocId}
+              slugify={slugify}
+              onSelect={scrollToSection}
+            />
             <article>
               <div className="prose">
                 {article.content ? (
-                  <div className="cms-rich-content" dangerouslySetInnerHTML={{ __html: article.content }} />
+                  <CmsArticleContent html={article.content} />
                 ) : (
                   article.sections?.map((sec, i) => renderSection(sec, i))
                 )}
@@ -413,34 +458,6 @@ export default function ArticleView({ article, articles = ARTICLES }) {
               </div>
             </article>
 
-            {article.toc && (
-              <aside className="toc-sticky toc-aside" style={{ display: "none" }}>
-                <nav style={{ background: "var(--bg2)", border: "1px solid var(--bdr)", borderRadius: "var(--r)", padding: "20px" }}>
-                  <p style={{ fontFamily: "var(--fD)", fontSize: 11, letterSpacing: "1px", textTransform: "uppercase", color: "var(--acc)", marginBottom: 14 }}>On This Page</p>
-                  {article.toc.map((item, i) => {
-                    const tocSlug = slugify(item);
-                    const isActive = activeTocId === tocSlug;
-                    return (
-                      <a
-                        key={i}
-                        href={`#${tocSlug}`}
-                        onClick={(e) => { e.preventDefault(); scrollToSection(tocSlug); }}
-                        style={{
-                          display: "flex", alignItems: "flex-start", gap: 8, padding: "8px 10px",
-                          borderRadius: 6, marginBottom: 2, textDecoration: "none", cursor: "pointer",
-                          transition: "all .2s ease",
-                          background: isActive ? "rgba(99,102,241,.1)" : "transparent",
-                          borderLeft: isActive ? "2px solid var(--acc)" : "2px solid transparent",
-                        }}
-                      >
-                        <span style={{ fontFamily: "var(--fD)", fontSize: 11, minWidth: 18, marginTop: 2, color: isActive ? "var(--acc)" : "var(--muted2)", transition: "color .2s ease" }}>{String(i + 1).padStart(2, "0")}</span>
-                        <span style={{ fontSize: 13, lineHeight: 1.5, color: isActive ? "var(--txt)" : "var(--muted)", fontWeight: isActive ? 600 : 400, transition: "color .2s ease, font-weight .2s ease" }}>{item}</span>
-                      </a>
-                    );
-                  })}
-                </nav>
-              </aside>
-            )}
           </div>
 
           {/* Related articles */}

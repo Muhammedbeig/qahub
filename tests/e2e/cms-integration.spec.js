@@ -6,7 +6,7 @@ function watchLocalFailures(page) {
   const failures = [];
   page.on("pageerror", (error) => failures.push(`pageerror: ${error.stack || error.message}`));
   page.on("response", (response) => {
-    if (/127\.0\.0\.1:(3000|8000)/.test(response.url()) && response.status() >= 400) {
+    if (/127\.0\.0\.1:(3000|3001|8000)/.test(response.url()) && response.status() >= 400) {
       failures.push(`${response.status()} ${response.url()}`);
     }
   });
@@ -33,15 +33,28 @@ test("updated tools article keeps the site theme, tables, TOC, and contributors"
 
   await expect(page.getByRole("heading", { level: 1, name: "Best Automation Testing Tools" })).toBeVisible();
   await expect(page.locator(".cms-rich-content table")).toHaveCount(2);
-  await expect(page.locator(".toc-aside a")).toHaveCount(12);
+  await expect(page.locator(".toc-aside a")).toHaveCount(13);
+  await expect(page.locator(".cms-rich-content .citation-ref")).toHaveCount(22);
+  await expect(page.locator(".cms-rich-content .article-sources li")).toHaveCount(19);
+  await expect(page.getByRole("heading", { name: "Authoritative Sources" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "About the Contributors" })).toBeVisible();
   await expect(page.getByText("Muhammad Baig", { exact: true })).toBeVisible();
-  await expect(page.getByText("Imdad Ullah Khan, Ph.D.", { exact: true })).toBeVisible();
+  await expect(page.locator(".article-date-metadata").getByRole("link", { name: "Imdad Ullah Khan, Ph.D." })).toHaveAttribute(
+    "href",
+    "https://www.linkedin.com/in/imdadk/",
+  );
   await expect(page.getByText("Muhammad Furquan", { exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "How We Use Playwright in Agentic Engineering Tasks" })).toBeVisible();
 
   const accent = await page.locator(".cms-rich-content h3").first().evaluate((element) => getComputedStyle(element).color);
   expect(accent).toBe("rgb(0, 244, 200)");
+
+  const firstCitation = page.locator(".cms-rich-content .citation-ref").first();
+  await firstCitation.hover();
+  await expect(firstCitation.locator(".citation-popover")).toBeVisible();
+  await expect(firstCitation.locator(".citation-popover-link")).toHaveText("View source ↗");
+  await firstCitation.click();
+  await expect(page).toHaveURL(/#source-\d+$/);
   expect(failures).toEqual([]);
 });
 
@@ -51,7 +64,9 @@ test("full testing-types replacement renders sources, links, FAQs, and wide tabl
 
   await expect(page.getByRole("heading", { level: 1, name: "Types of Software Tests: Methods, Levels, Techniques, and Examples" })).toBeVisible();
   await expect(page.locator(".cms-rich-content table")).toHaveCount(15);
-  await expect(page.locator('.cms-rich-content a[href^="https://"]')).toHaveCount(9);
+  await expect(page.locator('.cms-rich-content a[href^="https://"]')).toHaveCount(5);
+  await expect(page.locator(".cms-rich-content .citation-ref")).toHaveCount(5);
+  await expect(page.locator(".cms-rich-content .article-sources li")).toHaveCount(5);
   await expect(page.getByRole("heading", { name: "Authoritative Sources" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Frequently Asked Questions" })).toBeVisible();
 
@@ -59,6 +74,8 @@ test("full testing-types replacement renders sources, links, FAQs, and wide tabl
   await expect(owaspLink).toHaveAttribute("target", "_blank");
   await expect(owaspLink).toHaveAttribute("rel", "noopener noreferrer");
   await expect(page.locator('#software-testing-basics-a-quick-definition')).toHaveCount(1);
+  await expect(page.getByText("Updated by:")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Imdad Ullah Khan, Ph.D." }).first()).toHaveAttribute("href", "https://www.linkedin.com/in/imdadk/");
   expect(failures).toEqual([]);
 });
 
@@ -66,6 +83,16 @@ test("mobile article navigation and table containment do not change the layout",
   const failures = watchLocalFailures(page);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/articles/types-of-software-testing", { waitUntil: "networkidle" });
+
+  const mobileToc = page.locator(".toc-aside");
+  await expect(mobileToc).toBeVisible();
+  await expect(mobileToc.locator("a")).toHaveCount(21);
+  const articleOrder = await page.evaluate(() => {
+    const toc = document.querySelector(".toc-aside");
+    const article = document.querySelector(".article-2col > article");
+    return toc && article ? toc.getBoundingClientRect().top < article.getBoundingClientRect().top : false;
+  });
+  expect(articleOrder).toBe(true);
 
   await page.locator(".hamburger").click();
   await expect(page.locator(".mobile-dropdown.open")).toBeVisible();
@@ -103,7 +130,7 @@ test("admin can log in and edit the imported rich article with connected authors
   const editorFrame = page.frameLocator(".tox-edit-area iframe").first();
   await expect(editorFrame.locator("body")).toBeVisible({ timeout: 15_000 });
   await expect(editorFrame.locator("table")).toHaveCount(15);
-  await expect(editorFrame.locator('a[href*="owasp.org"]')).toHaveCount(2);
+  await expect(editorFrame.locator('a[href*="owasp.org"]')).toHaveCount(1);
   await expect(page.locator("#preset-attribute-color")).toHaveValue("#00f4c8");
   await expect(page.locator('select[name="author_id"] option')).toHaveCount(4);
   expect(failures).toEqual([]);
