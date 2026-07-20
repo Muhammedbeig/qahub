@@ -5,6 +5,8 @@ import { getArticle, getArticles } from "@/app/lib/cms";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://softwaretestingbasics.io";
 const SITE_NAME = "Software Testing Basics";
 
+export const revalidate = 0;
+
 export async function generateStaticParams() {
   const articles = await getArticles();
   return articles.map((article) => ({ slug: article.slug }));
