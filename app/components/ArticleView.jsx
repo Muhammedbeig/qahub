@@ -22,19 +22,6 @@ function slugify(text) {
     .replace(/^-|-$/g, "");
 }
 
-function formatArticleDate(value) {
-  if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return String(value);
-
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(date);
-}
-
 function renderInline(text) {
   if (typeof text !== "string") return text;
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) =>
@@ -408,14 +395,14 @@ export default function ArticleView({ article, articles = ARTICLES }) {
               <div className="article-date-metadata">
                 {article.publishedAt && (
                   <p>
-                    <span>{formatArticleDate(article.publishedAt)}</span>
+                    <span>{article.publishedLabel}</span>
                     <span aria-hidden="true">·</span>
                     <span>{article.readTime} read</span>
                   </p>
                 )}
                 {(article.updatedOn || article.updatedBy) && (
                   <p>
-                    {article.updatedOn && <span><strong>Updated on:</strong> {formatArticleDate(article.updatedOn)}</span>}
+                    {article.updatedOn && <span><strong>Updated on:</strong> {article.updatedLabel}</span>}
                     {article.updatedBy && (
                       <span>
                         <strong>Updated by:</strong>{" "}

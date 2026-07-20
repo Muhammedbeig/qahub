@@ -62,6 +62,19 @@ function decodeText(value) {
     .trim();
 }
 
+function formatArticleDate(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+}
+
 function slugify(value) {
   return decodeText(value)
     .toLowerCase()
@@ -158,7 +171,9 @@ function normalizeArticle(raw, includeContent = false, index = 0) {
     faqs: includeContent ? normalizeFaqs(raw.faqs?.length ? raw.faqs : fallback.faqs) : [],
     date: raw.date || fallback.date || "",
     publishedAt: raw.publishedAt || raw.published_at || fallback.publishedAt || null,
+    publishedLabel: formatArticleDate(raw.publishedAt || raw.published_at || fallback.publishedAt),
     updatedOn: raw.updatedOn || raw.updated_on || fallback.updatedOn || null,
+    updatedLabel: formatArticleDate(raw.updatedOn || raw.updated_on || fallback.updatedOn),
     isFeatured: Boolean(raw.isFeatured ?? raw.featured ?? fallback.isFeatured),
     author: normalizeAuthor(raw.author || fallback.author),
     updatedBy: normalizeAuthor(raw.updatedBy || raw.updated_by || fallback.updatedBy),
