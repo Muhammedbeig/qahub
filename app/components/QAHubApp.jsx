@@ -281,7 +281,7 @@ function TestDashboardVisual() {
 }
 
 /* ─────────────────────────── HEADER ─────────────────────────── */
-function Header({ onNavigate, page, scrolled, onFilterCat }) {
+function Header({ onNavigate, page, scrolled, onFilterCat, articles }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const close = () => setMenuOpen(false);
 
@@ -349,7 +349,7 @@ function Header({ onNavigate, page, scrolled, onFilterCat }) {
             );
           })}
           <div style={{ borderTop: "1px solid var(--bdr)", margin: "8px 0" }} />
-          {ARTICLES.map(a => (
+          {articles.map(a => (
             <a key={a.id} href={`/articles/${a.id}`} className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
               <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span style={{ fontFamily: "var(--fD)", fontSize: 11, color: a.catColor, fontWeight: 700, minWidth: 20 }}>{a.num}</span>
@@ -518,14 +518,14 @@ function ArticleCard({ article, idx }) {
 }
 
 /* ─────────────────────────── HOME PAGE ─────────────────────────── */
-function HomePage({ onNavigate, cat, setCat }) {
+function HomePage({ onNavigate, cat, setCat, articles }) {
   const [q, setQ] = useState("");
-  const filtered = ARTICLES.filter(a => {
+  const filtered = articles.filter(a => {
     const catOk = cat === "All" || a.cat === cat;
     const qOk = !q || a.title.toLowerCase().includes(q.toLowerCase()) || (a.cardTitle || "").toLowerCase().includes(q.toLowerCase()) || a.cat.toLowerCase().includes(q.toLowerCase()) || a.tags.some(t => t.toLowerCase().includes(q.toLowerCase()));
     return catOk && qOk;
   });
-  const allCats = ["All", ...[...new Set(ARTICLES.map(a => a.cat))]];
+  const allCats = ["All", ...[...new Set(articles.map(a => a.cat))]];
   return (
     <>
       <Hero onNavigate={onNavigate} />
@@ -746,7 +746,7 @@ function ArticlePage({ article, onBack, onNavigate }) {
 }
 
 /* ─────────────────────────── FOOTER ─────────────────────────── */
-function Footer({ onNavigate }) {
+function Footer({ onNavigate, articles }) {
   return (
     <footer style={{ background: "var(--bg2)", borderTop: "1px solid var(--bdr)", padding: "60px 0 40px" }}>
       <div className="container">
@@ -762,13 +762,13 @@ function Footer({ onNavigate }) {
           </div>
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Core Topics</p>
-            {ARTICLES.slice(0, 5).map(a => (
+            {articles.slice(0, 5).map(a => (
               <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</a>
             ))}
           </div>
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Advanced Topics</p>
-            {ARTICLES.slice(5).map(a => (
+            {articles.slice(5).map(a => (
               <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</a>
             ))}
           </div>
@@ -793,7 +793,7 @@ function Footer({ onNavigate }) {
 }
 
 /* ─────────────────────────── MAIN APP ─────────────────────────── */
-export default function QAHubApp() {
+export default function QAHubApp({ articles = ARTICLES }) {
   const [scrolled, setScrolled] = useState(false);
   const [cat, setCat] = useState("All");
 
@@ -811,11 +811,11 @@ export default function QAHubApp() {
           This website requires JavaScript to function. Please enable JavaScript in your browser settings.
         </div>
       </noscript>
-      <Header onNavigate={() => {}} page="home" scrolled={scrolled} onFilterCat={setCat} />
+      <Header onNavigate={() => {}} page="home" scrolled={scrolled} onFilterCat={setCat} articles={articles} />
       <main id="main-content" style={{ flex: 1 }} role="main">
-        <HomePage onNavigate={() => {}} cat={cat} setCat={setCat} />
+        <HomePage onNavigate={() => {}} cat={cat} setCat={setCat} articles={articles} />
       </main>
-      <Footer onNavigate={() => {}} />
+      <Footer onNavigate={() => {}} articles={articles} />
       <MobileBottomNav onNavigate={() => {}} onFilterCat={setCat} />
     </div>
   );

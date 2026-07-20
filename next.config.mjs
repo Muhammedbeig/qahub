@@ -4,6 +4,15 @@ const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
 
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "softwaretestingbasics.io" },
+      { protocol: "https", hostname: "panel.softwaretestingbasics.io" },
+      { protocol: "http", hostname: "127.0.0.1" },
+      { protocol: "http", hostname: "localhost" },
+    ],
+  },
+
   async headers() {
     return [
       {

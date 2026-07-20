@@ -2,11 +2,14 @@
   "name": "qahub-software-testing-basics",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "export:cms": "node scripts/export-cms-content.mjs",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "lucide-react": "^0.511.0",
@@ -15,6 +18,7 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.6"
   }
