@@ -4,7 +4,7 @@ import snapshot from "@/app/data/cms-articles.json";
 
 const SITE_ACCENT = "#00F4C8";
 const PRODUCTION_CMS_API = "https://panel.softwaretestingbasics.io/api";
-const FETCH_TIMEOUT_MS = Number(process.env.CMS_FETCH_TIMEOUT_MS || 3000);
+const FETCH_TIMEOUT_MS = Number(process.env.CMS_FETCH_TIMEOUT_MS || 10000);
 let activeCmsOrigin = null;
 const snapshotBySlug = new Map(snapshot.articles.flatMap((article) => [
   [article.slug, article],
