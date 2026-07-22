@@ -1,5 +1,7 @@
 import { Oswald, Source_Serif_4, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import articleSnapshot from "@/app/data/cms-articles.json";
+import SiteShell from "@/app/components/site/SiteShell";
 import { DEFAULT_SOCIAL_IMAGE, serializeJsonLd, SITE_NAME, SITE_URL } from "@/app/lib/site";
 
 const oswald = Oswald({
@@ -25,6 +27,16 @@ const jetbrainsMono = JetBrains_Mono({
 
 const SITE_TITLE = "Software Testing Basics: Complete Beginner's Guide (2026)";
 const SITE_DESC = "Learn software testing basics from scratch. Covers types of testing, test cases, QA fundamentals & tools. The only guide beginners need in 2026.";
+const INITIAL_HEADER_ARTICLES = articleSnapshot.articles
+  .map((article, index) => ({
+    id: article.slug,
+    title: article.title,
+    cardTitle: article.cardTitle || article.title,
+    catColor: article.catColor || "#00F4C8",
+    sortOrder: Number(article.sortOrder ?? index + 1),
+  }))
+  .sort((left, right) => left.sortOrder - right.sortOrder);
+
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -125,7 +137,9 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(websiteJsonLd) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <SiteShell initialArticles={INITIAL_HEADER_ARTICLES}>{children}</SiteShell>
+      </body>
     </html>
   );
 }

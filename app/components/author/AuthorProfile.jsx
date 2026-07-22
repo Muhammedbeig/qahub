@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { CheckCircle, Clock, ExternalLink } from "lucide-react";
+import { Clock, ExternalLink } from "lucide-react";
 import { authorSameAs } from "@/app/lib/site";
 
 function linkLabel(url) {
@@ -17,17 +17,7 @@ export default function AuthorProfile({ author }) {
 
   return (
     <div className="author-page-shell">
-      <header className="author-site-header">
-        <div className="container author-site-header-inner">
-          <Link href="/" className="author-brand" aria-label="Software Testing Basics home">
-            <span className="author-brand-mark"><CheckCircle size={18} /></span>
-            <span>Testing<strong>Basics</strong></span>
-          </Link>
-          <Link href="/#articles-section" className="btn-out author-header-link">All Articles</Link>
-        </div>
-      </header>
-
-      <main>
+      <main id="main-content">
         <section className="author-profile-hero">
           <div className="orb author-profile-orb" />
           <div className="container author-profile-hero-inner">

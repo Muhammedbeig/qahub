@@ -1,4 +1,3 @@
-import LoadingHeader from "@/app/components/loading/LoadingHeader";
 import SkeletonBlock from "@/app/components/loading/SkeletonBlock";
 
 function DashboardSkeleton() {
@@ -24,7 +23,6 @@ export default function HomePageSkeleton() {
   return (
     <div className="route-skeleton" data-route-loading="home">
       <p className="sr-only" role="status">Loading the Software Testing Basics homepage.</p>
-      <LoadingHeader />
       <main>
         <section className="skeleton-home-hero">
           <div className="orb skeleton-orb-one" />

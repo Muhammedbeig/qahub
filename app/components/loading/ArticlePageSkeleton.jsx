@@ -1,4 +1,3 @@
-import LoadingHeader from "@/app/components/loading/LoadingHeader";
 import SkeletonBlock from "@/app/components/loading/SkeletonBlock";
 
 function TocSkeleton({ className = "" }) {
@@ -16,7 +15,6 @@ export default function ArticlePageSkeleton() {
   return (
     <div className="route-skeleton" data-route-loading="article">
       <p className="sr-only" role="status">Loading article.</p>
-      <LoadingHeader />
       <main className="skeleton-article-main">
         <section className="skeleton-article-hero">
           <div className="container">

@@ -159,6 +159,32 @@ test("CMS author profile is an on-site destination with ProfilePage schema", asy
   expect(failures).toEqual([]);
 });
 
+test("shared header stays mounted while route content is loading", async ({ page }) => {
+  await page.goto("/articles/testing-tools-frameworks", { waitUntil: "networkidle" });
+
+  const header = page.locator("[data-site-header]");
+  await expect(header).toBeVisible();
+  await header.evaluate((element) => element.setAttribute("data-persistence-check", "mounted"));
+
+  await page.route("**/authors/muhammad-baig?*", async (route) => {
+    if (new URL(route.request().url()).searchParams.has("_rsc")) {
+      await new Promise((resolve) => setTimeout(resolve, 800));
+    }
+    await route.continue();
+  });
+
+  await page.getByRole("link", { name: /Muhammad Baig/ }).first().evaluate((element) => element.click());
+
+  await expect(page.locator('[data-route-loading="author"]')).toBeVisible();
+  await expect(header).toHaveAttribute("data-persistence-check", "mounted");
+  await expect(header.locator(".skeleton-block")).toHaveCount(0);
+  await expect(header.getByRole("link", { name: "Software Testing Basics home" })).toBeVisible();
+
+  await expect(page).toHaveURL(/\/authors\/muhammad-baig$/);
+  await expect(page.locator('[data-route-loading="author"]')).toHaveCount(0);
+  await expect(page.getByRole("heading", { level: 1, name: "Muhammad Baig" })).toBeVisible();
+});
+
 test("mobile article navigation and table containment do not change the layout", async ({ page }) => {
   const failures = watchLocalFailures(page);
   await page.setViewportSize({ width: 390, height: 844 });

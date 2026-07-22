@@ -14,12 +14,14 @@ function slugify(text) {
     .replace(/^-|-$/g, "");
 }
 import {
-  Menu, X, ArrowLeft, Search, Clock, ChevronRight,
-  BookOpen, Code, Zap, Shield, Settings, Bug, FileText,
-  Activity, Award, BarChart2, Info, AlertTriangle,
-  CheckCircle, Layers, Hash
+  ArrowLeft, Search, Clock, ChevronRight,
+  Code, Shield, Bug, FileText,
+  Activity, BarChart2, Info, AlertTriangle,
+  CheckCircle, Hash
 } from "lucide-react";
 import { ARTICLES, CATS, getIconComponent } from "@/app/data/articles";
+import { HeaderArticlesSync } from "@/app/components/site/SiteShell";
+import { CATEGORY_NAV_EVENT, SITE_NAV_ITEMS } from "@/app/components/site/navigation";
 
 /* ─── Test code snippets for the ticker bar ─── */
 const TICKER_TERMS = [
@@ -29,14 +31,6 @@ const TICKER_TERMS = [
 ];
 
 /* ─── Nav items for header and mobile bottom nav ─── */
-const NAV_ITEMS = [
-  { label: "Fundamentals", cat: "Fundamentals", icon: BookOpen },
-  { label: "Types", cat: "Testing Types", icon: Layers },
-  { label: "Strategy", cat: "Strategy", icon: Zap },
-  { label: "Tools", cat: "Tools", icon: Settings },
-  { label: "Practices", cat: "Best Practices", icon: Award },
-];
-
 function renderInline(text) {
   if (typeof text !== "string") return text;
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) =>
@@ -280,94 +274,8 @@ function TestDashboardVisual() {
   );
 }
 
-/* ─────────────────────────── HEADER ─────────────────────────── */
-function Header({ onNavigate, page, scrolled, onFilterCat, articles }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const close = () => setMenuOpen(false);
-
-  const handleNavClick = (cat) => {
-    onNavigate("home");
-    close();
-    // Scroll to articles section and set category filter
-    setTimeout(() => {
-      onFilterCat(cat);
-      document.getElementById("articles-section")?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
-  };
-
-  return (
-    <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 80, transition: "all .3s", background: scrolled || menuOpen ? "rgba(6,7,18,.94)" : "rgba(6,7,18,.6)", backdropFilter: "blur(20px)", borderBottom: `1px solid ${scrolled || menuOpen ? "rgba(0,244,200,.12)" : "transparent"}` }}>
-      <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 66 }}>
-        {/* Logo */}
-        <button onClick={() => onNavigate("home")} className="nav-btn" style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 17, color: "var(--txt)", letterSpacing: ".3px" }}>
-          <span style={{ width: 32, height: 32, borderRadius: 8, background: "var(--acc)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <CheckCircle size={18} color="#000" />
-          </span>
-          <div style={{ lineHeight: 1 }}>
-            <span style={{ fontFamily: "var(--fD)", fontWeight: 700, display: "block" }}>Testing<span style={{ color: "var(--acc)" }}>Basics</span></span>
-            <span style={{ fontFamily: "var(--fM)", fontSize: 9, color: "var(--muted)", letterSpacing: ".06em", textTransform: "uppercase" }}>software guide</span>
-          </div>
-        </button>
-
-        {/* Desktop Nav Links */}
-        <nav className="desktop-nav" style={{ gap: 4 }}>
-          {NAV_ITEMS.map(item => {
-            const Icon = item.icon;
-            return (
-              <button key={item.cat} className="nav-btn" onClick={() => handleNavClick(item.cat)}
-                style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", fontSize: 13, borderRadius: 6, transition: "all .2s" }}>
-                <Icon size={14} />
-                {item.label}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Desktop CTA + Hamburger */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Link href="/articles/software-testing-basics" className="btn-acc desktop-nav" style={{ padding: "9px 18px", fontSize: 13, gap: 6, display: "flex", alignItems: "center", textDecoration: "none" }}>
-            Start Learning <ChevronRight size={14} />
-          </Link>
-          {/* Hamburger — visible on mobile */}
-          <button className={`hamburger${menuOpen ? " open" : ""}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" style={{ display: "flex" }}>
-            <span /><span /><span />
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Dropdown Menu (inside header, slides down) */}
-      <div className={`mobile-dropdown ${menuOpen ? "open" : "closed"}`}>
-        <div className="mobile-dropdown-inner">
-          {NAV_ITEMS.map(item => {
-            const Icon = item.icon;
-            return (
-              <button key={item.cat} className="mobile-dropdown-link" onClick={() => handleNavClick(item.cat)}>
-                <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <Icon size={14} color="var(--acc)" /> {item.label}
-                </span>
-              </button>
-            );
-          })}
-          <div style={{ borderTop: "1px solid var(--bdr)", margin: "8px 0" }} />
-          {articles.map(a => (
-            <Link key={a.id} href={`/articles/${a.id}`} className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
-              <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ fontFamily: "var(--fD)", fontSize: 11, color: a.catColor, fontWeight: 700, minWidth: 20 }}>{a.num}</span>
-                {a.cardTitle || a.title}
-              </span>
-            </Link>
-          ))}
-          <Link href="/articles/software-testing-basics" className="btn-acc" style={{ marginTop: 8, justifyContent: "center", padding: "11px 20px", fontSize: 13, display: "flex", alignItems: "center", textDecoration: "none" }}>
-            Start Learning <ChevronRight size={14} />
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 /* ─────────────────────────── MOBILE BOTTOM NAV ─────────────────────────── */
-function MobileBottomNav({ onNavigate, onFilterCat }) {
+function MobileBottomNav({ onFilterCat }) {
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
 
@@ -390,21 +298,20 @@ function MobileBottomNav({ onNavigate, onFilterCat }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleTap = (cat) => {
-    onNavigate("home");
-    setTimeout(() => {
-      onFilterCat(cat);
+  const handleTap = (category) => {
+    onFilterCat(category);
+    window.requestAnimationFrame(() => {
       document.getElementById("articles-section")?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+    });
   };
 
   return (
     <nav className={`mobile-bottom-nav${hidden ? " hidden" : ""}`}>
       <div className="mobile-bottom-nav-inner">
-        {NAV_ITEMS.map(item => {
+        {SITE_NAV_ITEMS.map(item => {
           const Icon = item.icon;
           return (
-            <button key={item.cat} className="mobile-nav-item" onClick={() => handleTap(item.cat)}>
+            <button key={item.category} className="mobile-nav-item" onClick={() => handleTap(item.category)}>
               <span className="mobile-nav-icon"><Icon size={20} color="var(--muted)" /></span>
               <span className="mobile-nav-label" style={{ color: "var(--muted)" }}>{item.label}</span>
             </button>
@@ -794,29 +701,40 @@ function Footer({ onNavigate, articles }) {
 
 /* ─────────────────────────── MAIN APP ─────────────────────────── */
 export default function QAHubApp({ articles = ARTICLES }) {
-  const [scrolled, setScrolled] = useState(false);
   const [cat, setCat] = useState("All");
 
   useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", h);
-    return () => window.removeEventListener("scroll", h);
+    const selectCategory = (category, shouldScroll = true) => {
+      if (!CATS.includes(category)) return;
+      setCat(category);
+      if (shouldScroll) {
+        window.requestAnimationFrame(() => {
+          document.getElementById("articles-section")?.scrollIntoView({ behavior: "smooth" });
+        });
+      }
+    };
+
+    const categoryFromUrl = new URLSearchParams(window.location.search).get("category");
+    if (categoryFromUrl) selectCategory(categoryFromUrl);
+
+    const handleCategory = (event) => selectCategory(event.detail);
+    window.addEventListener(CATEGORY_NAV_EVENT, handleCategory);
+    return () => window.removeEventListener(CATEGORY_NAV_EVENT, handleCategory);
   }, []);
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-      <a href="#main-content" className="skip-link">Skip to main content</a>
+      <HeaderArticlesSync articles={articles} />
       <noscript>
         <div style={{ background: "#F59E0B", color: "#000", padding: "12px 20px", textAlign: "center", fontWeight: 600, fontSize: 14 }}>
           This website requires JavaScript to function. Please enable JavaScript in your browser settings.
         </div>
       </noscript>
-      <Header onNavigate={() => {}} page="home" scrolled={scrolled} onFilterCat={setCat} articles={articles} />
       <main id="main-content" style={{ flex: 1 }} role="main">
         <HomePage onNavigate={() => {}} cat={cat} setCat={setCat} articles={articles} />
       </main>
       <Footer onNavigate={() => {}} articles={articles} />
-      <MobileBottomNav onNavigate={() => {}} onFilterCat={setCat} />
+      <MobileBottomNav onFilterCat={setCat} />
     </div>
   );
 }

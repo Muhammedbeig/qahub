@@ -5,13 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowLeft, ChevronRight, Clock, Hash, CheckCircle,
-  BookOpen, Code, Zap, Shield, Settings, Bug, FileText,
-  Activity, Award, Layers, Info, AlertTriangle, Search,
-  BarChart2, Menu, X
+  Code, Shield, Bug, FileText,
+  Activity, Info, AlertTriangle, Search, BarChart2
 } from "lucide-react";
 import { ARTICLES, getIconComponent } from "@/app/data/articles";
 import ArticleTableOfContents from "@/app/components/article/ArticleTableOfContents";
 import CmsArticleContent from "@/app/components/article/CmsArticleContent";
+import { HeaderArticlesSync } from "@/app/components/site/SiteShell";
+import { SITE_NAV_ITEMS } from "@/app/components/site/navigation";
 
 function slugify(text) {
   return text
@@ -85,81 +86,6 @@ function renderSection(sec, idx) {
   }
 }
 
-const NAV_ITEMS = [
-  { label: "Fundamentals", cat: "Fundamentals", icon: BookOpen },
-  { label: "Types", cat: "Testing Types", icon: Layers },
-  { label: "Strategy", cat: "Strategy", icon: Zap },
-  { label: "Tools", cat: "Tools", icon: Settings },
-  { label: "Practices", cat: "Best Practices", icon: Award },
-];
-
-function ArticleHeader({ scrolled, articles }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  return (
-    <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 80, transition: "all .3s", background: scrolled || menuOpen ? "rgba(6,7,18,.94)" : "rgba(6,7,18,.6)", backdropFilter: "blur(20px)", borderBottom: `1px solid ${scrolled || menuOpen ? "rgba(0,244,200,.12)" : "transparent"}` }}>
-      <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 66 }}>
-        <Link href="/" className="nav-btn" style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 17, color: "var(--txt)", letterSpacing: ".3px", textDecoration: "none" }}>
-          <span style={{ width: 32, height: 32, borderRadius: 8, background: "var(--acc)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <CheckCircle size={18} color="#000" />
-          </span>
-          <div style={{ lineHeight: 1 }}>
-            <span style={{ fontFamily: "var(--fD)", fontWeight: 700, display: "block" }}>Testing<span style={{ color: "var(--acc)" }}>Basics</span></span>
-            <span style={{ fontFamily: "var(--fM)", fontSize: 9, color: "var(--muted)", letterSpacing: ".06em", textTransform: "uppercase" }}>software guide</span>
-          </div>
-        </Link>
-
-        <nav className="desktop-nav" style={{ gap: 4 }}>
-          {NAV_ITEMS.map(item => {
-            const Icon = item.icon;
-            return (
-              <Link key={item.cat} href="/#articles-section" className="nav-btn" style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", fontSize: 13, borderRadius: 6, textDecoration: "none" }}>
-                <Icon size={14} /> {item.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Link href="/articles/software-testing-basics" className="btn-acc desktop-nav" style={{ padding: "9px 18px", fontSize: 13, gap: 6, display: "flex", alignItems: "center", textDecoration: "none" }}>
-            Start Learning <ChevronRight size={14} />
-          </Link>
-          <button className={`hamburger${menuOpen ? " open" : ""}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" style={{ display: "flex" }}>
-            <span /><span /><span />
-          </button>
-        </div>
-      </div>
-
-      <div className={`mobile-dropdown ${menuOpen ? "open" : "closed"}`}>
-        <div className="mobile-dropdown-inner">
-          {NAV_ITEMS.map(item => {
-            const Icon = item.icon;
-            return (
-              <Link key={item.cat} href="/" className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
-                <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <Icon size={14} color="var(--acc)" /> {item.label}
-                </span>
-              </Link>
-            );
-          })}
-          <div style={{ borderTop: "1px solid var(--bdr)", margin: "8px 0" }} />
-          {articles.map(a => (
-            <Link key={a.id} href={`/articles/${a.id}`} className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
-              <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ fontFamily: "var(--fD)", fontSize: 11, color: a.catColor, fontWeight: 700, minWidth: 20 }}>{a.num}</span>
-                {a.cardTitle || a.title}
-              </span>
-            </Link>
-          ))}
-          <Link href="/articles/software-testing-basics" className="btn-acc" style={{ marginTop: 8, justifyContent: "center", padding: "11px 20px", fontSize: 13, display: "flex", alignItems: "center", textDecoration: "none" }}>
-            Start Learning <ChevronRight size={14} />
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 function ArticleFooter({ articles }) {
   return (
     <footer style={{ background: "var(--bg2)", borderTop: "1px solid var(--bdr)", padding: "60px 0 40px" }}>
@@ -226,10 +152,15 @@ function MobileBottomNav() {
   return (
     <nav className={`mobile-bottom-nav${hidden ? " hidden" : ""}`}>
       <div className="mobile-bottom-nav-inner">
-        {NAV_ITEMS.map(item => {
+        {SITE_NAV_ITEMS.map(item => {
           const Icon = item.icon;
           return (
-            <Link key={item.cat} href="/" className="mobile-nav-item" style={{ textDecoration: "none" }}>
+            <Link
+              key={item.category}
+              href={`/?category=${encodeURIComponent(item.category)}#articles-section`}
+              className="mobile-nav-item"
+              style={{ textDecoration: "none" }}
+            >
               <span className="mobile-nav-icon"><Icon size={20} color="var(--muted)" /></span>
               <span className="mobile-nav-label" style={{ color: "var(--muted)" }}>{item.label}</span>
             </Link>
@@ -301,14 +232,7 @@ function ArticleContributors({ article }) {
 export default function ArticleView({ article, articles = ARTICLES }) {
   const [progress, setProgress] = useState(0);
   const [activeTocId, setActiveTocId] = useState("");
-  const [scrolled, setScrolled] = useState(false);
   const contentRef = useRef(null);
-
-  useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", h);
-    return () => window.removeEventListener("scroll", h);
-  }, []);
 
   useEffect(() => {
     const update = () => {
@@ -357,8 +281,7 @@ export default function ArticleView({ article, articles = ARTICLES }) {
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-      <a href="#main-content" className="skip-link">Skip to main content</a>
-      <ArticleHeader scrolled={scrolled} articles={articles} />
+      <HeaderArticlesSync articles={articles} />
 
       <div className="progress-bar" style={{ width: `${progress}%` }} />
 

@@ -1,11 +1,9 @@
-import LoadingHeader from "@/app/components/loading/LoadingHeader";
 import SkeletonBlock from "@/app/components/loading/SkeletonBlock";
 
 export default function AuthorPageSkeleton() {
   return (
     <div className="route-skeleton" data-route-loading="author">
       <p className="sr-only" role="status">Loading author profile.</p>
-      <LoadingHeader />
       <main className="skeleton-author-main">
         <section className="skeleton-author-hero">
           <div className="container">
