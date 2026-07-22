@@ -113,9 +113,9 @@ function ArticleHeader({ scrolled, articles }) {
           {NAV_ITEMS.map(item => {
             const Icon = item.icon;
             return (
-              <a key={item.cat} href={`/#articles-section`} className="nav-btn" style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", fontSize: 13, borderRadius: 6, textDecoration: "none" }}>
+              <Link key={item.cat} href="/#articles-section" className="nav-btn" style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", fontSize: 13, borderRadius: 6, textDecoration: "none" }}>
                 <Icon size={14} /> {item.label}
-              </a>
+              </Link>
             );
           })}
         </nav>
@@ -144,12 +144,12 @@ function ArticleHeader({ scrolled, articles }) {
           })}
           <div style={{ borderTop: "1px solid var(--bdr)", margin: "8px 0" }} />
           {articles.map(a => (
-            <a key={a.id} href={`/articles/${a.id}`} className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
+            <Link key={a.id} href={`/articles/${a.id}`} className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
               <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span style={{ fontFamily: "var(--fD)", fontSize: 11, color: a.catColor, fontWeight: 700, minWidth: 20 }}>{a.num}</span>
                 {a.cardTitle || a.title}
               </span>
-            </a>
+            </Link>
           ))}
           <Link href="/articles/software-testing-basics" className="btn-acc" style={{ marginTop: 8, justifyContent: "center", padding: "11px 20px", fontSize: 13, display: "flex", alignItems: "center", textDecoration: "none" }}>
             Start Learning <ChevronRight size={14} />
@@ -177,13 +177,13 @@ function ArticleFooter({ articles }) {
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Core Topics</p>
             {articles.slice(0, 5).map(a => (
-              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</a>
+              <Link key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</Link>
             ))}
           </div>
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Advanced Topics</p>
             {articles.slice(5).map(a => (
-              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</a>
+              <Link key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</Link>
             ))}
           </div>
           <div>
@@ -259,10 +259,10 @@ function AuthorIdentity({ author }) {
     </>
   );
 
-  return author.website_url ? (
-    <a className="contributor-identity" href={author.website_url} target="_blank" rel="noopener noreferrer">
+  return author.slug ? (
+    <Link className="contributor-identity" href={`/authors/${author.slug}`}>
       {content}
-    </a>
+    </Link>
   ) : (
     <div className="contributor-identity">{content}</div>
   );
@@ -406,8 +406,8 @@ export default function ArticleView({ article, articles = ARTICLES }) {
                     {article.updatedBy && (
                       <span>
                         <strong>Updated by:</strong>{" "}
-                        {article.updatedBy.website_url ? (
-                          <a href={article.updatedBy.website_url} target="_blank" rel="noopener noreferrer">{article.updatedBy.name}</a>
+                        {article.updatedBy.slug ? (
+                          <Link href={`/authors/${article.updatedBy.slug}`}>{article.updatedBy.name}</Link>
                         ) : article.updatedBy.name}
                       </span>
                     )}
@@ -438,9 +438,9 @@ export default function ArticleView({ article, articles = ARTICLES }) {
               <ArticleContributors article={article} />
               <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 60, paddingTop: 32, borderTop: "1px solid var(--bdr)" }}>
                 {next && (
-                  <a href={`/articles/${next.id}`} className="btn-acc" style={{ gap: 8, display: "flex", alignItems: "center", textDecoration: "none" }}>
+                  <Link href={`/articles/${next.id}`} className="btn-acc" style={{ gap: 8, display: "flex", alignItems: "center", textDecoration: "none" }}>
                     Next: {(next.cardTitle || next.title).split(":")[0]} <ChevronRight size={15} />
-                  </a>
+                  </Link>
                 )}
               </div>
             </article>
@@ -455,7 +455,7 @@ export default function ArticleView({ article, articles = ARTICLES }) {
               {relatedArticles.map(a => {
                 const RelIcon = getIconComponent(a.iconName);
                 return (
-                  <a key={a.id} href={`/articles/${a.id}`} className="card" style={{ cursor: "pointer", display: "flex", gap: 14, padding: "18px", alignItems: "flex-start", textDecoration: "none" }}>
+                  <Link key={a.id} href={`/articles/${a.id}`} className="card" style={{ cursor: "pointer", display: "flex", gap: 14, padding: "18px", alignItems: "flex-start", textDecoration: "none" }}>
                     <div style={{ width: 40, height: 40, borderRadius: 8, background: a.catBg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                       <RelIcon size={18} color={a.catColor} />
                     </div>
@@ -465,7 +465,7 @@ export default function ArticleView({ article, articles = ARTICLES }) {
                       <p style={{ fontSize: 12, color: "var(--muted)", marginTop: 6 }}>{a.readTime} read</p>
                     </div>
                     <ChevronRight size={15} color="var(--muted)" style={{ flexShrink: 0, marginTop: 4 }} />
-                  </a>
+                  </Link>
                 );
               })}
             </div>

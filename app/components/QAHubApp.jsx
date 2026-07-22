@@ -350,12 +350,12 @@ function Header({ onNavigate, page, scrolled, onFilterCat, articles }) {
           })}
           <div style={{ borderTop: "1px solid var(--bdr)", margin: "8px 0" }} />
           {articles.map(a => (
-            <a key={a.id} href={`/articles/${a.id}`} className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
+            <Link key={a.id} href={`/articles/${a.id}`} className="mobile-dropdown-link" style={{ textDecoration: "none" }}>
               <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span style={{ fontFamily: "var(--fD)", fontSize: 11, color: a.catColor, fontWeight: 700, minWidth: 20 }}>{a.num}</span>
                 {a.cardTitle || a.title}
               </span>
-            </a>
+            </Link>
           ))}
           <Link href="/articles/software-testing-basics" className="btn-acc" style={{ marginTop: 8, justifyContent: "center", padding: "11px 20px", fontSize: 13, display: "flex", alignItems: "center", textDecoration: "none" }}>
             Start Learning <ChevronRight size={14} />
@@ -489,7 +489,7 @@ function Hero({ onNavigate }) {
 /* ─────────────────────────── ARTICLE CARD ─────────────────────────── */
 function ArticleCard({ article, idx }) {
   return (
-    <a href={`/articles/${article.id}`} className={`card au${Math.min(idx + 1, 6)}`} style={{ cursor: "pointer", position: "relative", overflow: "hidden", textDecoration: "none", display: "block" }}>
+    <Link href={`/articles/${article.id}`} className={`card au${Math.min(idx + 1, 6)}`} style={{ cursor: "pointer", position: "relative", overflow: "hidden", textDecoration: "none", display: "block" }}>
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg,${article.catColor},transparent)` }} />
       <div style={{ padding: "24px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 18 }}>
@@ -513,7 +513,7 @@ function ArticleCard({ article, idx }) {
           </div>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
 
@@ -763,13 +763,13 @@ function Footer({ onNavigate, articles }) {
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Core Topics</p>
             {articles.slice(0, 5).map(a => (
-              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</a>
+              <Link key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</Link>
             ))}
           </div>
           <div>
             <p style={{ fontFamily: "var(--fD)", fontSize: 12, color: "var(--acc)", letterSpacing: ".8px", textTransform: "uppercase", marginBottom: 16 }}>Advanced Topics</p>
             {articles.slice(5).map(a => (
-              <a key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</a>
+              <Link key={a.id} href={`/articles/${a.id}`} className="nav-btn" style={{ display: "block", marginBottom: 10, fontSize: 13, textDecoration: "none" }}>{a.cardTitle || a.title}</Link>
             ))}
           </div>
           <div>
