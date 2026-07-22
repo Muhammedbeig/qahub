@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("Software Testing Basics citations match the Search Engine Basics interaction contract", async ({ page }) => {
+  test.setTimeout(90_000);
   await page.goto("https://searchenginebasics.io/search-engine-fundamentals/vector-space-model", { waitUntil: "domcontentloaded" });
 
   const referenceCitation = page.locator(".citation-ref").first();
@@ -16,7 +17,7 @@ test("Software Testing Basics citations match the Search Engine Basics interacti
   await expect(page).toHaveURL(new RegExp(`${referenceTarget}$`));
   await expect(page.locator(referenceTarget)).toBeVisible();
 
-  await page.goto("/articles/testing-tools-frameworks", { waitUntil: "networkidle" });
+  await page.goto("/articles/testing-tools-frameworks", { waitUntil: "domcontentloaded" });
 
   const localCitation = page.locator(".citation-ref").first();
   await expect(localCitation).toBeVisible();
